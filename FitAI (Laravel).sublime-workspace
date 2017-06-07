@@ -1,0 +1,1158 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"team",
+				"team"
+			],
+			[
+				"p1l",
+				"p1l"
+			],
+			[
+				"addre",
+				"address2"
+			],
+			[
+				"update",
+				"updateData"
+			],
+			[
+				"person",
+				"person1_first"
+			],
+			[
+				"Wedd",
+				"WeddingController"
+			],
+			[
+				"fu",
+				"function"
+			],
+			[
+				"gli",
+				"glyphicon-remove"
+			],
+			[
+				"auto",
+				"autofocus\tAttr"
+			],
+			[
+				"is",
+				"isBudget"
+			],
+			[
+				"saved",
+				"savedVendors"
+			],
+			[
+				"data-",
+				"data-vendor"
+			],
+			[
+				"max",
+				"maxBudget"
+			],
+			[
+				"current",
+				"currentBudget"
+			],
+			[
+				"ca",
+				"calcSliderBudget"
+			],
+			[
+				"chek",
+				"checkbox-venue"
+			],
+			[
+				"budget-",
+				"budget-slider"
+			],
+			[
+				"curre",
+				"currentBudget"
+			],
+			[
+				"remainin",
+				"remainingBudget"
+			],
+			[
+				"remai",
+				"remainingBudget"
+			],
+			[
+				"featured",
+				"featuredInfo"
+			],
+			[
+				"str_rep",
+				"str_replace"
+			],
+			[
+				"business",
+				"businessName"
+			],
+			[
+				"Ve",
+				"VendorController"
+			],
+			[
+				"note",
+				"note"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "resources/views/lifts/create.blade.php",
+			"settings":
+			{
+				"buffer_size": 3406,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": ".env",
+			"settings":
+			{
+				"buffer_size": 621,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "routes/web.php",
+			"settings":
+			{
+				"buffer_size": 1200,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "resources/assets/js/app.js",
+			"settings":
+			{
+				"buffer_size": 1805,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		}
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 392.0,
+		"last_filter": "Package Control: ",
+		"selected_items":
+		[
+			[
+				"Package Control: ",
+				"Package Control: List Packages"
+			],
+			[
+				"install pa",
+				"Package Control: Install Package"
+			],
+			[
+				"package",
+				"Package Control: Install Package"
+			],
+			[
+				"Snippet: ",
+				"Snippet: html"
+			],
+			[
+				"Snippet: pubf",
+				"Snippet: PHP public function"
+			],
+			[
+				"vmen",
+				"View: Toggle Menu"
+			]
+		],
+		"width": 392.0
+	},
+	"console":
+	{
+		"height": 126.0,
+		"history":
+		[
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": false,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"expanded_folders":
+	[
+		"/D/Backup/Websites/Laravel/Homestead/Code/fitai",
+		"/D/Backup/Websites/Laravel/Homestead/Code/fitai/app",
+		"/D/Backup/Websites/Laravel/Homestead/Code/fitai/app/Http",
+		"/D/Backup/Websites/Laravel/Homestead/Code/fitai/app/Http/Controllers",
+		"/D/Backup/Websites/Laravel/Homestead/Code/fitai/app/Http/Controllers/Auth",
+		"/D/Backup/Websites/Laravel/Homestead/Code/fitai/app/Providers",
+		"/D/Backup/Websites/Laravel/Homestead/Code/fitai/config",
+		"/D/Backup/Websites/Laravel/Homestead/Code/fitai/database",
+		"/D/Backup/Websites/Laravel/Homestead/Code/fitai/database/migrations",
+		"/D/Backup/Websites/Laravel/Homestead/Code/fitai/public",
+		"/D/Backup/Websites/Laravel/Homestead/Code/fitai/public/css",
+		"/D/Backup/Websites/Laravel/Homestead/Code/fitai/resources",
+		"/D/Backup/Websites/Laravel/Homestead/Code/fitai/resources/assets",
+		"/D/Backup/Websites/Laravel/Homestead/Code/fitai/resources/assets/js",
+		"/D/Backup/Websites/Laravel/Homestead/Code/fitai/resources/assets/js/components",
+		"/D/Backup/Websites/Laravel/Homestead/Code/fitai/resources/assets/sass",
+		"/D/Backup/Websites/Laravel/Homestead/Code/fitai/resources/views",
+		"/D/Backup/Websites/Laravel/Homestead/Code/fitai/resources/views/admin",
+		"/D/Backup/Websites/Laravel/Homestead/Code/fitai/resources/views/auth",
+		"/D/Backup/Websites/Laravel/Homestead/Code/fitai/resources/views/layouts",
+		"/D/Backup/Websites/Laravel/Homestead/Code/fitai/resources/views/lifts",
+		"/D/Backup/Websites/Laravel/Homestead/Code/fitai/storage",
+		"/D/Backup/Websites/Laravel/Homestead/Code/fitai/storage/app"
+	],
+	"file_history":
+	[
+		"/D/Backup/Websites/Laravel/Homestead/Code/fitai/database/migrations/2017_04_24_200645_create_athletes_table.php",
+		"/D/Backup/Websites/Laravel/Homestead/Code/fitai/config/database.php",
+		"/D/Backup/Websites/Laravel/Homestead/Code/fitai/database/migrations/2014_10_12_000000_create_users_table.php",
+		"/D/Backup/Websites/Laravel/Homestead/Code/fitai/app/Http/helpers.php",
+		"/D/Backup/Websites/Laravel/Homestead/Code/fitai/app/Http/Controllers/LiftController.php",
+		"/D/Backup/Websites/Laravel/Homestead/Code/fitai/resources/views/lifts/create.blade.php",
+		"/D/Backup/Websites/Laravel/Homestead/Code/fitai/resources/views/layouts/app.blade.php",
+		"/D/Backup/Websites/Laravel/Homestead/Code/fitai/vendor/laravel/framework/src/Illuminate/Container/Container.php",
+		"/D/Backup/Websites/Laravel/Homestead/Code/fitai/package.json",
+		"/D/Backup/Websites/Laravel/Homestead/Code/fitai/socket.js",
+		"/D/Backup/Websites/Laravel/Homestead/Code/fitai/.env",
+		"/D/Backup/Websites/Laravel/Homestead/Code/fitai/vendor/laravel/framework/src/Illuminate/Contracts/Container/Container.php",
+		"/D/Backup/Websites/Laravel/Homestead/Code/fitai/app/User.php",
+		"/D/Backup/Websites/Laravel/Homestead/Code/fitai/database/migrations/2017_05_23_151313_add_admin_to_users_table.php",
+		"/D/Backup/Websites/Laravel/Homestead/Code/fitai/resources/views/admin/home.blade.php",
+		"/D/Backup/Websites/Laravel/Homestead/Code/fitai/resources/views/auth/login.blade.php",
+		"/D/Backup/Websites/Laravel/Homestead/Code/fitai/app/Http/Controllers/AdminController.php",
+		"/D/Backup/Websites/Laravel/Homestead/Code/fitai/resources/views/login.blade.php",
+		"/D/Backup/Websites/Laravel/Homestead/Code/fitai/app/Http/Controllers/HomeController.php",
+		"/D/Backup/Websites/Laravel/Homestead/Code/fitai/resources/assets/js/bootstrap.js",
+		"/D/Backup/Websites/Laravel/Homestead/Code/fitai/resources/views/switch.blade.php",
+		"/D/Backup/Websites/Laravel/Homestead/Code/fitai/resources/assets/js/components/Athlete.vue",
+		"/D/Backup/Websites/Laravel/Homestead/Code/fitai/resources/assets/js/components/Team.vue",
+		"/C/Users/MonkeyButt/Desktop/qs.jnlp",
+		"/D/Backup/Websites/rockingoutdoors.com/index.html",
+		"/D/Backup/Websites/Laravel/Homestead/Code/fitai/resources/assets/js/components/Example.vue",
+		"/D/Backup/Websites/Laravel/Homestead/Code/fitai/app/Team.php",
+		"/D/Backup/Websites/Laravel/Homestead/Code/fitai/app/Athlete.php",
+		"/D/Backup/Websites/Laravel/Homestead/Code/fitai/resources/views/home.blade.php",
+		"/D/Backup/Websites/Laravel/Homestead/Code/fitai/resources/views/profile.blade.php",
+		"/D/Backup/Websites/Laravel/Homestead/Code/fitai/config/cache.php",
+		"/C/Users/MonkeyButt/AppData/Local/Temp/fz3temp-2/style.css",
+		"/D/Backup/Websites/businesswebsite.builders/wp-content/themes/customizr/functions.php",
+		"/D/Backup/Websites/businesswebsite.builders/wp-content/themes/customizr/style.css",
+		"/D/Backup/Websites/Laravel/Homestead/Code/weddingease/index.html",
+		"/D/Backup/Websites/Laravel/Homestead/Code/fitai/database/migrations/2017_04_24_202207_create_collars_table.php",
+		"/D/Backup/Websites/Laravel/Homestead/Code/fitai/database/migrations/2017_04_24_201445_create_teams_table.php",
+		"/D/Backup/Websites/Laravel/Homestead/Code/fitai/database/migrations/2017_04_25_173152_create_lift_types_table.php",
+		"/D/Backup/Websites/Laravel/Homestead/Code/fitai/database/migrations/2017_04_25_150755_create_lifts_table.php",
+		"/D/Backup/Websites/Laravel/Homestead/Code/fitai/routes/web.php",
+		"/D/Backup/Websites/Laravel/Homestead/Code/fitai/app/Lift.php",
+		"/D/Backup/Websites/Laravel/Homestead/Code/fitai/database/migrations/2017_04_24_201804_create_clients_table.php",
+		"/D/Backup/Websites/Laravel/Homestead/Code/fitai/database/migrations/2017_04_24_201937_create_coaches_table.php",
+		"/D/Backup/Websites/Laravel/Homestead/Code/fitai/resources/assets/sass/app.scss",
+		"/D/Backup/Websites/Laravel/Homestead/Code/fitai/resources/assets/js/global.js",
+		"/D/Backup/Websites/Laravel/Homestead/Code/fitai/webpack.mix.js",
+		"/D/Backup/Websites/Laravel/Homestead/Code/fitai/resources/assets/js/app.js",
+		"/D/Backup/Websites/Laravel/Homestead/Code/fitai/public/css/webfont/webfont.css",
+		"/D/Backup/Websites/Laravel/Homestead/Code/fitai/public/js/app.js",
+		"/D/Backup/Websites/Laravel/Homestead/Code/fitai/resources/views/welcome.blade.php",
+		"/D/Backup/Websites/Laravel/Homestead/Code/fitai/vendor/symfony/console/Helper/HelperSet.php",
+		"/D/Backup/Websites/Laravel/Homestead/Code/fitai/composer.json",
+		"/D/Backup/Websites/Laravel/Homestead/Code/fitai/resources/assets/sass/_mixins.scss",
+		"/D/Backup/Websites/Laravel/Homestead/Code/fitai/resources/assets/sass/_variables.scss",
+		"/C/Users/MonkeyButt/.homestead/Homestead.yaml",
+		"/D/Backup/Websites/Laravel/Homestead/Code/fitai/public/index.php",
+		"/C/Windows/System32/drivers/etc/hosts",
+		"/D/Backup/Websites/Laravel/Homestead/composer.json",
+		"/D/Backup/Websites/Laravel/Homestead/Code/weddingease/database/migrations/2017_03_03_205314_create_weddings_table.php",
+		"/D/Backup/Websites/Laravel/Homestead/Code/weddingease/database/migrations/2017_03_15_210317_add_slug_to_vendors_table.php",
+		"/D/Backup/Websites/Laravel/Homestead/Code/weddingease/database/migrations/2017_03_03_193426_create_vendors_table.php",
+		"/D/Backup/Websites/Laravel/Homestead/Code/weddingease/app/Http/Controllers/VendorController.php",
+		"/D/Backup/Websites/Laravel/Homestead/Code/weddingease/resources/views/layouts/app.blade.php",
+		"/D/Backup/Websites/Laravel/Homestead/Code/weddingease/resources/views/vendor/home.blade.php",
+		"/D/Backup/Websites/Laravel/Homestead/Code/weddingease/database/migrations/2017_04_12_231440_add_travel_radius_to_vendors_table.php",
+		"/D/Backup/Websites/Laravel/Homestead/Code/weddingease/database/migrations/2017_04_12_201534_add_price_range_and_delivery_to_vendors_table.php",
+		"/D/Backup/Websites/Laravel/Homestead/Code/weddingease/resources/views/vendor/single.blade.php",
+		"/D/Backup/Websites/Laravel/Homestead/Code/weddingease/resources/views/layouts/layout.blade.php",
+		"/D/Backup/Websites/Laravel/Homestead/Code/weddingease/app/User.php",
+		"/D/Backup/Websites/Laravel/Homestead/Code/weddingease/.env",
+		"/D/Backup/Websites/Laravel/Homestead/Code/weddingease/database/migrations/2017_04_06_150102_add_verification_to_users_table.php",
+		"/D/Backup/Websites/Laravel/Homestead/Code/weddingease/app/Http/Controllers/WeddingController.php",
+		"/D/Backup/Websites/Laravel/Homestead/Code/weddingease/resources/views/auth/checkEmail.blade.php",
+		"/D/Backup/Websites/Laravel/Homestead/Code/weddingease/vendor/laravel/framework/src/Illuminate/Routing/RouteSignatureParameters.php",
+		"/D/Backup/Websites/Laravel/Homestead/Code/weddingease/vendor/laravel/framework/src/Illuminate/Foundation/Auth/RegistersUsers.php",
+		"/D/Backup/Websites/Laravel/Homestead/Code/weddingease/config/mail.php",
+		"/D/Backup/Websites/Laravel/Homestead/Code/weddingease/app/Http/Controllers/Auth/RegisterController.php",
+		"/D/Backup/Websites/Laravel/Homestead/Code/weddingease/app/Http/Controllers/Auth/LoginController.php",
+		"/D/Backup/Websites/Laravel/Homestead/Code/weddingease/app/Mail/EmailVerification.php",
+		"/D/Backup/Websites/Laravel/Homestead/Code/weddingease/resources/views/emails/check.email.blade.php",
+		"/D/Backup/Websites/Laravel/Homestead/Code/weddingease/vendor/laravel/framework/src/Illuminate/Foundation/Auth/User.php",
+		"/D/Backup/Websites/Laravel/Homestead/Code/weddingease/resources/views/emails/verification.blade.php",
+		"/D/Backup/Websites/Laravel/Homestead/Code/weddingease/config/services.php",
+		"/D/Backup/Websites/Laravel/Homestead/Code/weddingease/resources/views/home.blade.php",
+		"/D/Backup/Websites/Laravel/Homestead/Code/weddingease/routes/web.php",
+		"/D/Backup/Websites/Laravel/Homestead/Code/weddingease/resources/views/wedding/create.blade.php",
+		"/D/Backup/Websites/Laravel/Homestead/Code/weddingease/resources/views/wedding/home.blade.php",
+		"/D/Backup/Websites/Laravel/Homestead/Code/weddingease/database/migrations/2017_03_10_053352_create_vendor_type_table.php",
+		"/D/Backup/Websites/Laravel/Homestead/Code/weddingease/public/js/wedding.js",
+		"/D/Backup/Websites/Laravel/Homestead/Code/weddingease/resources/views/wedding/budget.blade.php",
+		"/D/Backup/Websites/Laravel/Homestead/Code/weddingease/resources/views/wedding/budget-slider.blade.php",
+		"/D/Backup/Websites/Laravel/Homestead/Code/weddingease/resources/views/partials/budget-slider.blade.php",
+		"/D/Backup/Websites/Laravel/Homestead/Code/weddingease/resources/views/vendor/create.blade.php",
+		"/D/Backup/Websites/Laravel/Homestead/Code/weddingease/resources/assets/sass/app.scss",
+		"/D/Backup/Websites/Laravel/Homestead/Code/weddingease/app/Http/Controllers/HomeController.php",
+		"/D/Backup/Websites/Laravel/Homestead/Code/weddingease/app/Wedding.php",
+		"/D/Backup/Websites/Laravel/Homestead/Code/weddingease/app/Http/Requests/VendorRequest.php",
+		"/D/Backup/Websites/Laravel/Homestead/Code/weddingease/app/Vendor.php",
+		"/D/Backup/Websites/alexllc.org/wp-content/themes/alexllc/style.scss",
+		"/D/Backup/Websites/Laravel/Homestead/Code/weddingease/app/Http/helpers.php",
+		"/D/Backup/Websites/Laravel/Homestead/Code/weddingease/app/VendorType.php",
+		"/D/Backup/Websites/Laravel/Homestead/Code/weddingease/composer.json",
+		"/D/Backup/Websites/Laravel/Homestead/Code/weddingease/config/app.php",
+		"/D/Backup/Websites/Laravel/Homestead/Code/weddingease/resources/views/vendor/list.blade.php",
+		"/D/Backup/Websites/affinityconnextions.com/webservice/webservice-register.php",
+		"/D/Backup/Websites/alexllc.org/wp-content/themes/alexllc/mania-page.php",
+		"/D/Backup/Websites/alexllc.org/wp-content/themes/alexllc/template-parts/content-studios.php",
+		"/D/Backup/Websites/Laravel/Homestead/Code/weddingease/config/geocoder.php",
+		"/D/Backup/Websites/Laravel/Homestead/Code/weddingease/resources/assets/js/app.js",
+		"/D/Backup/Websites/Laravel/Homestead/Code/weddingease/package.json",
+		"/D/Backup/Websites/Laravel/Homestead/Code/weddingease/app/help.php",
+		"/D/Backup/Websites/Laravel/Homestead/Code/weddingease/config/database.php",
+		"/D/Backup/Websites/thefixgym.com/wp-content/plugins/live-editor/live-editor.php",
+		"/D/Backup/Websites/thefixgym.com/wp-content/plugins/live-editor/index.php",
+		"/D/Backup/Websites/Laravel/Homestead/Code/weddingease/database/migrations/2017_03_15_203402_add_slug_to_vendors_table.php",
+		"/D/Backup/Websites/Laravel/Homestead/Code/weddingease/app/Providers/AuthServiceProvider.php",
+		"/D/Backup/Websites/Laravel/Homestead/Code/weddingease/resources/views/vendor/register.blade.php",
+		"/D/Backup/Websites/Laravel/Homestead/Code/weddingease/resources/views/vendor/details.blade.php",
+		"/D/Backup/Websites/Laravel/Homestead/Code/weddingease/config/constants.php",
+		"/D/Backup/Websites/affinityconnextions.com/webservice/webservice-maps.php",
+		"/D/Backup/Websites/Laravel/Homestead/Code/weddingease/vendor/laravel/framework/src/Illuminate/Database/Console/Migrations/InstallCommand.php",
+		"/D/Backup/Websites/Laravel/Homestead/Code/weddingease/vendor/league/flysystem/src/Config.php",
+		"/C/Users/MonkeyButt/Documents/Arduino/libraries/pubsubclient/src/PubSubClient.h",
+		"/D/Backup/Websites/Laravel/Homestead/Code/weddingease/resources/views/auth/login.blade.php",
+		"/D/Backup/Websites/Laravel/Homestead/Code/weddingease/resources/views/welcome.blade.php",
+		"/D/Backup/Websites/Laravel/Homestead/Code/weddingease/vendor/laravel/framework/src/Illuminate/Routing/Router.php",
+		"/D/Backup/Websites/Laravel/Homestead/Code/weddingease/resources/views/auth/register.blade.php",
+		"/D/Backup/Websites/Laravel/Homestead/Code/weddingease/vendor/symfony/routing/Router.php"
+	],
+	"find":
+	{
+		"height": 34.0
+	},
+	"find_in_files":
+	{
+		"height": 90.0,
+		"where_history":
+		[
+			"D:\\Backup\\Websites\\Laravel\\Homestead\\Code\\weddingease"
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"get_athlete",
+			"connect_string",
+			"velocity_chart",
+			"td",
+			"nullabel",
+			"nullable;",
+			"type",
+			"; ?>",
+			"<?php echo",
+			"url",
+			"radius",
+			"travel_",
+			"radius",
+			"travel",
+			"control-label {{ $field['required'] }}",
+			"vendortype",
+			"These credentials do not match our records.",
+			"echo \"checked\";",
+			"@endphp",
+			"@php if",
+			"data-vval",
+			"date",
+			"getselectedvend",
+			"date",
+			"$maxBudget",
+			"budget-vendors",
+			"each",
+			"budget-item",
+			"bootstrap",
+			"migrations",
+			"showregistr",
+			"type"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+			"nullable",
+			"nullabel();",
+			" }}",
+			"{{",
+			"control-label",
+			"checked",
+			"@endif",
+			"@if"
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 1,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "resources/views/lifts/create.blade.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 3406,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2496,
+								2496
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/laravel-blade-master/blade.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 1072.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": ".env",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 621,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								530,
+								530
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Text/Plain text.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				}
+			]
+		},
+		{
+			"selected": 1,
+			"sheets":
+			[
+				{
+					"buffer": 2,
+					"file": "routes/web.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1200,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1199,
+								1199
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "resources/assets/js/app.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1805,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1504,
+								1504
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 35.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 23.0
+	},
+	"input":
+	{
+		"height": 31.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			],
+			[
+				1,
+				0,
+				2,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			0.5,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"pinned_build_system": "",
+	"project": "FitAI (Laravel).sublime-project",
+	"replace":
+	{
+		"height": 62.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"database",
+				"config\\database.php"
+			],
+			[
+				"users_table",
+				"database\\migrations\\2014_10_12_000000_create_users_table.php"
+			],
+			[
+				"athlete",
+				"database\\migrations\\2017_04_24_200645_create_athletes_table.php"
+			],
+			[
+				".env",
+				".env"
+			],
+			[
+				"views/lifts/creat",
+				"resources\\views\\lifts\\create.blade.php"
+			],
+			[
+				"illuminate/container",
+				"vendor\\laravel\\framework\\src\\Illuminate\\Container\\Container.php"
+			],
+			[
+				"container.php",
+				"vendor\\laravel\\framework\\src\\Illuminate\\Contracts\\Container\\Container.php"
+			],
+			[
+				"liftcontro",
+				"app\\Http\\Controllers\\LiftController.php"
+			],
+			[
+				"package.",
+				"package.json"
+			],
+			[
+				"socket.js",
+				"socket.js"
+			],
+			[
+				"views/lift",
+				"resources\\views\\lifts\\create.blade.php"
+			],
+			[
+				"user.php",
+				"app\\User.php"
+			],
+			[
+				"admincontr",
+				"app\\Http\\Controllers\\AdminController.php"
+			],
+			[
+				"bootst",
+				"resources\\assets\\js\\bootstrap.js"
+			],
+			[
+				"layout/app",
+				"resources\\views\\layouts\\app.blade.php"
+			],
+			[
+				"example.vue",
+				"resources\\assets\\js\\components\\Example.vue"
+			],
+			[
+				"team.vue",
+				"resources\\assets\\js\\components\\Team.vue"
+			],
+			[
+				"app.js",
+				"resources\\assets\\js\\app.js"
+			],
+			[
+				"homecontr",
+				"app\\Http\\Controllers\\HomeController.php"
+			],
+			[
+				"config/cache",
+				"config\\cache.php"
+			],
+			[
+				"home",
+				"app\\Http\\Controllers\\HomeController.php"
+			],
+			[
+				"database.php",
+				"config\\database.php"
+			],
+			[
+				"config/data",
+				"config\\database.php"
+			],
+			[
+				"lifts/create",
+				"resources\\views\\lifts\\create.blade.php"
+			],
+			[
+				"web.php",
+				"routes\\web.php"
+			],
+			[
+				"collars",
+				"database\\migrations\\2017_04_24_202207_create_collars_table.php"
+			],
+			[
+				"teamtable",
+				"database\\migrations\\2017_04_24_201445_create_teams_table.php"
+			],
+			[
+				"teams",
+				"database\\migrations\\2017_04_24_201445_create_teams_table.php"
+			],
+			[
+				"helpers.php",
+				"app\\Http\\helpers.php"
+			],
+			[
+				"collars_table",
+				"database\\migrations\\2017_04_24_202207_create_collars_table.php"
+			],
+			[
+				"web.p",
+				"routes\\web.php"
+			],
+			[
+				"app.bl",
+				"resources\\views\\layouts\\app.blade.php"
+			],
+			[
+				"profile",
+				"resources\\views\\profile.blade.php"
+			],
+			[
+				"coach_table",
+				"database\\migrations\\2017_04_24_201937_create_coaches_table.php"
+			],
+			[
+				"clients_table",
+				"database\\migrations\\2017_04_24_201804_create_clients_table.php"
+			],
+			[
+				"team_table",
+				"database\\migrations\\2017_04_24_201445_create_teams_table.php"
+			],
+			[
+				"users",
+				"database\\migrations\\2014_10_12_000000_create_users_table.php"
+			],
+			[
+				"homecon",
+				"app\\Http\\Controllers\\HomeController.php"
+			],
+			[
+				"web",
+				"routes\\web.php"
+			],
+			[
+				"app.scs",
+				"resources\\assets\\sass\\app.scss"
+			],
+			[
+				"global.js",
+				"resources\\assets\\js\\global.js"
+			],
+			[
+				"webfont",
+				"public\\css\\webfont\\webfont.css"
+			],
+			[
+				"login",
+				"resources\\views\\auth\\login.blade.php"
+			],
+			[
+				"helpers",
+				"vendor\\symfony\\console\\Helper\\HelperSet.php"
+			],
+			[
+				"packages",
+				"package.json"
+			],
+			[
+				"composer",
+				"composer.json"
+			],
+			[
+				"",
+				"config\\database.php"
+			],
+			[
+				"vendorcont",
+				"app\\Http\\Controllers\\VendorController.php"
+			],
+			[
+				"weddingcontro",
+				"app\\Http\\Controllers\\WeddingController.php"
+			],
+			[
+				"weddingstable",
+				"database\\migrations\\2017_03_03_205314_create_weddings_table.php"
+			],
+			[
+				"slugvendors",
+				"database\\migrations\\2017_03_15_210317_add_slug_to_vendors_table.php"
+			],
+			[
+				"slugweddings",
+				"database\\migrations\\2017_04_12_234318_add_slug_to_weddings_table.php"
+			],
+			[
+				"wedding_table",
+				"database\\migrations\\2017_03_03_205314_create_weddings_table.php"
+			],
+			[
+				"addtravelrad",
+				"database\\migrations\\2017_04_12_231440_add_travel_radius_to_vendors_table.php"
+			],
+			[
+				"vendors_table",
+				"database\\migrations\\2017_03_15_210317_add_slug_to_vendors_table.php"
+			],
+			[
+				"app.blade",
+				"resources\\views\\layouts\\app.blade.php"
+			],
+			[
+				"vendortable",
+				"database\\migrations\\2017_03_03_193426_create_vendors_table.php"
+			],
+			[
+				"layout",
+				"resources\\views\\layouts\\layout.blade.php"
+			],
+			[
+				"viewsvendor",
+				"resources\\views\\vendor\\create.blade.php"
+			],
+			[
+				"vendor",
+				"app\\Http\\Controllers\\VendorController.php"
+			],
+			[
+				"user",
+				"app\\User.php"
+			],
+			[
+				"weddingcont",
+				"app\\Http\\Controllers\\WeddingController.php"
+			],
+			[
+				"authuser",
+				"vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Auth\\User.php"
+			],
+			[
+				"routesignat",
+				"vendor\\laravel\\framework\\src\\Illuminate\\Routing\\RouteSignatureParameters.php"
+			],
+			[
+				"logincontr",
+				"app\\Http\\Controllers\\Auth\\LoginController.php"
+			],
+			[
+				"user.",
+				"app\\User.php"
+			],
+			[
+				"emailveri",
+				"app\\Mail\\EmailVerification.php"
+			],
+			[
+				"services.php",
+				"config\\services.php"
+			],
+			[
+				"mail.php",
+				"config\\mail.php"
+			],
+			[
+				"registerusers",
+				"vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Auth\\RegistersUsers.php"
+			],
+			[
+				"registercontroll",
+				"app\\Http\\Controllers\\Auth\\RegisterController.php"
+			],
+			[
+				"budget",
+				"resources\\views\\partials\\budget-slider.blade.php"
+			],
+			[
+				"vcreate",
+				"resources\\views\\vendor\\create.blade.php"
+			],
+			[
+				"weddingtable",
+				"database\\migrations\\2017_03_03_205314_create_weddings_table.php"
+			],
+			[
+				"vendorcontr",
+				"app\\Http\\Controllers\\VendorController.php"
+			],
+			[
+				"vendorcreate",
+				"resources\\views\\vendor\\create.blade.php"
+			],
+			[
+				"vendorcontroler",
+				"app\\Http\\Controllers\\VendorController.php"
+			],
+			[
+				"wedding",
+				"database\\migrations\\2017_03_03_205314_create_weddings_table.php"
+			],
+			[
+				"authcontroller",
+				"app\\Http\\Controllers\\Auth\\LoginController.php"
+			],
+			[
+				"vendor_",
+				"database\\migrations\\2017_03_03_193426_create_vendors_table.php"
+			],
+			[
+				"vensing",
+				"resources\\views\\vendor\\single.blade.php"
+			],
+			[
+				"vendor_table",
+				"database\\migrations\\2017_03_03_193426_create_vendors_table.php"
+			],
+			[
+				"vsingle",
+				"resources\\views\\vendor\\single.blade.php"
+			],
+			[
+				"composer.",
+				"composer.json"
+			],
+			[
+				"geocode",
+				"config\\geocoder.php"
+			],
+			[
+				"app.php",
+				"config\\app.php"
+			],
+			[
+				"vhome",
+				"resources\\views\\vendor\\home.blade.php"
+			],
+			[
+				"app.scss",
+				"resources\\assets\\sass\\app.scss"
+			],
+			[
+				"layoutapp",
+				"resources\\views\\layouts\\app.blade.php"
+			],
+			[
+				"app",
+				"config\\app.php"
+			],
+			[
+				"vendors",
+				"app\\Http\\Requests\\VendorRequest.php"
+			],
+			[
+				"data",
+				"config\\database.php"
+			],
+			[
+				"datab",
+				"config\\database.php"
+			],
+			[
+				"authservice",
+				"app\\Providers\\AuthServiceProvider.php"
+			],
+			[
+				"vregister",
+				"resources\\views\\vendor\\register.blade.php"
+			],
+			[
+				"vendorc",
+				"app\\Http\\Controllers\\VendorController.php"
+			],
+			[
+				"vendorhome",
+				"resources\\views\\vendor\\home.blade.php"
+			],
+			[
+				"register",
+				"resources\\views\\vendor\\register.blade.php"
+			],
+			[
+				"create_",
+				"database\\migrations\\2017_03_03_193426_create_vendors_table.php"
+			],
+			[
+				"config",
+				"vendor\\league\\flysystem\\src\\Config.php"
+			],
+			[
+				"details",
+				"resources\\views\\vendor\\details.blade.php"
+			],
+			[
+				"details.",
+				"resources\\views\\vendor\\details.blade.php"
+			],
+			[
+				"auth",
+				"app\\Providers\\AuthServiceProvider.php"
+			],
+			[
+				"registercontroller",
+				"app\\Http\\Controllers\\Auth\\RegisterController.php"
+			],
+			[
+				"routing/router.php",
+				"vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php"
+			],
+			[
+				"router.php",
+				"vendor\\symfony\\routing\\Router.php"
+			],
+			[
+				"registrar",
+				"vendor\\laravel\\framework\\src\\Illuminate\\Contracts\\Routing\\Registrar.php"
+			],
+			[
+				"user.p",
+				"app\\User.php"
+			],
+			[
+				"authenticatesus",
+				"vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Auth\\AuthenticatesUsers.php"
+			],
+			[
+				"registers",
+				"vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Auth\\RegistersUsers.php"
+			],
+			[
+				"config/",
+				"config\\database.php"
+			],
+			[
+				"appservice",
+				"app\\Providers\\AppServiceProvider.php"
+			],
+			[
+				"appserv",
+				"app\\Providers\\AuthServiceProvider.php"
+			],
+			[
+				"appserve",
+				"app\\Providers\\AppServiceProvider.php"
+			],
+			[
+				"welcome",
+				"resources\\views\\welcome.blade.php"
+			],
+			[
+				"kernel",
+				"app\\Http\\Kernel.php"
+			],
+			[
+				"kern",
+				"app\\Console\\Kernel.php"
+			],
+			[
+				"mustbe",
+				"app\\Http\\Middleware\\MustBeAdministrator.php"
+			],
+			[
+				"homec",
+				"app\\Http\\Controllers\\HomeController.php"
+			],
+			[
+				"connection.php",
+				"vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connection.php"
+			],
+			[
+				"config/mail",
+				"config\\mail.php"
+			],
+			[
+				"card.php",
+				"app\\Card.php"
+			],
+			[
+				"notes",
+				"app\\Http\\Controllers\\NotesController.php"
+			],
+			[
+				"show.blad",
+				"resources\\views\\cards\\show.blade.php"
+			],
+			[
+				"cards",
+				"app\\Http\\Controllers\\CardsController.php"
+			],
+			[
+				"create_notes",
+				"database\\migrations\\2017_03_02_042829_create_notes_table.php"
+			],
+			[
+				"show.blade",
+				"resources\\views\\cards\\show.blade.php"
+			],
+			[
+				"notescontr",
+				"app\\Http\\Controllers\\NotesController.php"
+			]
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": true,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 301.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}
