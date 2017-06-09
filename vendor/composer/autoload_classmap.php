@@ -8,6 +8,7 @@ $baseDir = dirname($vendorDir);
 return array(
     'AddAdminToUsersTable' => $baseDir . '/database/migrations/2017_05_23_151313_add_admin_to_users_table.php',
     'App\\Athlete' => $baseDir . '/app/Athlete.php',
+    'App\\AthleteLift' => $baseDir . '/app/AthleteLift.php',
     'App\\Client' => $baseDir . '/app/Client.php',
     'App\\Coach' => $baseDir . '/app/Coach.php',
     'App\\Collar' => $baseDir . '/app/Collar.php',

@@ -16,12 +16,19 @@ require('./bootstrap');
 Vue.component('example', require('./components/Example.vue'));
 Vue.component('athlete', require('./components/Athlete.vue'));
 Vue.component('team', require('./components/Team.vue'));
+Vue.component('lift-summary', require('./components/LiftSummary.vue'));
 
 const app = new Vue({
     el: '#app',
     data: {
         search: '',
-    	team: []
+    	team: [],
+        collarID: '',
+        liftType: '',
+        liftWeight: '',
+        repCount: '',
+        liftComments: '',
+        collarActive: 'False'
     },
     methods: {
 
@@ -42,7 +49,44 @@ const app = new Vue({
                 // bind athletes to Vue
     			this.team = temp;
     		});
-    	}
+    	},
+        addLift($lift) {
+            this.liftWeight = $lift.lift_weight;
+            this.liftType = $lift.lift_type;
+            this.repCount = $lift.init_num_reps;
+            this.liftComments = $lift.user_comment;
+
+        },
+        newLift($event) {
+            $event.preventDefault();
+            console.log('Submitting lift data...');
+            var validate = $('form#lift-new').valid();
+            if (validate == true) {         
+                console.log('Form validation successful...');
+
+                axios.post('/lift/store', this.$data)
+                    .then(response => {
+                        console.log(response.data);
+                        $('#overlay').hide();
+                        beep();
+                    });
+                // if (secDelay == null || secDelay == '') {
+                //     secDelay = 0;
+                // }
+                // liftDelay(secDelay);
+            }
+        },
+        endLift() {
+            console.log('Ending Lift');
+
+            // Post to controller and stop Lift
+            axios.post('/lift/stop', {
+                collarID: this.collarID
+            })
+            .then(response => {
+                console.log(response.data);
+            });
+        }
 
     },
     mounted() {

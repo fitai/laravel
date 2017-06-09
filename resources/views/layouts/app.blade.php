@@ -15,6 +15,7 @@
     <link href="{{ asset('css/webfont/webfont.css') }}" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
 
+
     <!-- Scripts -->
     <script>
         window.Laravel = {!! json_encode([
@@ -37,8 +38,8 @@
                             </a>
                         </div>
                         <div>
-                            <a href="{{ route('now') }}">
-                                <i class="dripicons-clock"></i><span>Now</span>
+                            <a href="{{ route('lift') }}">
+                                <i class="dripicons-clock"></i><span>Lift</span>
                             </a>
                         </div>
                         <div>
@@ -98,7 +99,11 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.1/socket.io.js"></script>
     <script>
         // var socket = io('http://192.168.10.10:3000'); // Connect to local server
-        var socket = io('http://52.204.229.101:3000'); // Connect to AWS
+        var socket = io('http://52.15.200.179:3000'); // Connect to AWS
+
+        if (socket) {
+            console.log('Socket.io connected');
+        }
 
         // // Sample of socket.io without Redis communication
         // socket.on('news', function(data) {

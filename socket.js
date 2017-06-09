@@ -11,7 +11,9 @@ var io = require('socket.io')(server);
 // });
 
 var Redis = require('ioredis');
-var redis = new Redis(6379, '52.204.229.101');
+// var redis = new Redis(6379, '52.15.200.179'); // Fit A.I AWS Instance
+var redis = new Redis();
+console.log(redis);
 
 redis.subscribe('lifts');
 // redis.on('message', function(channel, message) {

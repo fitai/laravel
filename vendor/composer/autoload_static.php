@@ -307,6 +307,7 @@ class ComposerStaticInit541d3a3ceaab093a6e7603933608fe3b
     public static $classMap = array (
         'AddAdminToUsersTable' => __DIR__ . '/../..' . '/database/migrations/2017_05_23_151313_add_admin_to_users_table.php',
         'App\\Athlete' => __DIR__ . '/../..' . '/app/Athlete.php',
+        'App\\AthleteLift' => __DIR__ . '/../..' . '/app/AthleteLift.php',
         'App\\Client' => __DIR__ . '/../..' . '/app/Client.php',
         'App\\Coach' => __DIR__ . '/../..' . '/app/Coach.php',
         'App\\Collar' => __DIR__ . '/../..' . '/app/Collar.php',

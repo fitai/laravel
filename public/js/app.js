@@ -1030,12 +1030,19 @@ __webpack_require__(34);
 Vue.component('example', __webpack_require__(39));
 Vue.component('athlete', __webpack_require__(38));
 Vue.component('team', __webpack_require__(40));
+Vue.component('lift-summary', __webpack_require__(52));
 
 var app = new Vue({
     el: '#app',
     data: {
         search: '',
-        team: []
+        team: [],
+        collarID: '',
+        liftType: '',
+        liftWeight: '',
+        repCount: '',
+        liftComments: '',
+        collarActive: 'False'
     },
     methods: {
         getTeam: function getTeam() {
@@ -1056,6 +1063,40 @@ var app = new Vue({
 
                 // bind athletes to Vue
                 _this.team = temp;
+            });
+        },
+        addLift: function addLift($lift) {
+            this.liftWeight = $lift.lift_weight;
+            this.liftType = $lift.lift_type;
+            this.repCount = $lift.init_num_reps;
+            this.liftComments = $lift.user_comment;
+        },
+        newLift: function newLift($event) {
+            $event.preventDefault();
+            console.log('Submitting lift data...');
+            var validate = $('form#lift-new').valid();
+            if (validate == true) {
+                console.log('Form validation successful...');
+
+                axios.post('/lift/store', this.$data).then(function (response) {
+                    console.log(response.data);
+                    $('#overlay').hide();
+                    beep();
+                });
+                // if (secDelay == null || secDelay == '') {
+                //     secDelay = 0;
+                // }
+                // liftDelay(secDelay);
+            }
+        },
+        endLift: function endLift() {
+            console.log('Ending Lift');
+
+            // Post to controller and stop Lift
+            axios.post('/lift/stop', {
+                collarID: this.collarID
+            }).then(function (response) {
+                console.log(response.data);
             });
         }
     },
@@ -41338,6 +41379,196 @@ module.exports = function(module) {
 __webpack_require__(10);
 module.exports = __webpack_require__(12);
 
+
+/***/ }),
+/* 47 */,
+/* 48 */,
+/* 49 */,
+/* 50 */,
+/* 51 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    props: ['summary', 'liftWeight', 'liftType', 'liftComments', 'repCount'],
+    mounted: function mounted() {
+        this.$emit('addlift', this.summary);
+    }
+});
+
+/***/ }),
+/* 52 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var Component = __webpack_require__(3)(
+  /* script */
+  __webpack_require__(51),
+  /* template */
+  __webpack_require__(53),
+  /* scopeId */
+  null,
+  /* cssModules */
+  null
+)
+Component.options.__file = "D:\\Backup\\Websites\\Laravel\\Homestead\\Code\\fitai\\resources\\assets\\js\\components\\LiftSummary.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] LiftSummary.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-93cc46ec", Component.options)
+  } else {
+    hotAPI.reload("data-v-93cc46ec", Component.options)
+  }
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 53 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "lift-data",
+    attrs: {
+      "id": "lift-data"
+    }
+  }, [_c('div', {
+    staticClass: "data-item"
+  }, [_c('h3', {
+    staticClass: "title"
+  }, [_vm._v("Exercise:")]), _vm._v(" "), _c('div', {
+    staticClass: "summary-item",
+    attrs: {
+      "id": "lift-type"
+    }
+  }, [_c('span', {
+    attrs: {
+      "id": "summary-lift-type"
+    }
+  }, [_vm._v(_vm._s(_vm.liftType))]), _vm._v(" "), _vm._m(0)])]), _vm._v(" "), _c('div', {
+    staticClass: "data-item"
+  }, [_c('h3', {
+    staticClass: "title"
+  }, [_vm._v("Weight:")]), _vm._v(" "), _c('div', {
+    staticClass: "summary-item",
+    attrs: {
+      "id": "weight"
+    }
+  }, [_c('span', {
+    attrs: {
+      "id": "summary-weight"
+    }
+  }, [_vm._v(_vm._s(_vm.liftWeight))]), _vm._v(" "), _vm._m(1)])]), _vm._v(" "), _c('div', {
+    staticClass: "data-item"
+  }, [_c('h3', {
+    staticClass: "title"
+  }, [_vm._v("Reps:")]), _vm._v(" "), _c('div', {
+    staticClass: "summary-item",
+    attrs: {
+      "id": "reps"
+    }
+  }, [_c('span', {
+    attrs: {
+      "id": "summary-reps"
+    }
+  }, [_vm._v(_vm._s(_vm.repCount))]), _vm._v(" "), _vm._m(2)])]), _vm._v(" "), _c('div', {
+    staticClass: "data-item"
+  }, [_c('h3', {
+    staticClass: "title"
+  }, [_vm._v("Comments:")]), _vm._v(" "), _c('div', {
+    staticClass: "summary-item",
+    attrs: {
+      "id": "comments"
+    }
+  }, [_c('p', {
+    attrs: {
+      "id": "summary-comments"
+    }
+  }, [_vm._v(_vm._s(_vm.liftComments))]), _vm._v(" "), _vm._m(3)])])])
+},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('span', {
+    staticClass: "summary-edit",
+    attrs: {
+      "id": "lift-type-edit",
+      "onClick": "editSummary('lift-type');"
+    }
+  }, [_c('i', {
+    staticClass: "dripicons-document-edit"
+  })])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('span', {
+    staticClass: "summary-edit",
+    attrs: {
+      "id": "weight-edit",
+      "onClick": "editSummary('weight');"
+    }
+  }, [_c('i', {
+    staticClass: "dripicons-document-edit"
+  })])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('span', {
+    staticClass: "summary-edit",
+    attrs: {
+      "id": "reps-edit",
+      "onClick": "editSummary('reps');"
+    }
+  }, [_c('i', {
+    staticClass: "dripicons-document-edit"
+  })])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('span', {
+    staticClass: "summary-edit",
+    attrs: {
+      "id": "comments-edit",
+      "onClick": "editSummary('comments');"
+    }
+  }, [_c('i', {
+    staticClass: "dripicons-document-edit"
+  })])
+}]}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-93cc46ec", module.exports)
+  }
+}
 
 /***/ })
 /******/ ]);

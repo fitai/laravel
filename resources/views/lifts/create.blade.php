@@ -5,10 +5,10 @@
 @section('content')
 <div id="overlay" class="overlay">
 	<div class="content center">
-		<form id="lift-new" class="lift new">
+		<form id="lift-new" class="lift new" @submit.prevent="newLift">
 			<p>
 				<label>Collar: </label>
-				<select name="collarID" required>
+				<select name="collarID" required v-model="collarID">
 					@foreach (get_team_collars() as $collar)
 						<option value="{{ $collar->collar_id }}">{{ $collar->collar_id }}</option>
 					@endforeach
@@ -16,7 +16,7 @@
 			</p>
 			<p>
 				<label>Type: </label>
-				<select name="lift-type" required>
+				<select name="liftType" required v-model="liftType">
 					@foreach (get_lift_types() as $type)
 						<option value="{{ $type->name_display }}">{{ $type->name_display }}</option>
 					@endforeach
@@ -24,11 +24,11 @@
 			</p>
 			<p>
 				<label>Weight: </label>
-				<input name="liftWeight" type="number" min="1" required>
+				<input name="liftWeight" type="number" min="1" required v-model="liftWeight">
 			</p>
 			<p>
 				<label>Reps: </label>
-				<input name="liftReps" type="number" min="1" required>
+				<input name="liftReps" type="number" min="1" required v-model="repCount">
 			</p>
 			<input name="userID" type="hidden" value="{{ Auth::id() }}">
 			<p>
@@ -38,23 +38,23 @@
 		</form>
 	</div>
 </div>
-<div id="end-lift" class="reset-reps end-lift">End Lift</div>
+<div id="end-lift" class="reset-reps end-lift" v-on:click="endLift">End Lift</div>
 <div id="connect_string"></div>
 <div id="data-container" class="data-container flexbox">
 	<div class="tab">
-		<span id="collarID" class="count-number"></span> <span class="count-text">collar</span>
+		<span id="collarID" class="count-number">@{{ collarID }}</span> <span class="count-text">collar</span>
 	</div>
 	<div class="tab">
-		<span id="lift-type" class="count-number lift-type"></span> <span class="count-text">lift</span>
+		<span id="lift-type" class="count-number lift-type">@{{ liftType }}</span> <span class="count-text">lift</span>
 	</div>
 	<div class="tab">
-		<span id="lift-weight" class="count-number">0</span> <span class="count-text">lbs</span>
+		<span id="lift-weight" class="count-number">@{{ liftWeight }}</span> <span class="count-text">lbs</span>
 	</div>
 	<div class="tab">
-		<span id="rep-count" class="count-number">0</span> <span class="count-text">reps</span>
+		<span id="rep-count" class="count-number">@{{ repCount }}</span> <span class="count-text">reps</span>
 	</div>
 	<div class="tab">
-		<span id="active" class="count-number"></span> <span class="count-text">active</span>
+		<span id="active" class="count-number">@{{ collarActive }}</span> <span class="count-text">active</span>
 	</div>
 </div>
 <h1>New Lift</h1>
@@ -71,35 +71,40 @@
 
 @section('pagescripts')
 
+{{-- Google Charts --}}
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript" src="{{ asset('js/charts.js') }}"></script>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.15.1/jquery.validate.js"></script>
 <script>
 var connectDiv = document.getElementById("connect_string");
 var gauge = document.getElementById("chart_div");
 var athleteID = "{{ Auth::user()->athlete->athlete_id }}";
-connectDiv.innerHTML="attempting to establish connection...<br>";
+// connectDiv.innerHTML="attempting to establish connection...<br>";
 
-connectDiv.innerHTML=location.port;
+// connectDiv.innerHTML=location.port;
 
-var conn = new WebSocket('ws://52.204.229.101:8080');
-connectDiv.innerHTML="did something...<br>";
-conn.onopen = function(e) {
-    console.log("Connection established!");
-    connectDiv.innerHTML="Connection successful<br>";
-};
+// var conn = new WebSocket('ws://52.204.229.101:8080');
+// connectDiv.innerHTML="did something...<br>";
+// conn.onopen = function(e) {
+//     console.log("Connection established!");
+//     connectDiv.innerHTML="Connection successful<br>";
+// };
 
-conn.onmessage = function(e) {
-	var values = JSON.parse(e.data);
-	if (values.athleteID == athleteID) {
-		console.log(e.data);
-		connectDiv.innerHTML=e.data;
-		updateGauge(values.velocity);
-		updateLine(values.velocity);
-		updateColumn(values.power);
-		updateReps(values.repCount);
-		updateActive(values.active);
-	}
-};
-connectDiv.innerHTML="\nDone!";
+// conn.onmessage = function(e) {
+// 	var values = JSON.parse(e.data);
+// 	if (values.athleteID == athleteID) {
+// 		console.log(e.data);
+// 		connectDiv.innerHTML=e.data;
+// 		updateGauge(values.velocity);
+// 		updateLine(values.velocity);
+// 		updateColumn(values.power);
+// 		updateReps(values.repCount);
+// 		updateActive(values.active);
+// 	}
+// };
+// connectDiv.innerHTML="\nDone!";
+
 
 // Socket.io listener
 socket.on('lifts', function(data) {
@@ -119,6 +124,6 @@ if (athleteID == 4) {
 	@endphp
 }
 
-</script>
 
+</script>
 @endsection
