@@ -2,8 +2,11 @@ Homestead.json
 Homestead.yaml
 FitAI (Laravel).sublime-project
 FitAI (Laravel).sublime-workspace
-/keys
+keys/
+vendor/
 .env
-.socket.js
+socket.js
+composer.json
+composer.lock
 
 
