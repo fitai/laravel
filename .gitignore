@@ -3,4 +3,7 @@ Homestead.yaml
 FitAI (Laravel).sublime-project
 FitAI (Laravel).sublime-workspace
 /keys
+.env
+.socket.js
+
 

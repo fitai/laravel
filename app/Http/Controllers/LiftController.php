@@ -4,15 +4,29 @@ namespace App\Http\Controllers;
 
 use Auth;
 use App\Lift;
+use App\LiftType;
+use phpseclib\Net\SSH2;
+use phpseclib\Crypt\RSA;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redis;
 
 class LiftController extends Controller
 {
+    private $ssh;
 
     public function __construct()
     {
         $this->middleware('auth');
+
+        // // Connect to AWS server via SSH with key
+        // $ssh = new SSH2('52.15.200.179');
+        // $key = new RSA();
+        // $key->loadKey(file_get_contents('/home/vagrant/.ssh/fitai-dev.pem'));
+        // if (!$ssh->login('patrick', $key)) {
+        //     exit('Login Failed');
+        // }
+
+        // $this->ssh = $ssh;
     }
     
     /**
@@ -32,18 +46,14 @@ class LiftController extends Controller
      */
     public function create()
     {
-        // Publish event with Redis
-        // $data = [
-        //     'event' => 'Test',
-        //     'data' => [
-        //         'username' => Auth::user()->name,
-        //         'message' => 'testeroni'
-        //     ]
-        // ];
+        $typeOptions = LiftType::select('type')->groupBy('type')->get();
+        $variationOptions = LiftType::select('variation')->groupBy('variation')->get();
+        $equipmentOptions = LiftType::select('equipment')->groupBy('equipment')->get();
+        $options = LiftType::select('type', 'variation', 'equipment')->groupBy('type', 'variation', 'equipment')->get();
 
-        // Redis::publish('lifts', json_encode($data));
+        return view('lifts/create'); // Working device
+        // return view('lifts/create-numbers', compact('typeOptions', 'variationOptions', 'equipmentOptions', 'options')); // New design device
 
-        return view('lifts/create');
     }
 
     /**
@@ -55,7 +65,7 @@ class LiftController extends Controller
     public function store(Request $request)
     {
 
-        // Pass data to Redis
+        // Create array to send to Python
         $pythonArray = array(
             "collar_id" => $request->collarID,
             "athlete_id" => Auth::user()->athlete->athlete_id,
@@ -71,27 +81,27 @@ class LiftController extends Controller
             "active" => True
         );
 
-        // dd(json_encode($pythonArray));
 
-        // $arg = "/home/kyle/virtualenvs/fitai/bin/python /opt/fitai_controller/comms/update_redis.py -v -j ".escapeshellarg(json_encode($pythonArray));
+        $exec = "/home/kyle/virtualenvs/fitai/bin/python /opt/fitai_controller/comms/update_redis.py -v -j '".json_encode($pythonArray)."'";
 
-        // $cmd = "ssh -i /home/vagrant/.ssh/fitai-dev.pem patrick@52.15.200.179 ".escapeshellarg($arg);
-
-        // $pythonCmd = escapeshellcmd($cmd);
-
-        // dd($cmd);
+        // dd($exec);
 
         // // Run on local build
-        // $pythonExec = exec($pythonCmd);
+        // $pythonExec = $this->ssh->exec("/home/kyle/virtualenvs/fitai/bin/python /opt/fitai_controller/comms/update_redis.py -v -j '".json_encode($pythonArray)."'");
+
+        // $pythonExec = explode(PHP_EOL, $pythonExec); // Create array by exploding end of line
+        // $liftID = explode(": ", $pythonExec[4]); // Explode the line with "lift_id: ###"
+
 
         // Run on AWS
-        $pythonExec = exec("/home/kyle/virtualenvs/fitai/bin/python /opt/fitai_controller/comms/update_redis.py -v -j '".json_encode($pythonArray)."'"); 
+        $pythonExec = exec("/home/kyle/virtualenvs/fitai/bin/python /opt/fitai_controller/comms/update_redis.py -v -j '".json_encode($pythonArray)."'", $pythonReturn); 
 
-        return $pythonExec;
+        return array(
+            "exec" => $exec, 
+            "python" => $pythonExec, 
+            "liftID" => $liftID[1]
+        );
 
-        // dd('ssh -i /home/vagrant/.ssh/fitai-dev.pem patrick@52.15.200.179 "/home/kyle/virtualenvs/fitai/bin/python /opt/fitai_controller/comms/update_redis.py -v -j \''.json_encode($pythonArray).'\'"');
-
-        // dd('ssh -i /home/vagrant/.ssh/fitai-dev.pem patrick@52.15.200.179 "/home/kyle/virtualenvs/fitai/bin/python /opt/fitai_controller/comms/update_redis.py -v -j '.escapeshellarg(json_encode($pythonArray)).'"');
     }
 
     /**
@@ -104,12 +114,25 @@ class LiftController extends Controller
     {
         $lift = Lift::find($id);
 
-        $pythonResponse = "";
+        if (!$lift) {
+            return ("Lift not found");
+        }
 
-        // $pythonExec = exec("/home/jbrubaker/anaconda2/envs/fitai/bin/python /var/opt/python/fitai_controller/comms/update_redis.py -j '".json_encode($lift)."'", $pythonResponse);
+        $pythonArray = array(
+            "collar_id" => $lift->collar_id,
+            "lift_id" => $id,
+            "active" => false
+        );
 
-        return view('lifts/summary', compact('lift'));
+        $pythonResponse = $this->ssh->exec("/home/kyle/virtualenvs/fitai/bin/python /opt/fitai_controller/comms/update_redis.py -j '".json_encode($pythonArray)."'");
+
+        // Get LiftTypes
+        $liftTypes = LiftType::all();
+
+        return view('lifts/summary', compact('lift', 'pythonResponse', 'liftTypes'));
     }
+
+       
 
     /**
      * Show the form for editing the specified resource.
@@ -129,9 +152,41 @@ class LiftController extends Controller
      * @param  \App\Lift  $lift
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Lift $lift)
+    public function update(Request $request)
     {
-        //
+        $this->validate($request, [
+            'lift_id' => 'required|numeric',
+            'prop' => 'required',
+            'val' => 'required'
+        ]);
+
+
+        // Get Lift
+        $lift = Lift::find($request->lift_id);
+
+        if (!$lift) {
+            return ("Lift not found");
+        }
+
+        // Update column in Lift
+        switch ($request->prop) {
+            case 'liftComments' :
+                $lift->user_comment = $request->val;
+                break;
+            case 'repCount' :
+                $lift->final_num_reps = $request->val;
+                break;
+            case 'liftWeight' :
+                $lift->lift_weight = $request->val;
+                break;
+            case 'liftType' :
+                $lift->lift_type = $request->val;
+                break;
+        }
+
+       $lift->save();
+
+       return "Lift $request->lift_id updated successfully";
     }
 
     /**
@@ -152,9 +207,33 @@ class LiftController extends Controller
             "active" => false
         );
 
+        $exec = "execution string: /home/kyle/virtualenvs/fitai/bin/python /opt/fitai_controller/comms/update_redis.py -v -j '".json_encode($pythonArray)."'";
+
+        // // Run on local build
+        // $pythonExec = $this->ssh->exec("/home/kyle/virtualenvs/fitai/bin/python /opt/fitai_controller/comms/update_redis.py -v -j '".json_encode($pythonArray)."'");
+
+        // Run on AWS
         $pythonExec = exec("/home/kyle/virtualenvs/fitai/bin/python /opt/fitai_controller/comms/update_redis.py -v -j '".json_encode($pythonArray)."'"); 
 
-        return $pythonExec;
+        return array($exec, $pythonExec);
+    }
+
+    public function killLift($id) 
+    {
+        $pythonArray = array(
+            "collar_id" => $id,
+            "active" => false
+        );
+
+        $exec = "execution string: /home/kyle/virtualenvs/fitai/bin/python /opt/fitai_controller/comms/update_redis.py -v -j '".json_encode($pythonArray)."'";
+
+        // Run on local build
+        // $pythonExec = $this->ssh->exec("/home/kyle/virtualenvs/fitai/bin/python /opt/fitai_controller/comms/update_redis.py -v -j '".json_encode($pythonArray)."'");
+
+        // Run on AWS
+        $pythonExec = exec("/home/kyle/virtualenvs/fitai/bin/python /opt/fitai_controller/comms/update_redis.py -v -j '".json_encode($pythonArray)."'"); 
+
+        return array($exec, $pythonExec);
     }
         
 }

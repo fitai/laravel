@@ -56,7 +56,7 @@ return [
 
         'pgsql' => [
             'driver' => 'pgsql',
-            'host' => env('DB_HOST', 'fitai-db-2.cls1x0o0bifh.us-east-1.rds.amazonaws.com'),
+            'host' => env('DB_HOST', 'patrick-is-better-than-kyle-2.cghxuhubbdjr.us-east-2.rds.amazonaws.com'),
             'port' => env('DB_PORT', '5432'),
             'database' => env('DB_DATABASE', 'fitai'),
             'username' => env('DB_USERNAME', 'dbuser'),

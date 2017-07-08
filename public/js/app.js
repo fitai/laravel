@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 46);
+/******/ 	return __webpack_require__(__webpack_require__.s = 55);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -374,6 +374,63 @@ module.exports = {
 
 /***/ }),
 /* 1 */
+/***/ (function(module, exports) {
+
+// this module is a runtime utility for cleaner component module output and will
+// be included in the final webpack user bundle
+
+module.exports = function normalizeComponent (
+  rawScriptExports,
+  compiledTemplate,
+  scopeId,
+  cssModules
+) {
+  var esModule
+  var scriptExports = rawScriptExports = rawScriptExports || {}
+
+  // ES6 modules interop
+  var type = typeof rawScriptExports.default
+  if (type === 'object' || type === 'function') {
+    esModule = rawScriptExports
+    scriptExports = rawScriptExports.default
+  }
+
+  // Vue.extend constructor export interop
+  var options = typeof scriptExports === 'function'
+    ? scriptExports.options
+    : scriptExports
+
+  // render functions
+  if (compiledTemplate) {
+    options.render = compiledTemplate.render
+    options.staticRenderFns = compiledTemplate.staticRenderFns
+  }
+
+  // scopedId
+  if (scopeId) {
+    options._scopeId = scopeId
+  }
+
+  // inject cssModules
+  if (cssModules) {
+    var computed = Object.create(options.computed || null)
+    Object.keys(cssModules).forEach(function (key) {
+      var module = cssModules[key]
+      computed[key] = function () { return module }
+    })
+    options.computed = computed
+  }
+
+  return {
+    esModule: esModule,
+    exports: scriptExports,
+    options: options
+  }
+}
+
+
+/***/ }),
+/* 2 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -471,10 +528,10 @@ utils.forEach(['post', 'put', 'patch'], function forEachMethodWithData(method) {
 
 module.exports = defaults;
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ }),
-/* 2 */
+/* 3 */
 /***/ (function(module, exports) {
 
 // shim for using process in browser
@@ -660,63 +717,6 @@ process.umask = function() { return 0; };
 
 
 /***/ }),
-/* 3 */
-/***/ (function(module, exports) {
-
-// this module is a runtime utility for cleaner component module output and will
-// be included in the final webpack user bundle
-
-module.exports = function normalizeComponent (
-  rawScriptExports,
-  compiledTemplate,
-  scopeId,
-  cssModules
-) {
-  var esModule
-  var scriptExports = rawScriptExports = rawScriptExports || {}
-
-  // ES6 modules interop
-  var type = typeof rawScriptExports.default
-  if (type === 'object' || type === 'function') {
-    esModule = rawScriptExports
-    scriptExports = rawScriptExports.default
-  }
-
-  // Vue.extend constructor export interop
-  var options = typeof scriptExports === 'function'
-    ? scriptExports.options
-    : scriptExports
-
-  // render functions
-  if (compiledTemplate) {
-    options.render = compiledTemplate.render
-    options.staticRenderFns = compiledTemplate.staticRenderFns
-  }
-
-  // scopedId
-  if (scopeId) {
-    options._scopeId = scopeId
-  }
-
-  // inject cssModules
-  if (cssModules) {
-    var computed = Object.create(options.computed || null)
-    Object.keys(cssModules).forEach(function (key) {
-      var module = cssModules[key]
-      computed[key] = function () { return module }
-    })
-    options.computed = computed
-  }
-
-  return {
-    esModule: esModule,
-    exports: scriptExports,
-    options: options
-  }
-}
-
-
-/***/ }),
 /* 4 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -899,7 +899,7 @@ module.exports = function xhrAdapter(config) {
   });
 };
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ }),
 /* 5 */
@@ -1019,7 +1019,7 @@ module.exports = g;
  * building robust, powerful web applications using Vue and Laravel.
  */
 
-__webpack_require__(34);
+__webpack_require__(37);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -1027,10 +1027,12 @@ __webpack_require__(34);
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-Vue.component('example', __webpack_require__(39));
-Vue.component('athlete', __webpack_require__(38));
-Vue.component('team', __webpack_require__(40));
-Vue.component('lift-summary', __webpack_require__(52));
+Vue.component('example', __webpack_require__(42));
+Vue.component('athlete', __webpack_require__(41));
+Vue.component('team', __webpack_require__(46));
+Vue.component('lift-summary', __webpack_require__(45));
+Vue.component('lift-data', __webpack_require__(43));
+Vue.component('lift-select', __webpack_require__(44));
 
 var app = new Vue({
     el: '#app',
@@ -1042,7 +1044,10 @@ var app = new Vue({
         liftWeight: '',
         repCount: '',
         liftComments: '',
-        collarActive: 'False'
+        collarActive: 'False',
+        athleteID: '',
+        liftID: '',
+        liftOptions: []
     },
     methods: {
         getTeam: function getTeam() {
@@ -1065,13 +1070,25 @@ var app = new Vue({
                 _this.team = temp;
             });
         },
+        addAthlete: function addAthlete($id) {
+            console.log('adding athleteID: ' + $id);
+            this.athleteID = $id;
+        },
         addLift: function addLift($lift) {
             this.liftWeight = $lift.lift_weight;
             this.liftType = $lift.lift_type;
-            this.repCount = $lift.init_num_reps;
             this.liftComments = $lift.user_comment;
+            this.liftID = $lift.lift_id;
+
+            if ($lift.final_num_reps > 0) {
+                this.repCount = $lift.final_num_reps;
+            } else {
+                this.repCount = $lift.init_num_reps;
+            }
         },
         newLift: function newLift($event) {
+            var _this2 = this;
+
             $event.preventDefault();
             console.log('Submitting lift data...');
             var validate = $('form#lift-new').valid();
@@ -1080,6 +1097,7 @@ var app = new Vue({
 
                 axios.post('/lift/store', this.$data).then(function (response) {
                     console.log(response.data);
+                    _this2.liftID = response.data['liftID'];
                     $('#overlay').hide();
                     beep();
                 });
@@ -1090,6 +1108,8 @@ var app = new Vue({
             }
         },
         endLift: function endLift() {
+            var _this3 = this;
+
             console.log('Ending Lift');
 
             // Post to controller and stop Lift
@@ -1097,22 +1117,100 @@ var app = new Vue({
                 collarID: this.collarID
             }).then(function (response) {
                 console.log(response.data);
+                window.location.href = "/lift/summary/" + _this3.liftID;
             });
+        },
+        updateSummaryField: function updateSummaryField(prop, val, field) {
+            var _this4 = this;
+
+            console.log(prop + " : " + val);
+
+            // Update DB
+            axios.patch('/lift/update', {
+                lift_id: this.liftID,
+                prop: prop,
+                val: val
+            }).then(function (response) {
+                console.log(response.data);
+
+                // Update instance
+                switch (prop) {
+                    case 'liftComments':
+                        _this4.liftComments = val;
+                        break;
+                    case 'repCount':
+                        _this4.repCount = val;
+                        break;
+                    case 'liftWeight':
+                        _this4.liftWeight = val;
+                        break;
+                    case 'liftType':
+                        _this4.liftType = val;
+                        break;
+                }
+
+                // Hide the edit field and show the saved value
+                $('#' + field).show();
+                $('#' + field + '-input').hide();
+            });
+        },
+        updateLiftType: function updateLiftType(name) {
+            this.liftType = name;
+            console.log('updated liftType');
         }
     },
     mounted: function mounted() {
 
-        socket.on('lifts:Test', function (data) {
-            console.log(data);
+        // Socket.io listener
+        socket.on('lifts', function (data) {
+            var now = new Date().getTime();
+            // console.log(data + ' - time: ' +  now);
+
+            // Parse data
+            var packet = JSON.parse(data);
+
+            // Make sure data is JSON
+            if (packet) {
+
+                // Update charts and lift data
+                if (packet.header.collar_id == this.collarID) {
+
+                    // console.log(data + ' - time: ' +  now);
+
+                    // If collar is active, then update charts
+                    if (packet.header.active == true) {
+                        var mean = function mean(obj) {
+                            var sum = obj.reduce(function (acc, val) {
+                                return acc + val;
+                            }, 0);
+                            var length = obj.length;
+
+                            return sum / length;
+                        };
+
+                        // Get Power and Velocity values
+
+
+                        var power = mean(packet.content.p_rms);
+                        var velocity = mean(packet.content.v_rms);
+
+                        // Update charts
+                        this.collarActive = packet.header.active;
+                        updateGauge(velocity);
+                        updateLine(velocity);
+                        updateColumn(power);
+                    }
+                }
+            }
         }.bind(this));
     },
 
     computed: {
         filteredteam: function filteredteam() {
-            var _this2 = this;
+            var _this5 = this;
 
             return this.team.filter(function (athlete) {
-                return athlete.search_string.indexOf(_this2.search.toLowerCase()) > -1;
+                return athlete.search_string.indexOf(_this5.search.toLowerCase()) > -1;
             });
         }
     }
@@ -1141,7 +1239,7 @@ module.exports = __webpack_require__(14);
 var utils = __webpack_require__(0);
 var bind = __webpack_require__(8);
 var Axios = __webpack_require__(16);
-var defaults = __webpack_require__(1);
+var defaults = __webpack_require__(2);
 
 /**
  * Create an instance of Axios
@@ -1261,7 +1359,7 @@ module.exports = CancelToken;
 "use strict";
 
 
-var defaults = __webpack_require__(1);
+var defaults = __webpack_require__(2);
 var utils = __webpack_require__(0);
 var InterceptorManager = __webpack_require__(17);
 var dispatchRequest = __webpack_require__(18);
@@ -1415,7 +1513,7 @@ module.exports = InterceptorManager;
 var utils = __webpack_require__(0);
 var transformData = __webpack_require__(21);
 var isCancel = __webpack_require__(6);
-var defaults = __webpack_require__(1);
+var defaults = __webpack_require__(2);
 
 /**
  * Throws a `Cancel` if cancellation has been requested.
@@ -2033,6 +2131,283 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    props: ['collarID', 'liftWeight', 'liftType', 'repCount', 'collarActive', 'athleteID'],
+    mounted: function mounted() {
+        console.log('LiftData mounted');
+        this.$emit('add-athlete', this.athleteID);
+    }
+});
+
+/***/ }),
+/* 34 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    props: ['typeOptions', 'equipmentOptions', 'variationOptions', 'options'],
+    data: function data() {
+        return {
+            type: '',
+            variation: '',
+            equipment: ''
+        };
+    },
+    mounted: function mounted() {
+        console.log('Lift-select mounted');
+        // this.$emit('loadteam');
+    },
+
+    computed: {
+        typesAvailable: function typesAvailable() {
+            var types = this.options;
+            return types;
+        },
+        variationsAvailable: function variationsAvailable() {
+            var variationArr = [];
+            var typeSelected = this.type;
+
+            // filter variations available by selected type
+            function matchType(item) {
+                if (item.type == typeSelected) {
+                    return item;
+                }
+            }
+            var variations = this.options.filter(matchType);
+
+            // Loop through fitlered options and remove duplicate values
+            variations.forEach(function (item) {
+                if (!variationArr.includes(item.variation)) {
+                    variationArr.push(item.variation);
+                }
+            });
+
+            return variationArr;
+        },
+        equipmentAvailable: function equipmentAvailable() {
+            var equipmentArr = [];
+            var variatonSelected = this.variation;
+
+            // filter equipment available by selected variation
+            function matchVariation(item) {
+                if (item.variation == variatonSelected) {
+                    return true;
+                }
+            }
+            var equipment = this.options.filter(matchVariation);
+
+            // Loop through fitlered options and remove duplicate values
+            equipment.forEach(function (item) {
+                if (!equipmentArr.includes(item.equipment)) {
+                    equipmentArr.push(item.equipment);
+                }
+            });
+
+            return equipmentArr;
+        },
+        liftName: function liftName() {
+            var variation = this.variation;
+            var equipment = this.equipment;
+            var type = this.type;
+            var fullName = '';
+
+            // Filter options for exact match
+            function matchAll(item) {
+                if (item.variation == variation && item.type == type && item.equipment == equipment) {
+                    return true;
+                }
+            }
+            var match = this.options.filter(matchAll);
+
+            // Build lift name string if match is found
+            if (match[0]) {
+                fullName = match[0].type + " " + match[0].variation + " - " + match[0].equipment;
+            }
+
+            return fullName;
+        }
+    },
+    watch: {
+        liftName: function liftName(val) {
+            this.$emit('updatelifttype', val);
+        }
+    }
+});
+
+/***/ }),
+/* 35 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    props: ['summary', 'liftTypes', 'liftWeight', 'liftType', 'liftComments', 'repCount'],
+    data: function data() {
+        return {
+            comments: this.summary.user_comment,
+            weight: this.summary.lift_weight,
+            type: this.summary.lift_type,
+            reps: ''
+        };
+    },
+    mounted: function mounted() {
+        this.$emit('addlift', this.summary);
+
+        if (this.summary.final_num_reps > 0) {
+            this.reps = this.summary.final_num_reps;
+        } else {
+            this.reprepsCount = this.summary.init_num_reps;
+        }
+    },
+
+    methods: {
+        editField: function editField(field) {
+            $('#' + field).hide();
+            $('#' + field + '-input').show();
+        },
+        cancelEdit: function cancelEdit(field) {
+            $('#' + field).show();
+            $('#' + field + '-input').hide();
+        },
+        updateField: function updateField(field) {
+            var val = '';
+            var prop = '';
+
+            // Get prop and value
+            switch (field) {
+                case 'comments':
+                    prop = 'liftComments';
+                    val = this.comments;
+                    break;
+                case 'reps':
+                    prop = 'repCount';
+                    val = this.reps;
+                    break;
+                case 'weight':
+                    prop = 'liftWeight';
+                    val = this.weight;
+                    break;
+                case 'lift-type':
+                    prop = 'liftType';
+                    val = this.type;
+                    break;
+            }
+
+            // Emit to parent to update DB and Vue instance
+            this.$emit('updatefield', prop, val, field);
+        }
+    }
+});
+
+/***/ }),
+/* 36 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     props: ['filteredteam'],
@@ -2043,11 +2418,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 34 */
+/* 37 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
-window._ = __webpack_require__(37);
+window._ = __webpack_require__(40);
 
 /**
  * We'll load jQuery and the Bootstrap jQuery plugin which provides support
@@ -2055,9 +2430,9 @@ window._ = __webpack_require__(37);
  * code may be modified to fit the specific needs of your application.
  */
 
-window.$ = window.jQuery = __webpack_require__(36);
+window.$ = window.jQuery = __webpack_require__(39);
 
-__webpack_require__(35);
+__webpack_require__(38);
 
 /**
  * Vue is a modern JavaScript library for building interactive web interfaces
@@ -2065,7 +2440,7 @@ __webpack_require__(35);
  * and simple, leaving you to focus on building your next great project.
  */
 
-window.Vue = __webpack_require__(44);
+window.Vue = __webpack_require__(53);
 
 /**
  * We'll load the axios HTTP library which allows us to easily issue requests
@@ -2100,7 +2475,7 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 // });
 
 /***/ }),
-/* 35 */
+/* 38 */
 /***/ (function(module, exports) {
 
 /*!
@@ -4483,7 +4858,7 @@ if (typeof jQuery === 'undefined') {
 
 
 /***/ }),
-/* 36 */
+/* 39 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -14743,7 +15118,7 @@ return jQuery;
 
 
 /***/ }),
-/* 37 */
+/* 40 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global, module) {var __WEBPACK_AMD_DEFINE_RESULT__;/**
@@ -31832,17 +32207,17 @@ return jQuery;
   }
 }.call(this));
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(9), __webpack_require__(45)(module)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(9), __webpack_require__(54)(module)))
 
 /***/ }),
-/* 38 */
+/* 41 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var Component = __webpack_require__(3)(
+var Component = __webpack_require__(1)(
   /* script */
   __webpack_require__(31),
   /* template */
-  __webpack_require__(42),
+  __webpack_require__(48),
   /* scopeId */
   null,
   /* cssModules */
@@ -31869,14 +32244,14 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 39 */
+/* 42 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var Component = __webpack_require__(3)(
+var Component = __webpack_require__(1)(
   /* script */
   __webpack_require__(32),
   /* template */
-  __webpack_require__(41),
+  __webpack_require__(47),
   /* scopeId */
   null,
   /* cssModules */
@@ -31903,14 +32278,116 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 40 */
+/* 43 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var Component = __webpack_require__(3)(
+var Component = __webpack_require__(1)(
   /* script */
   __webpack_require__(33),
   /* template */
-  __webpack_require__(43),
+  __webpack_require__(50),
+  /* scopeId */
+  null,
+  /* cssModules */
+  null
+)
+Component.options.__file = "D:\\Backup\\Websites\\Laravel\\Homestead\\Code\\fitai\\resources\\assets\\js\\components\\LiftData.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] LiftData.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-91704914", Component.options)
+  } else {
+    hotAPI.reload("data-v-91704914", Component.options)
+  }
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 44 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var Component = __webpack_require__(1)(
+  /* script */
+  __webpack_require__(34),
+  /* template */
+  __webpack_require__(52),
+  /* scopeId */
+  null,
+  /* cssModules */
+  null
+)
+Component.options.__file = "D:\\Backup\\Websites\\Laravel\\Homestead\\Code\\fitai\\resources\\assets\\js\\components\\LiftSelect.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] LiftSelect.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-d63b2a70", Component.options)
+  } else {
+    hotAPI.reload("data-v-d63b2a70", Component.options)
+  }
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 45 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var Component = __webpack_require__(1)(
+  /* script */
+  __webpack_require__(35),
+  /* template */
+  __webpack_require__(51),
+  /* scopeId */
+  null,
+  /* cssModules */
+  null
+)
+Component.options.__file = "D:\\Backup\\Websites\\Laravel\\Homestead\\Code\\fitai\\resources\\assets\\js\\components\\LiftSummary.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] LiftSummary.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-93cc46ec", Component.options)
+  } else {
+    hotAPI.reload("data-v-93cc46ec", Component.options)
+  }
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 46 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var Component = __webpack_require__(1)(
+  /* script */
+  __webpack_require__(36),
+  /* template */
+  __webpack_require__(49),
   /* scopeId */
   null,
   /* cssModules */
@@ -31937,7 +32414,7 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 41 */
+/* 47 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -31966,7 +32443,7 @@ if (false) {
 }
 
 /***/ }),
-/* 42 */
+/* 48 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -31993,7 +32470,7 @@ if (false) {
 }
 
 /***/ }),
-/* 43 */
+/* 49 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -32017,7 +32494,488 @@ if (false) {
 }
 
 /***/ }),
-/* 44 */
+/* 50 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "data-container flexbox",
+    attrs: {
+      "id": "data-container"
+    }
+  }, [_c('div', {
+    staticClass: "tab"
+  }, [_c('span', {
+    staticClass: "count-number",
+    attrs: {
+      "id": "collarID"
+    }
+  }, [_vm._v(_vm._s(_vm.collarID))]), _vm._v(" "), _c('span', {
+    staticClass: "count-text"
+  }, [_vm._v("collar")])]), _vm._v(" "), _c('div', {
+    staticClass: "tab"
+  }, [_c('span', {
+    staticClass: "count-number lift-type",
+    attrs: {
+      "id": "lift-type"
+    }
+  }, [_vm._v(_vm._s(_vm.liftType))]), _vm._v(" "), _c('span', {
+    staticClass: "count-text"
+  }, [_vm._v("lift")])]), _vm._v(" "), _c('div', {
+    staticClass: "tab"
+  }, [_c('span', {
+    staticClass: "count-number",
+    attrs: {
+      "id": "lift-weight"
+    }
+  }, [_vm._v(_vm._s(_vm.liftWeight))]), _vm._v(" "), _c('span', {
+    staticClass: "count-text"
+  }, [_vm._v("lbs")])]), _vm._v(" "), _c('div', {
+    staticClass: "tab"
+  }, [_c('span', {
+    staticClass: "count-number",
+    attrs: {
+      "id": "rep-count"
+    }
+  }, [_vm._v(_vm._s(_vm.repCount))]), _vm._v(" "), _c('span', {
+    staticClass: "count-text"
+  }, [_vm._v("reps")])]), _vm._v(" "), _c('div', {
+    staticClass: "tab"
+  }, [_c('span', {
+    staticClass: "count-number",
+    attrs: {
+      "id": "active"
+    }
+  }, [_vm._v(_vm._s(_vm.collarActive))]), _vm._v(" "), _c('span', {
+    staticClass: "count-text"
+  }, [_vm._v("active")])])])
+},staticRenderFns: []}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-91704914", module.exports)
+  }
+}
+
+/***/ }),
+/* 51 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "lift-data",
+    attrs: {
+      "id": "lift-data"
+    }
+  }, [_c('div', {
+    staticClass: "data-item"
+  }, [_c('h3', {
+    staticClass: "title"
+  }, [_vm._v("Exercise:")]), _vm._v(" "), _c('div', {
+    staticClass: "summary-item",
+    attrs: {
+      "id": "lift-type"
+    }
+  }, [_c('span', {
+    attrs: {
+      "id": "summary-lift-type"
+    }
+  }, [_vm._v(_vm._s(_vm.liftType))]), _vm._v(" "), _c('span', {
+    staticClass: "summary-edit",
+    attrs: {
+      "id": "lift-type-edit"
+    }
+  }, [_c('i', {
+    staticClass: "dripicons-document-edit",
+    on: {
+      "click": function($event) {
+        _vm.editField('lift-type')
+      }
+    }
+  })])]), _vm._v(" "), _c('div', {
+    staticStyle: {
+      "display": "none"
+    },
+    attrs: {
+      "id": "lift-type-input"
+    }
+  }, [_c('select', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.type),
+      expression: "type"
+    }],
+    on: {
+      "change": function($event) {
+        var $$selectedVal = Array.prototype.filter.call($event.target.options, function(o) {
+          return o.selected
+        }).map(function(o) {
+          var val = "_value" in o ? o._value : o.value;
+          return val
+        });
+        _vm.type = $event.target.multiple ? $$selectedVal : $$selectedVal[0]
+      }
+    }
+  }, _vm._l((_vm.liftTypes), function(option) {
+    return _c('option', {
+      domProps: {
+        "value": option.name_display
+      }
+    }, [_vm._v("\n                    " + _vm._s(option.name_display) + "\n                ")])
+  })), _vm._v(" "), _c('i', {
+    staticClass: "dripicons-checkmark",
+    on: {
+      "click": function($event) {
+        _vm.updateField('lift-type')
+      }
+    }
+  }), _c('i', {
+    staticClass: "dripicons-cross",
+    on: {
+      "click": function($event) {
+        _vm.cancelEdit('lift-type')
+      }
+    }
+  })])]), _vm._v(" "), _c('div', {
+    staticClass: "data-item"
+  }, [_c('h3', {
+    staticClass: "title"
+  }, [_vm._v("Weight:")]), _vm._v(" "), _c('div', {
+    staticClass: "summary-item",
+    attrs: {
+      "id": "weight"
+    }
+  }, [_c('span', {
+    attrs: {
+      "id": "summary-weight"
+    }
+  }, [_vm._v(_vm._s(_vm.liftWeight))]), _vm._v(" "), _c('span', {
+    staticClass: "summary-edit",
+    attrs: {
+      "id": "weight-edit"
+    }
+  }, [_c('i', {
+    staticClass: "dripicons-document-edit",
+    on: {
+      "click": function($event) {
+        _vm.editField('weight')
+      }
+    }
+  })])]), _vm._v(" "), _c('div', {
+    staticStyle: {
+      "display": "none"
+    },
+    attrs: {
+      "id": "weight-input"
+    }
+  }, [_c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.weight),
+      expression: "weight"
+    }],
+    attrs: {
+      "type": "number"
+    },
+    domProps: {
+      "value": (_vm.weight)
+    },
+    on: {
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.weight = $event.target.value
+      },
+      "blur": function($event) {
+        _vm.$forceUpdate()
+      }
+    }
+  }), _c('i', {
+    staticClass: "dripicons-checkmark",
+    on: {
+      "click": function($event) {
+        _vm.updateField('weight')
+      }
+    }
+  }), _c('i', {
+    staticClass: "dripicons-cross",
+    on: {
+      "click": function($event) {
+        _vm.cancelEdit('weight')
+      }
+    }
+  })])]), _vm._v(" "), _c('div', {
+    staticClass: "data-item"
+  }, [_c('h3', {
+    staticClass: "title"
+  }, [_vm._v("Reps:")]), _vm._v(" "), _c('div', {
+    staticClass: "summary-item",
+    attrs: {
+      "id": "reps"
+    }
+  }, [_c('span', {
+    attrs: {
+      "id": "summary-reps"
+    }
+  }, [_vm._v(_vm._s(_vm.repCount))]), _vm._v(" "), _c('span', {
+    staticClass: "summary-edit",
+    attrs: {
+      "id": "reps-edit"
+    }
+  }, [_c('i', {
+    staticClass: "dripicons-document-edit",
+    on: {
+      "click": function($event) {
+        _vm.editField('reps')
+      }
+    }
+  })])]), _vm._v(" "), _c('div', {
+    staticStyle: {
+      "display": "none"
+    },
+    attrs: {
+      "id": "reps-input"
+    }
+  }, [_c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.reps),
+      expression: "reps"
+    }],
+    attrs: {
+      "type": "number"
+    },
+    domProps: {
+      "value": (_vm.reps)
+    },
+    on: {
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.reps = $event.target.value
+      },
+      "blur": function($event) {
+        _vm.$forceUpdate()
+      }
+    }
+  }), _c('i', {
+    staticClass: "dripicons-checkmark",
+    on: {
+      "click": function($event) {
+        _vm.updateField('reps')
+      }
+    }
+  }), _c('i', {
+    staticClass: "dripicons-cross",
+    on: {
+      "click": function($event) {
+        _vm.cancelEdit('reps')
+      }
+    }
+  })])]), _vm._v(" "), _c('div', {
+    staticClass: "data-item"
+  }, [_c('h3', {
+    staticClass: "title"
+  }, [_vm._v("Comments:")]), _vm._v(" "), _c('div', {
+    staticClass: "summary-item",
+    attrs: {
+      "id": "comments"
+    }
+  }, [_c('pre', [_c('p', {
+    attrs: {
+      "id": "summary-comments"
+    }
+  }, [_vm._v(_vm._s(_vm.liftComments))])]), _vm._v(" "), _c('span', {
+    staticClass: "summary-edit",
+    attrs: {
+      "id": "comments-edit"
+    }
+  }, [_c('i', {
+    staticClass: "dripicons-document-edit",
+    on: {
+      "click": function($event) {
+        _vm.editField('comments')
+      }
+    }
+  })])]), _vm._v(" "), _c('div', {
+    staticStyle: {
+      "display": "none"
+    },
+    attrs: {
+      "id": "comments-input"
+    }
+  }, [_c('textarea', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.comments),
+      expression: "comments"
+    }],
+    domProps: {
+      "value": (_vm.comments)
+    },
+    on: {
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.comments = $event.target.value
+      }
+    }
+  }), _c('i', {
+    staticClass: "dripicons-checkmark",
+    on: {
+      "click": function($event) {
+        _vm.updateField('comments')
+      }
+    }
+  }), _c('i', {
+    staticClass: "dripicons-cross",
+    on: {
+      "click": function($event) {
+        _vm.cancelEdit('comments')
+      }
+    }
+  })])])])
+},staticRenderFns: []}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-93cc46ec", module.exports)
+  }
+}
+
+/***/ }),
+/* 52 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "lift-select",
+    attrs: {
+      "id": "lift-select"
+    }
+  }, [_c('div', [_c('label', {
+    attrs: {
+      "for": "type"
+    }
+  }, [_vm._v("Type:")]), _c('br'), _vm._v(" "), _c('select', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.type),
+      expression: "type"
+    }],
+    attrs: {
+      "name": "type",
+      "required": ""
+    },
+    on: {
+      "change": function($event) {
+        var $$selectedVal = Array.prototype.filter.call($event.target.options, function(o) {
+          return o.selected
+        }).map(function(o) {
+          var val = "_value" in o ? o._value : o.value;
+          return val
+        });
+        _vm.type = $event.target.multiple ? $$selectedVal : $$selectedVal[0]
+      }
+    }
+  }, [_c('option', {
+    attrs: {
+      "disabled": ""
+    }
+  }, [_vm._v("Type")]), _vm._v(" "), _vm._l((_vm.typeOptions), function(type) {
+    return _c('option', {
+      domProps: {
+        "value": type.type
+      }
+    }, [_vm._v("\n                " + _vm._s(type.type) + "\n            ")])
+  })], 2)]), _vm._v(" "), _c('div', [_c('label', {
+    attrs: {
+      "for": "type"
+    }
+  }, [_vm._v("Variation:")]), _c('br'), _vm._v(" "), _c('select', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.variation),
+      expression: "variation"
+    }],
+    attrs: {
+      "name": "variation",
+      "required": ""
+    },
+    on: {
+      "change": function($event) {
+        var $$selectedVal = Array.prototype.filter.call($event.target.options, function(o) {
+          return o.selected
+        }).map(function(o) {
+          var val = "_value" in o ? o._value : o.value;
+          return val
+        });
+        _vm.variation = $event.target.multiple ? $$selectedVal : $$selectedVal[0]
+      }
+    }
+  }, [_c('option', {
+    attrs: {
+      "disabled": ""
+    }
+  }, [_vm._v("Variation")]), _vm._v(" "), _vm._l((_vm.variationsAvailable), function(variation) {
+    return _c('option', {
+      domProps: {
+        "value": variation
+      }
+    }, [_vm._v("\n                " + _vm._s(variation) + "\n            ")])
+  })], 2)]), _vm._v(" "), _c('div', [_c('label', {
+    attrs: {
+      "for": "type"
+    }
+  }, [_vm._v("Equipment:")]), _c('br'), _vm._v(" "), _c('select', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.equipment),
+      expression: "equipment"
+    }],
+    attrs: {
+      "name": "equipment",
+      "required": ""
+    },
+    on: {
+      "change": function($event) {
+        var $$selectedVal = Array.prototype.filter.call($event.target.options, function(o) {
+          return o.selected
+        }).map(function(o) {
+          var val = "_value" in o ? o._value : o.value;
+          return val
+        });
+        _vm.equipment = $event.target.multiple ? $$selectedVal : $$selectedVal[0]
+      }
+    }
+  }, [_c('option', {
+    attrs: {
+      "disabled": ""
+    }
+  }, [_vm._v("Equipment")]), _vm._v(" "), _vm._l((_vm.equipmentAvailable), function(equipment) {
+    return _c('option', {
+      domProps: {
+        "value": equipment
+      }
+    }, [_vm._v("\n                " + _vm._s(equipment) + "\n            ")])
+  })], 2)])])
+},staticRenderFns: []}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-d63b2a70", module.exports)
+  }
+}
+
+/***/ }),
+/* 53 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -41342,10 +42300,10 @@ Vue$3.compile = compileToFunctions;
 
 module.exports = Vue$3;
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2), __webpack_require__(9)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3), __webpack_require__(9)))
 
 /***/ }),
-/* 45 */
+/* 54 */
 /***/ (function(module, exports) {
 
 module.exports = function(module) {
@@ -41373,202 +42331,12 @@ module.exports = function(module) {
 
 
 /***/ }),
-/* 46 */
+/* 55 */
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(10);
 module.exports = __webpack_require__(12);
 
-
-/***/ }),
-/* 47 */,
-/* 48 */,
-/* 49 */,
-/* 50 */,
-/* 51 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-/* harmony default export */ __webpack_exports__["default"] = ({
-    props: ['summary', 'liftWeight', 'liftType', 'liftComments', 'repCount'],
-    mounted: function mounted() {
-        this.$emit('addlift', this.summary);
-    }
-});
-
-/***/ }),
-/* 52 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var Component = __webpack_require__(3)(
-  /* script */
-  __webpack_require__(51),
-  /* template */
-  __webpack_require__(53),
-  /* scopeId */
-  null,
-  /* cssModules */
-  null
-)
-Component.options.__file = "D:\\Backup\\Websites\\Laravel\\Homestead\\Code\\fitai\\resources\\assets\\js\\components\\LiftSummary.vue"
-if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
-if (Component.options.functional) {console.error("[vue-loader] LiftSummary.vue: functional components are not supported with templates, they should use render functions.")}
-
-/* hot reload */
-if (false) {(function () {
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-93cc46ec", Component.options)
-  } else {
-    hotAPI.reload("data-v-93cc46ec", Component.options)
-  }
-})()}
-
-module.exports = Component.exports
-
-
-/***/ }),
-/* 53 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', {
-    staticClass: "lift-data",
-    attrs: {
-      "id": "lift-data"
-    }
-  }, [_c('div', {
-    staticClass: "data-item"
-  }, [_c('h3', {
-    staticClass: "title"
-  }, [_vm._v("Exercise:")]), _vm._v(" "), _c('div', {
-    staticClass: "summary-item",
-    attrs: {
-      "id": "lift-type"
-    }
-  }, [_c('span', {
-    attrs: {
-      "id": "summary-lift-type"
-    }
-  }, [_vm._v(_vm._s(_vm.liftType))]), _vm._v(" "), _vm._m(0)])]), _vm._v(" "), _c('div', {
-    staticClass: "data-item"
-  }, [_c('h3', {
-    staticClass: "title"
-  }, [_vm._v("Weight:")]), _vm._v(" "), _c('div', {
-    staticClass: "summary-item",
-    attrs: {
-      "id": "weight"
-    }
-  }, [_c('span', {
-    attrs: {
-      "id": "summary-weight"
-    }
-  }, [_vm._v(_vm._s(_vm.liftWeight))]), _vm._v(" "), _vm._m(1)])]), _vm._v(" "), _c('div', {
-    staticClass: "data-item"
-  }, [_c('h3', {
-    staticClass: "title"
-  }, [_vm._v("Reps:")]), _vm._v(" "), _c('div', {
-    staticClass: "summary-item",
-    attrs: {
-      "id": "reps"
-    }
-  }, [_c('span', {
-    attrs: {
-      "id": "summary-reps"
-    }
-  }, [_vm._v(_vm._s(_vm.repCount))]), _vm._v(" "), _vm._m(2)])]), _vm._v(" "), _c('div', {
-    staticClass: "data-item"
-  }, [_c('h3', {
-    staticClass: "title"
-  }, [_vm._v("Comments:")]), _vm._v(" "), _c('div', {
-    staticClass: "summary-item",
-    attrs: {
-      "id": "comments"
-    }
-  }, [_c('p', {
-    attrs: {
-      "id": "summary-comments"
-    }
-  }, [_vm._v(_vm._s(_vm.liftComments))]), _vm._v(" "), _vm._m(3)])])])
-},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('span', {
-    staticClass: "summary-edit",
-    attrs: {
-      "id": "lift-type-edit",
-      "onClick": "editSummary('lift-type');"
-    }
-  }, [_c('i', {
-    staticClass: "dripicons-document-edit"
-  })])
-},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('span', {
-    staticClass: "summary-edit",
-    attrs: {
-      "id": "weight-edit",
-      "onClick": "editSummary('weight');"
-    }
-  }, [_c('i', {
-    staticClass: "dripicons-document-edit"
-  })])
-},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('span', {
-    staticClass: "summary-edit",
-    attrs: {
-      "id": "reps-edit",
-      "onClick": "editSummary('reps');"
-    }
-  }, [_c('i', {
-    staticClass: "dripicons-document-edit"
-  })])
-},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('span', {
-    staticClass: "summary-edit",
-    attrs: {
-      "id": "comments-edit",
-      "onClick": "editSummary('comments');"
-    }
-  }, [_c('i', {
-    staticClass: "dripicons-document-edit"
-  })])
-}]}
-module.exports.render._withStripped = true
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-93cc46ec", module.exports)
-  }
-}
 
 /***/ })
 /******/ ]);

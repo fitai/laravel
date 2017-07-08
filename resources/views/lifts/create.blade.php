@@ -30,7 +30,7 @@
 				<label>Reps: </label>
 				<input name="liftReps" type="number" min="1" required v-model="repCount">
 			</p>
-			<input name="userID" type="hidden" value="{{ Auth::id() }}">
+			<input name="athleteID" type="hidden" value="{{ Auth::id() }}">
 			<p>
 				<button id="lift-new-submit">Submit</button><br>
 				<a href="{{ route('home') }}">Cancel</a>
@@ -40,23 +40,7 @@
 </div>
 <div id="end-lift" class="reset-reps end-lift" v-on:click="endLift">End Lift</div>
 <div id="connect_string"></div>
-<div id="data-container" class="data-container flexbox">
-	<div class="tab">
-		<span id="collarID" class="count-number">@{{ collarID }}</span> <span class="count-text">collar</span>
-	</div>
-	<div class="tab">
-		<span id="lift-type" class="count-number lift-type">@{{ liftType }}</span> <span class="count-text">lift</span>
-	</div>
-	<div class="tab">
-		<span id="lift-weight" class="count-number">@{{ liftWeight }}</span> <span class="count-text">lbs</span>
-	</div>
-	<div class="tab">
-		<span id="rep-count" class="count-number">@{{ repCount }}</span> <span class="count-text">reps</span>
-	</div>
-	<div class="tab">
-		<span id="active" class="count-number">@{{ collarActive }}</span> <span class="count-text">active</span>
-	</div>
-</div>
+<lift-data :athlete-i-d="{{ Auth::id() }}" :lift-weight="liftWeight" :lift-type="liftType" :collar-active="collarActive" :rep-count="repCount" :collar-i-d="collarID" v-on:add-athlete="addAthlete"></lift-data>
 <h1>New Lift</h1>
 <div class="flexbox charts-container">
 	<div id="chart_div" class="chart"></div>
@@ -106,10 +90,16 @@ var athleteID = "{{ Auth::user()->athlete->athlete_id }}";
 // connectDiv.innerHTML="\nDone!";
 
 
-// Socket.io listener
-socket.on('lifts', function(data) {
-    console.log(data);
-});
+// // Socket.io listener
+// socket.on('lifts', function(data) {
+// 	var now = new Date().getTime();
+//     console.log(data + ' - time: ' +  now);
+
+//     // Parse data
+
+//     var packet = JSON.parse(data);
+    
+// });
 
 $('form#lift-new').validate();
 

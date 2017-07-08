@@ -13,7 +13,6 @@ var io = require('socket.io')(server);
 var Redis = require('ioredis');
 // var redis = new Redis(6379, '52.15.200.179'); // Fit A.I AWS Instance
 var redis = new Redis();
-console.log(redis);
 
 redis.subscribe('lifts');
 // redis.on('message', function(channel, message) {
@@ -27,6 +26,9 @@ redis.subscribe('lifts');
 redis.on('message', function(channel, message) {
     console.log('channel: ' + channel);
     console.log('message: ' + message);
+
+    var now = new Date().getTime();
+    console.log('time: ' + now);
 
     io.emit(channel, message);
 });

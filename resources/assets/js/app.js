@@ -17,6 +17,8 @@ Vue.component('example', require('./components/Example.vue'));
 Vue.component('athlete', require('./components/Athlete.vue'));
 Vue.component('team', require('./components/Team.vue'));
 Vue.component('lift-summary', require('./components/LiftSummary.vue'));
+Vue.component('lift-data', require('./components/LiftData.vue'));
+Vue.component('lift-select', require('./components/LiftSelect.vue'));
 
 const app = new Vue({
     el: '#app',
@@ -28,7 +30,10 @@ const app = new Vue({
         liftWeight: '',
         repCount: '',
         liftComments: '',
-        collarActive: 'False'
+        collarActive: 'False',
+        athleteID: '',
+        liftID: '',
+        liftOptions: []
     },
     methods: {
 
@@ -50,12 +55,21 @@ const app = new Vue({
     			this.team = temp;
     		});
     	},
+        addAthlete($id) {
+            console.log('adding athleteID: ' + $id);
+            this.athleteID = $id;
+        },
         addLift($lift) {
             this.liftWeight = $lift.lift_weight;
             this.liftType = $lift.lift_type;
-            this.repCount = $lift.init_num_reps;
             this.liftComments = $lift.user_comment;
+            this.liftID = $lift.lift_id;
 
+            if ($lift.final_num_reps > 0) {
+                this.repCount = $lift.final_num_reps;
+            } else {
+                this.repCount = $lift.init_num_reps;
+            }
         },
         newLift($event) {
             $event.preventDefault();
@@ -67,6 +81,7 @@ const app = new Vue({
                 axios.post('/lift/store', this.$data)
                     .then(response => {
                         console.log(response.data);
+                        this.liftID = response.data['liftID'];
                         $('#overlay').hide();
                         beep();
                     });
@@ -85,14 +100,93 @@ const app = new Vue({
             })
             .then(response => {
                 console.log(response.data);
+                window.location.href = "/lift/summary/"+this.liftID;
             });
-        }
+        },
+        updateSummaryField(prop, val, field) {
+            console.log(prop + " : " + val);
 
+            // Update DB
+            axios.patch('/lift/update', {
+                lift_id: this.liftID,
+                prop: prop,
+                val: val
+            })
+            .then(response => {
+                console.log(response.data);
+
+                // Update instance
+                switch(prop) {
+                    case 'liftComments':
+                        this.liftComments = val;
+                        break;
+                    case 'repCount':
+                        this.repCount = val;
+                        break;
+                    case 'liftWeight':
+                        this.liftWeight = val;
+                        break;
+                    case 'liftType':
+                        this.liftType = val;
+                        break;
+                }
+
+                // Hide the edit field and show the saved value
+                $('#'+field).show();
+                $('#'+field+'-input').hide();
+            });
+        },
+        updateLiftType(name) {
+            this.liftType = name;
+            console.log('updated liftType');
+        }
     },
     mounted() {
 
-        socket.on('lifts:Test', function(data) {
-            console.log(data);
+        // Socket.io listener
+        socket.on('lifts', function(data) {
+            var now = new Date().getTime();
+            // console.log(data + ' - time: ' +  now);
+
+            // Parse data
+            var packet = JSON.parse(data);
+
+            // Make sure data is JSON
+            if (packet) {
+
+                // Update charts and lift data
+                if (packet.header.collar_id == this.collarID) {
+
+                    // console.log(data + ' - time: ' +  now);
+
+                    // If collar is active, then update charts
+                    if (packet.header.active == true) {
+
+                        function mean(obj) {
+                            var sum = obj.reduce(function(acc, val) {
+                                return acc + val;
+                            }, 0);
+                            var length = obj.length;
+
+                            return sum/length;
+
+                        }
+
+                        // Get Power and Velocity values
+                        var power = mean(packet.content.p_rms);
+                        var velocity = mean(packet.content.v_rms);
+
+                        // Update charts
+                        this.collarActive = packet.header.active;
+                        updateGauge(velocity);
+                        updateLine(velocity);
+                        updateColumn(power);
+                    }
+
+                }
+
+            }
+            
         }.bind(this));
 
     },

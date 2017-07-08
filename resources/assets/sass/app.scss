@@ -376,7 +376,7 @@ label {
 
 
 /*****************
-* Now
+* Lift
 *****************/
 .chart {
 	margin: 0 10px;
@@ -466,6 +466,28 @@ label {
 	
 	&:hover {
 		background-color: $red2;
+	}
+}
+.velocity-numbers {
+	justify-content: space-around;
+	align-items: center;
+	margin-bottom: 30px;
+	@include font-size(60px);
+	/*@include stroke(3, $primary-color);*/
+	color: $blue;
+
+	.number {
+		font-weight: bold;
+	}
+	.label {
+		@include font-size(12px);
+		text-shadow: none;
+		color: $grey;
+		text-align: center;
+	}
+
+	.current-lift {
+		@include font-size(90px);
 	}
 }
 @media (max-width: 1024px) {

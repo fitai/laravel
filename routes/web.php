@@ -22,6 +22,8 @@ Route::get('/lift', 'LiftController@create')->name('lift');
 Route::post('/lift/store', 'LiftController@store')->name('lift.store');
 Route::post('/lift/stop', 'LiftController@endLift')->name('lift.stop');
 Route::get('/lift/summary/{id}', 'LiftController@show')->name('lift.summary');
+Route::patch('/lift/update', 'LiftController@update')->name('lift.update');
+Route::get('/lift/kill/{id}', 'LiftController@killLift');
 Route::get('/profile', 'HomeController@profile')->name('profile');
 Route::get('/export', 'HomeController@index')->name('export');
 Route::get('/settings', 'HomeController@index')->name('settings');

@@ -104,16 +104,6 @@
         if (socket) {
             console.log('Socket.io connected');
         }
-
-        // // Sample of socket.io without Redis communication
-        // socket.on('news', function(data) {
-        //     console.log(data);
-        //     socket.emit('my other event', { my: 'data' });
-        // });
-
-        socket.on('lifts', function(data) {
-            console.log(data);
-        });
     </script>
 
     {{-- Project Scripts --}}
