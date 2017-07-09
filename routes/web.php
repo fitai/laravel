@@ -55,3 +55,4 @@ Route::get('/redis', function() {
 
 	return 'Redis event published';
 });
+
