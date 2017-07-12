@@ -18,12 +18,6 @@ Auth::routes();
 Route::get('register/verify/{token}', 'Auth\RegisterController@verify');
 
 Route::get('/home', 'HomeController@index')->name('home');
-Route::get('/lift', 'LiftController@create')->name('lift');
-Route::post('/lift/store', 'LiftController@store')->name('lift.store');
-Route::post('/lift/stop', 'LiftController@endLift')->name('lift.stop');
-Route::get('/lift/summary/{id}', 'LiftController@show')->name('lift.summary');
-Route::patch('/lift/update', 'LiftController@update')->name('lift.update');
-Route::get('/lift/kill/{id}', 'LiftController@killLift');
 Route::get('/profile', 'HomeController@profile')->name('profile');
 Route::get('/export', 'HomeController@index')->name('export');
 Route::get('/settings', 'HomeController@index')->name('settings');
@@ -33,8 +27,19 @@ Route::get('/team', function() {
 	return Auth::user()->athlete->team->athletes;
 })->middleware('auth');
 
+// RFID
+Route::get('/rfid', 'HomeController@rfidListener')->name('rfid.listener');
+Route::post('/rfid/login', 'HomeController@rfidLogin')->name('rfid.login');
+
 // Lifts
 Route::resource('lifts', 'LiftController');
+Route::get('/lift', 'LiftController@create')->name('lift');
+Route::get('/lift2', 'LiftController@test');
+Route::post('/lift/store', 'LiftController@store')->name('lift.store');
+Route::post('/lift/stop', 'LiftController@endLift')->name('lift.stop');
+Route::get('/lift/summary/{id}', 'LiftController@show')->name('lift.summary');
+Route::patch('/lift/update', 'LiftController@update')->name('lift.update');
+Route::get('/lift/kill/{id}', 'LiftController@killLift');
 
 // Admin
 Route::get('/admin', 'AdminController@index')->name('admin');

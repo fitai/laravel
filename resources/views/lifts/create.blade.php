@@ -9,7 +9,7 @@
 			<p>
 				<label>Collar: </label>
 				<select name="collarID" required v-model="collarID">
-					@foreach (get_team_collars() as $collar)
+					@foreach ($collars as $collar)
 						<option value="{{ $collar->collar_id }}">{{ $collar->collar_id }}</option>
 					@endforeach
 				</select>
@@ -40,7 +40,7 @@
 </div>
 <div id="end-lift" class="reset-reps end-lift" v-on:click="endLift">End Lift</div>
 <div id="connect_string"></div>
-<lift-data :athlete-i-d="{{ Auth::id() }}" :lift-weight="liftWeight" :lift-type="liftType" :collar-active="collarActive" :rep-count="repCount" :collar-i-d="collarID" v-on:add-athlete="addAthlete"></lift-data>
+<lift-data :athlete-i-d="{{ Auth::id() }}" :lift-weight="liftWeight" :lift-type="liftType" :collar-active="collarActive" :rep-count="repCount" :collar-i-d="collarID" :rfid-collar-i-d="{{ $rfidCollarID }}" v-on:add-athlete="addAthlete" v-on:set-collar-id="setCollarID"></lift-data>
 <h1>New Lift</h1>
 <div class="flexbox charts-container">
 	<div id="chart_div" class="chart"></div>

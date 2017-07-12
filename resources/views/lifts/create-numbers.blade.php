@@ -2,8 +2,10 @@
 
 @section('title', 'New Lift')
 
+@section('body-class', 'new-lift')
+
 @section('content')
-<div id="overlay" class="overlay">
+<div id="overlay" class="overlay" style="display: none;">
 	<div class="content center">
 		<form id="lift-new" class="lift new" @submit.prevent="newLift">
 			<p>
@@ -36,12 +38,44 @@
 <div id="end-lift" class="reset-reps end-lift" v-on:click="endLift">End Lift</div>
 <div id="connect_string"></div>
 {{-- <lift-data :athlete-i-d="{{ Auth::id() }}" :lift-weight="liftWeight" :lift-type="liftType" :collar-active="collarActive" :rep-count="repCount" :collar-i-d="collarID" v-on:add-athlete="addAthlete"></lift-data> --}}
-<h1>New Lift</h1>
-{{-- <div class="flexbox charts-container">
+{{-- <h1>New Lift</h1>
+ --}}{{-- <div class="flexbox charts-container">
 	<div id="chart_div" class="chart"></div>
 	<div id="chart_column" class="chart"></div>
 </div> --}}
-<h2>Velocity</h2>
+{{-- <div class="lift-section lift-data-title">
+	<h2 class="center">Lift Data</h2>
+</div> --}}
+<div class="flexbox wrap flexcenter lift-data">
+	<div class="data-box lift-type center">
+		<div class="data">Back Squat - BB</div>
+		<div class="label">Lift Type</div>
+	</div>
+	<div class="data-box lift-weight center">
+		<div class="data">250</div>
+		<div class="label">lbs</div>
+	</div>
+	<div class="data-box lift-current-reps center">
+		<div class="data">5</div>
+		<div class="label">Current Rep</div>
+	</div>
+	<div class="data-box lift-max-reps center">
+		<div class="data">10</div>
+		<div class="label">Max Reps</div>
+	</div>
+	<div class="data-box collar-id center">
+		<div class="data">556</div>
+		<div class="label">Collar ID</div>
+	</div>
+	<div class="data-box lift-status center">
+		<div class="data">False</div>
+		<div class="label">Active</div>
+	</div>
+</div>
+<div class="lift-section velocity-title">
+	<h2 class="center">Velocity</h2>
+	<div class="label">m/s <sup>2</sup></div>
+</div>
 <div class="velocity-numbers flexbox">
 	<div class="previous-lift">
 		<div class="number">0.5</div>
@@ -56,7 +90,7 @@
 		<div class="label">Target</div>
 	</div>
 </div>
-<div id="velocity_chart" style="width: 100%; height: 500px"></div>
+<div id="velocity_chart" style="width: 100%; height: 350px"></div>
 @endsection
 
 

@@ -31,7 +31,7 @@ a {
 }
 body {
 	color: $primary-color;
-	font-family: 'Montserrat', sans-serif;
+	font-family: $primary-font;
 	margin: 0;
 }
 button {
@@ -63,13 +63,6 @@ button {
 }
 #dynamic-content {
 	position: relative;
-}
-.flexbox {
-	display: flex;
-
-	&.wrap {
-		flex-wrap: wrap;
-	}
 }
 header {
 	border-bottom: 1px solid #ccc;
@@ -304,6 +297,110 @@ label {
 }
 
 
+/* Alerts */
+.alert {
+	padding: 15px;
+	margin-bottom: 20px;
+	border: 1px solid transparent;
+	border-radius: 4px;
+	list-style-type: none;
+}
+.alert-danger {
+	color: #a94442;
+	background-color: #f2dede;
+	border-color: #ebccd1;
+}
+
+/**************
+* Flexbox Grid
+***************/
+@mixin flexbox() {
+	display: -webkit-box;  /* OLD - iOS 6-, Safari 3.1-6, BB7 */
+	display: -ms-flexbox;  /* TWEENER - IE 10 */
+	display: -webkit-flex; /* NEW - Safari 6.1+. iOS 7.1+, BB10 */
+	display: flex;         /* NEW, Spec - Firefox, Chrome, Opera */	
+}
+
+.flexbox {
+	@include flexbox();
+	
+	&.column {
+		flex-direction: column;
+	}
+	&.wrap {
+		-webkit-flex-wrap: wrap;
+		flex-wrap: wrap;
+	}
+	@for $i from 1 through 20 {
+		$width: 5 * $i;
+		$width-percentage: percentage($width / 100);
+		.xs-#{$width} {
+			width: $width-percentage; 
+		}
+	}
+}
+.spacearound {
+	justify-content: space-around; 
+}
+.spacebetween {
+	justify-content: space-between;
+}
+.flexcenter {
+	justify-content: center;
+}
+.verticalcenter {
+	align-items: center;
+}
+
+@media (min-width: 576px) {
+	.flexbox {
+
+		@for $i from 1 through 20 {
+			$width: 5 * $i;
+			$width-percentage: percentage($width / 100);
+			.sm-#{$width} {
+				width: $width-percentage; 
+			}
+		}
+	}
+}
+@media (min-width: 768px) {
+	.flexbox {
+
+		@for $i from 1 through 20 {
+			$width: 5 * $i;
+			$width-percentage: percentage($width / 100);
+			.md-#{$width} {
+				width: $width-percentage; 
+			}
+		}
+	}
+}
+@media (min-width: 992px) {
+	.flexbox {
+
+		@for $i from 1 through 20 {
+			$width: 5 * $i;
+			$width-percentage: percentage($width / 100);
+			.lg-#{$width} {
+				width: $width-percentage; 
+			}
+		}
+	}
+}
+@media (min-width: 1200px) {
+	.flexbox {
+
+		@for $i from 1 through 20 {
+			$width: 5 * $i;
+			$width-percentage: percentage($width / 100);
+			.xl-#{$width} {
+				width: $width-percentage; 
+			}
+		}
+	}
+}
+
 /*****************
 * Login
 *****************/
@@ -378,6 +475,14 @@ label {
 /*****************
 * Lift
 *****************/
+.new-lift {
+	#main {
+		padding: 0;
+	}
+	header {
+		margin-bottom: 0;
+	}
+}
 .chart {
 	margin: 0 10px;
 	text-align: center;
@@ -465,19 +570,22 @@ label {
 	background-color: $red-dark;
 	
 	&:hover {
-		background-color: $red2;
+		background-color: $red-light;
 	}
 }
 .velocity-numbers {
 	justify-content: space-around;
 	align-items: center;
 	margin-bottom: 30px;
+	padding: 10px 0 20px;
 	@include font-size(60px);
 	/*@include stroke(3, $primary-color);*/
 	color: $blue;
+	background-color: #f9f9f9;
 
 	.number {
 		font-weight: bold;
+
 	}
 	.label {
 		@include font-size(12px);
@@ -485,9 +593,53 @@ label {
 		color: $grey;
 		text-align: center;
 	}
-
 	.current-lift {
 		@include font-size(90px);
+	}
+}
+.lift-data {
+	margin: 30px 0;
+	padding: 20px;
+	/*border-bottom: 1px solid $grey-light;*/
+
+	.data-box {
+		padding: 20px;
+		margin: 0 20px;
+	    border-width: 0 4px;
+	    border-style: inset;
+	    border-color: #ccc;
+	    background-clor: #fbfbfb;
+	}
+	.data {
+		font-family: $secondary-font;
+		@include font-size(22px);
+		color: $orange;
+		margin-bottom: 3px;
+	}
+	.label {
+		@include font-size(12px);
+		text-shadow: none;
+		color: $grey;
+		text-align: center;
+	}
+}
+.lift-section {
+	/*background-image: url('/images/black-weights-reduced-2600w.jpg');*/
+	color: $grey;
+	padding: 20px 0;
+
+	h2 {
+		margin: 0;
+		font-weight: 400;
+		@include font-size(40px);
+		font-family: $roboto;
+		font-variant: small-caps;
+	}
+	.label {
+		@include font-size(12px);
+		text-shadow: none;
+		color: $grey;
+		text-align: center;
 	}
 }
 @media (max-width: 1024px) {

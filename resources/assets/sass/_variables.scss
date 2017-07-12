@@ -38,15 +38,32 @@ $input-color-placeholder: lighten($text-color, 30%);
 $panel-default-heading-bg: #fff;
 
 /* Brought over from original FitAI */
+
+// Font
+$primary-font: 'Montserrat', sans-serif;
+$secondary-font: 'Open Sans', sans-serif;
+$roboto: 'Roboto', sans-serif;
 $font-size: 16px;
 $primary-color: #000;
-$red: #FF2C00;
-$red2: #ea0000;
-$red-dark: #d40000;
-$yellow: #FFB600;
-$white: #FFF;
+
 $blue: #00aeef;
 $blue2: #00a6dd;
 $blue-dark: #0081b1;
+$blue-light: #abe4fa;
+
 $grey: #969696;
+$grey-dark: #5f5f5f;
+$grey-light: #ccc;
+
+$orange: #FF8500;
+
+$red: #FF2C00;
+$red2: #ea0000;
+$red-dark: #b90000;
+$red-light: #d40000;
+
+$white: #FFF;
+
+$yellow: #FFB600;
+
 $form-border: 1px solid rgb(169, 169, 169);

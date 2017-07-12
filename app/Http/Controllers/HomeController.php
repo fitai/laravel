@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use Auth;
+use App\Athlete;
 use Illuminate\Http\Request;
+use Illuminate\Foundation\Auth\User;
 
 class HomeController extends Controller
 {
@@ -43,7 +45,7 @@ class HomeController extends Controller
         endif;
 
         // Get new Athlete
-        $athlete = (\App\Athlete::where('athlete_id', $id)->first());
+        $athlete = (Athlete::where('athlete_id', $id)->first());
 
         // Check if athlete exists
         if (!$athlete) :
@@ -52,7 +54,7 @@ class HomeController extends Controller
         endif;
 
         // Get User from Athlete
-        $newUser = \App\User::find($athlete->user_id);
+        $newUser = User::find($athlete->user_id);
 
         // Log out as old user and log in as new user
         Auth::logout();
@@ -60,5 +62,38 @@ class HomeController extends Controller
         
         return redirect('home');   
     }
+    public function rfidListener(Request $request) 
+    {
+        // Get all collars for the User's team
+        $collars = Auth::user()->athlete->team->collars;
+
+        $collarID = $request->collarID;
+        return view('rfid/listener', compact('collars', 'collarID'));
+    }
+    public function rfidLogin(Request $request) 
+    {
+
+        // Check if RFID string is passed
+        if (!$request->rfid) :
+            return redirect()->route('rfid.listener');
+        endif;
+
+        // Check if RFID belongs to any active User
+        $newUser = User::where('rfid', $request->rfid)->first();
+        
+        if (!$newUser) :
+            $error = 'RFID not found. Try another bracelet.';
+            return back()->withErrors($error);
+        endif;
+
+        $rfidCollarID = $request->collarID;
+
+        // Log out as old user and log in as new user
+        Auth::logout();
+        Auth::login($newUser);
+        
+        return redirect('/lift?rfidCollarID='.$rfidCollarID);
+    }
+        
         
 }

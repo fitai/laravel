@@ -139,6 +139,10 @@ const app = new Vue({
         updateLiftType(name) {
             this.liftType = name;
             console.log('updated liftType');
+        },
+        setCollarID(id) {
+            this.collarID = id;
+            console.log('collarID updated');
         }
     },
     mounted() {

@@ -1157,6 +1157,10 @@ var app = new Vue({
         updateLiftType: function updateLiftType(name) {
             this.liftType = name;
             console.log('updated liftType');
+        },
+        setCollarID: function setCollarID(id) {
+            this.collarID = id;
+            console.log('collarID updated');
         }
     },
     mounted: function mounted() {
@@ -2147,10 +2151,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    props: ['collarID', 'liftWeight', 'liftType', 'repCount', 'collarActive', 'athleteID'],
+    props: ['collarID', 'liftWeight', 'liftType', 'repCount', 'collarActive', 'athleteID', 'rfidCollarID'],
     mounted: function mounted() {
         console.log('LiftData mounted');
         this.$emit('add-athlete', this.athleteID);
+
+        if (this.rfidCollarID !== 0) {
+            this.$emit('set-collar-id', this.rfidCollarID);
+        }
     }
 });
 

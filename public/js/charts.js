@@ -118,19 +118,25 @@ function drawLine() {
 	// 	// powerData.addRow([time, power]);
 	// }
 	
-	// Velocity chart options
+	// // Velocity chart options (Old Layout)
+	// velocityOptions = {
+	//   chart: {
+	// 	  title: 'Velocity',
+	// 	  subtitle: 'in m/s^2'
+	//   },
+	//   legend: { position: 'bottom' },
+	//   explorer: { zoomDelta: 1.1 },
+	//   series: {
+	// 	  0: {
+	// 		  labelInLegend: 'Velocity'
+	// 	  }
+	//   }
+	// };
+
+	// Velocity chart options (New Layout)
 	velocityOptions = {
-	  chart: {
-		  title: 'Velocity',
-		  subtitle: 'in m/s^2'
-	  },
-	  legend: { position: 'bottom' },
+	  legend: { position: 'none' },
 	  explorer: { zoomDelta: 1.1 },
-	  series: {
-		  0: {
-			  labelInLegend: 'Velocity'
-		  }
-	  }
 	};
 	
 	// Power chart options

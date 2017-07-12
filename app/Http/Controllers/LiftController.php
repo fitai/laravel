@@ -44,15 +44,41 @@ class LiftController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
+        // Get all collars for the User's team
+        $collars = Auth::user()->athlete->team->collars;
+
+        // Set default $rfidCollarID
+        $rfidCollarID = 0;
+
+        // Check if collarID is passed by RFID
+        if ($request->rfidCollarID) :
+            $rfidCollarID = $request->rfidCollarID;
+        endif;
+
+        return view('lifts/create', compact('rfidCollarID', 'collars')); // Working device
+
+    }
+    public function test(Request $request)
+    {
+        // Get all collars for the User's team
+        $collars = Auth::user()->athlete->team->collars;
+
         $typeOptions = LiftType::select('type')->groupBy('type')->get();
         $variationOptions = LiftType::select('variation')->groupBy('variation')->get();
         $equipmentOptions = LiftType::select('equipment')->groupBy('equipment')->get();
         $options = LiftType::select('type', 'variation', 'equipment')->groupBy('type', 'variation', 'equipment')->get();
 
-        return view('lifts/create'); // Working device
-        // return view('lifts/create-numbers', compact('typeOptions', 'variationOptions', 'equipmentOptions', 'options')); // New design device
+        // Set default $rfidCollarID
+        $rfidCollarID = 0;
+
+        // Check if collarID is passed by RFID
+        if ($request->rfidCollarID) :
+            $rfidCollarID = $request->rfidCollarID;
+        endif;
+
+        return view('lifts/create-numbers', compact('typeOptions', 'variationOptions', 'equipmentOptions', 'options')); // New design device
 
     }
 
@@ -88,17 +114,18 @@ class LiftController extends Controller
 
         // // Run on local build
         // $pythonExec = $this->ssh->exec("/home/kyle/virtualenvs/fitai/bin/python /opt/fitai_controller/comms/update_redis.py -v -j '".json_encode($pythonArray)."'");
-
-        // $pythonExec = explode(PHP_EOL, $pythonExec); // Create array by exploding end of line
-        // $liftID = explode(": ", $pythonExec[4]); // Explode the line with "lift_id: ###"
-
+        // $python = explode(PHP_EOL, $pythonExec); // Create array by exploding end of line
 
         // Run on AWS
         $pythonExec = exec("/home/kyle/virtualenvs/fitai/bin/python /opt/fitai_controller/comms/update_redis.py -v -j '".json_encode($pythonArray)."'", $pythonReturn); 
+        $python = explode(PHP_EOL, $pythonReturn); // Create array by exploding end of line
+
+        // Run always        
+        $liftID = explode(": ", $python[4]); // Explode the line with "lift_id: ###"
 
         return array(
             "exec" => $exec, 
-            "python" => $pythonExec, 
+            "python" => $python, 
             "liftID" => $liftID[1]
         );
 
@@ -124,7 +151,11 @@ class LiftController extends Controller
             "active" => false
         );
 
-        $pythonResponse = $this->ssh->exec("/home/kyle/virtualenvs/fitai/bin/python /opt/fitai_controller/comms/update_redis.py -j '".json_encode($pythonArray)."'");
+        // // Run on local build
+        // $pythonResponse = $this->ssh->exec("/home/kyle/virtualenvs/fitai/bin/python /opt/fitai_controller/comms/update_redis.py -j '".json_encode($pythonArray)."'");
+
+        // Run on AWS
+        $pythonResponse = exec("/home/kyle/virtualenvs/fitai/bin/python /opt/fitai_controller/comms/update_redis.py -j '".json_encode($pythonArray)."'");
 
         // Get LiftTypes
         $liftTypes = LiftType::all();
@@ -227,7 +258,7 @@ class LiftController extends Controller
 
         $exec = "execution string: /home/kyle/virtualenvs/fitai/bin/python /opt/fitai_controller/comms/update_redis.py -v -j '".json_encode($pythonArray)."'";
 
-        // Run on local build
+        // // Run on local build
         // $pythonExec = $this->ssh->exec("/home/kyle/virtualenvs/fitai/bin/python /opt/fitai_controller/comms/update_redis.py -v -j '".json_encode($pythonArray)."'");
 
         // Run on AWS

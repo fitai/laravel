@@ -13,7 +13,7 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('css/webfont/webfont.css') }}" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat|Open+Sans|Roboto" rel="stylesheet">
 
 
     <!-- Scripts -->
@@ -25,7 +25,7 @@
 </head>
 <body>
     <div id="app">
-        <div id="body-content" class="body">
+        <div id="body-content" class="body @yield('body-class')">
             <nav id="nav-menu">
                 <div class="container">
                     <div id="close-menu" class="close-menu">
@@ -60,6 +60,11 @@
                         <div>
                             <a href="{{ route('switch') }}">
                                 <i class="dripicons-user-group"></i>Switch
+                            </a>
+                        </div>
+                        <div>
+                            <a href="{{ route('rfid.listener') }}">
+                                <i class="dripicons-user-group"></i>RFID
                             </a>
                         </div>
                         @if (Auth::user()->admin)

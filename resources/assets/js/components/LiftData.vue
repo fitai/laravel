@@ -20,10 +20,14 @@
 
 <script>
     export default {
-        props: ['collarID', 'liftWeight', 'liftType', 'repCount', 'collarActive', 'athleteID'],
+        props: ['collarID', 'liftWeight', 'liftType', 'repCount', 'collarActive', 'athleteID', 'rfidCollarID'],
         mounted() {
             console.log('LiftData mounted');
             this.$emit('add-athlete', this.athleteID);
+
+            if (this.rfidCollarID !== 0) {
+                this.$emit('set-collar-id', this.rfidCollarID);
+            }
         }
     }
 </script>

@@ -156,28 +156,65 @@
 	"buffers":
 	[
 		{
-			"file": "resources/views/lifts/create-numbers.blade.php",
-			"settings":
-			{
-				"buffer_size": 3812,
-				"encoding": "UTF-8",
-				"line_ending": "Windows"
-			}
-		},
-		{
 			"file": "app/Http/Controllers/LiftController.php",
 			"settings":
 			{
-				"buffer_size": 7084,
+				"buffer_size": 7459,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "resources/views/lifts/summary.blade.php",
+			"file": "resources/views/lifts/create-numbers.blade.php",
 			"settings":
 			{
-				"buffer_size": 5192,
+				"buffer_size": 3946,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "app/Http/Controllers/HomeController.php",
+			"settings":
+			{
+				"buffer_size": 2483,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "resources/views/lifts/create.blade.php",
+			"settings":
+			{
+				"buffer_size": 3534,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "resources/assets/js/components/LiftData.vue",
+			"settings":
+			{
+				"buffer_size": 1293,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "resources/views/rfid/listener.blade.php",
+			"settings":
+			{
+				"buffer_size": 2352,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "socket.js",
+			"settings":
+			{
+				"buffer_size": 877,
+				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
 		},
@@ -194,28 +231,43 @@
 			"file": "routes/web.php",
 			"settings":
 			{
-				"buffer_size": 1862,
+				"buffer_size": 2022,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "resources/assets/js/charts.js",
+			"settings":
+			{
+				"buffer_size": 12128,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
 			}
 		},
 		{
 			"file": "resources/assets/js/app.js",
 			"settings":
 			{
-				"buffer_size": 6453,
+				"buffer_size": 6567,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"contents": "/*\nFit AI\nCreated by: Business Website Builders\nAuthor URI: http://www.businesswebsite.builders\n*/\n\n// Fonts\n/*@import url(https://fonts.googleapis.com/css?family=Raleway:300,400,600);*/\n\n// Variables\n@import \"variables\";\n\n// Mixins\n@import \"mixins\";\n\n// Bootstrap\n/*@import \"node_modules/bootstrap-sass/assets/stylesheets/bootstrap\";*/\n\n/*****************\n* Universal\n*****************/\n\na {\t\n\tcolor: $blue; \n\ttext-decoration: none;\n\t@include transition(all 0.3s);\n\n\t&:hover {\n\t\tcolor: $blue-dark;\n\t}\n}\nbody {\n\tcolor: $primary-color;\n\tfont-family: 'Montserrat', sans-serif;\n\tmargin: 0;\n}\nbutton {\n\tmin-height: 40px;\n\tpadding: 20px;\n\t@include font-size(20px);\n\ttext-transform: capitalize;\n\tfont-variant: small-caps;\n\tmargin: 15px;\n\n\t&.small {\n\t\tmin-height: 20px;\n\t\tpadding: 10px;\n\t\t@include font-size(16px);\n\t}\n}\n.center {\n\ttext-align: center;\n}\n.clearfix {\t\n\t&:before, \n\t&:after { \n\t\tcontent: \"\"; \n\t\tdisplay: table; \n\t}\n\t&:after { \n\t\tclear: both; \n\t}\n}\n#dynamic-content {\n\tposition: relative;\n}\n.flexbox {\n\tdisplay: flex;\n\n\t&.wrap {\n\t\tflex-wrap: wrap;\n\t}\n}\nheader {\n\tborder-bottom: 1px solid #ccc;\n\tmargin-bottom: 20px;\n\tpadding: 5px 0;\t\n\ttext-align: center;\n\tposition: relative;\n\n\t.nav-hamburger {\n\t\tposition: absolute;\n\t\ttop: 0;\n\t\tright: 0;\n\t\tdisplay: flex;\n\t\talign-items: center;\n\t\theight: 100%;\n\t\t@include font-size(22px);\n\n\t\ti {\n\t\t\t@include transition(all 0.3s);\n\t\t\tcursor: pointer;\n\n\t\t\t&:hover {\n\t\t\t\tcolor: $blue;\t\t\t\n\t\t\t}\n\t\t}\n\t}\n}\n.hidden {\n\tdisplay: none;\n}\n#logo {\n\twidth: 200px;\n}\n#main {\n\tdisplay: flex;\n\tflex-direction: column;\n\tmargin-left: calc(20% - 60px);\n\tmin-height: 100vh;\n\tpadding: 0 20px;\n}\n#nav-menu {\n\tdisplay: none;\n    position: absolute;\n    top: 0;\n    right: 0;\n    left: auto;\n    z-index: 10000;\n\tbackground: linear-gradient(to top, rgba(37,34,29,1), rgba(72,183,226,1));\n\n\t.close-menu {\n\t\tdisplay: block;\n\t\tbackground-color: $white;\n\t\t@include font-size(40px);\n\t\tcursor: pointer;\n\t\t@include transition(all 0.3s);\n\t\tposition: absolute;\n\t\ttop: 5px;\n\t\tright: 5px;\n\t\tborder-radius: 100%;\n\t\twidth: 30px;\n\t\theight: 30px;\n\t\tline-height: 25px;\n\t\ttext-align: center;\n\n\t\t&:hover {\n\t\t\tcolor: #d4d4d4;\n\t\t}\n\n\t}\n\n\t.container {\n\t\tmin-height: calc(100vh - 60px);\n\t\tmargin: 30px;\n\t\tdisplay: flex;\n\t\tflex-direction: column;\n\t\tjustify-content: space-between;\n\t}\n\ta {\t\n\t\tcolor:#FFF; \n\t\ttext-decoration:none;\n\t\t@include transition(all 0.3s);\n\t\ttext-transform: uppercase;\n\t}\n\ta:hover {\n\t\tcolor: #d4d4d4;\n\t}\n}\n.nav-items {\n\t& > div {\n\t\tmargin: 25px 0;\n\t}\n\tdiv i {\n\t\tpadding-right: 20px;\n\t\tcolor: #a8c9d7;\n\t\t@include font-size(25px);\n\t\tposition: relative;\n\t\tbottom: -5px;\n\t}\n\tdiv span {\n\t\tline-height: 25px;\n\t}\n}\n.nav-footer {\n\tborder-top: 1px solid #7b7b7b;\n\tmargin-top: 20px;\n\tpadding-top: 20px;\n\tcolor: #7b7b7b;\n}\n::-webkit-input-placeholder { /* WebKit, Blink, Edge */\n    color:    #e8e8e8;\n}\n:-moz-placeholder { /* Mozilla Firefox 4 to 18 */\n   color:    #e8e8e8;\n   opacity:  1;\n}\n::-moz-placeholder { /* Mozilla Firefox 19+ */\n   color:    #e8e8e8;\n   opacity:  1;\n}\n:-ms-input-placeholder { /* Internet Explorer 10-11 */\n   color:    #e8e8e8;\n}\n.overlay {\n\tposition: fixed;\n\tz-index: 1000000;\n\ttop: 0;\n\tleft: 0;\n\tright: 0;\n\tbottom: 0;\n\tbackground-color: rgba(0,0,0,0.85);\n\tdisplay: flex;\n\talign-items: center;\n\tjustify-content: center;\n\t\n\t.content {\n\t\tbackground-color: #fff;\n\t\tpadding: 20px;\n\t}\n}\n\n@media (min-width: 601px) {\n\theader .nav-hamburger {\n\t\tdisplay: none;\n\t}\n\t#nav-menu {\n\t\tdisplay: block;\n\t\twidth: calc(20% - 60px);\n\t\tmin-width: 200px;\n\t\tmin-height: 100vh;\n\t\tposition: fixed;\n\t\tleft: 0;\n\t\ttop: 0;\n\t\tz-index: auto;\n\n\t\t.close-menu {\n\t\t\tdisplay: none;\n\t\t}\n\t}\n}\n\n@media (max-height:410px) {\n\t#nav-menu {\n\t\tposition: absolute;\n\t}\n}\n\n/* Forms */\ninput {\n\twidth: 230px;\n\theight: 30px;\n\t@include border-radius(10px);\n\tpadding: 10px;\n\tcolor: $primary-color;\n\tborder: $form-border;\n\t\n\t&[type=submit] {\n\t\tbackground-color: #00a6dd;\n\t\tcolor: #fff;\n\t\ttext-align: center;\n\t\twidth: 100%;\n\t\theight: 60px;\n\t\tmargin-top: 20px;\n\t\tpadding: 10px 50px;\n\t\tcursor: pointer;\n\t\t@include transition(background-color 0.3s);\n\t}\n\t&[type=submit]:hover {\n\t\tbackground-color: #00c0ff;\n\t}\n\t&::-webkit-input-placeholder,\n\t&::-moz-placeholder,\n\t&:-ms-input-placeholder,\n\t&:-moz-placeholder {\n\t\tcolor: #fff;\n\t}\n\t&:focus {\n\t\toutline: none;\n\t}\n}\nselect {\n\twidth: 250px;\n\theight: 50px;\n\tpadding: 0 10px;\n\t@include border-radius(10px);\n\tborder: $form-border;\n\t\n\t&:focus {\n\t\toutline: none;\n\t}\n}\nlabel {\n\twidth: 100px;\n\t\n\t&.error {\n\t\tcolor: $red;\n\t\t&:before {\n\t\t\tcontent: '\\A';\n\t\t\twhite-space: pre;\n\t\t}\n\t}\n}\n\n@media (max-width:1300px) {\n\t#main {\n\t\tmargin-left: 200px;\n\t}\n}\n@media (max-width:600px) {\n\t#main {\n\t\tmargin-left: 0;\n\t}\n}\n\n\n/*****************\n* Login\n*****************/\n.body-login {\n\t#main {\n\t\tmargin: 0;\n\t\tpadding: 0;\n\t}\n\theader {\n\t\tdisplay: none;\n\t}\n}\n#login {\n\tbackground: linear-gradient(to bottom, rgba(0,0,0,0.75), rgba(2,117,156,0.75)), url('/images/login-bg.jpg') center 0 no-repeat;\n\theight: 100vh;\n\twidth: 100vw;\n\tdisplay: flex;\n\tjustify-content: center;\n\talign-items: center;\n\tflex-direction: column;\n}\n\n.login-logo {\n\tmargin-bottom: 80px;\n\n\timg {\n\t\twidth: 250px;\n\t}\n}\n.form-error {\n\tcolor: $red;\n\tmargin-bottom: 15px;\n}\n#login {\n\tform {\n\t\ttext-align: center;\n\t\tcolor: #fff;\n\t}\n\tinput {\n\t\t@extend input;\n\t\theight: 40px;\n\t\t@include border-radius(50px);\n\t\tpadding: 10px 50px 10px 70px;\n\t\tcolor: #FFF;\n\t\tbackground-color: rgba(255, 255, 255, 0.10);\n\t\tborder: none;\n\t\t@include font-size(14px);\n\t}\n}\n.form-field {\n\tposition: relative;\n\tmargin-bottom: 15px;\n\n\ti {\n\t\tposition: absolute;\n\t\t@include font-size(24px);\n\t\tline-height:60px;\n\t\tleft: 25px;\n\t\tmargin-top: 4px;\n\t}\n}\n.login-help {\n\ttext-align: right;\n\n\ta {\n\t\tcolor: #80abba;\n\t\t@include font-size(12px);\n\t}\n}\n\n\n/*****************\n* Lift\n*****************/\n.chart {\n\tmargin: 0 10px;\n\ttext-align: center;\n}\n#chart_column {\n\tdisplay: flex;\n\theight: 400px;\n\tjustify-content: center;\n\tmax-width: 400px;\n\twidth: 100%;\n}\n.charts-container {\n\tflex-direction: row;\n\tflex-grow: 1;\n\tflex-wrap: nowrap;\n\tjustify-content: center;\n}\n#connect_string {\n\tdisplay: none;\n}\n/* .reps {\n\tposition: fixed;\n    top: 80px;\n    right: 20px;\n    padding: 10px;\n    border: 1px solid #00aeef;\n    background-color: rgb(0, 174, 239);\n    box-shadow: 0 0 5px #efefef;\n    color: #fff;\n    text-shadow: 1px 1px 1px #737373;\n    font-size: 20px;\n} */\n.data-container {\n\tcolor: #bbb;\n\t@include font-size(16px);\n\tjustify-content: center;\n\tmargin-top: -20px;\n\n\t.tab {\n\t\tpadding: 0 3% 10px; \n\t\tposition: relative;\n\t}\t\n}\n.tab:before {\n\tcontent: \"\";\n\tposition: absolute;\n\ttop: 0; \n\tright: 0;\n\tbottom: 0;\n\tleft: 0;\n\tz-index: -1;\n\tbackground-color: #000;\n\tbox-shadow: 5px 5px 10px #9e9e9e;\n\t/*transform: perspective(10px) rotateX(-2deg);\n\ttransform-origin: top;*/\n\tborder-width: 0 3px 3px;\n    border-color: rgba(156, 156, 156, 0.34);\n    border-style: solid;\n}\n.count-number {\n\tcolor: #fff;\n\t@include font-size(35px);\n}\n.lift-check {\n\t\n}\n.reset-reps {\n\tposition: fixed;\n\ttop: 10px;\n\tright: 10px;\n\t@include border-radius(20px);\n\tbackground-color: $blue;\n\tcolor: $white;\n\tborder: 1px solid #ccc;\n\tpadding: 10px;\n\tcursor: pointer;\n\t@include box-shadow(0, 0, 10px, rgba(255,255,255,0.3), true);\n\t@include transition(all 0.3s);\n\t\n\t&:hover {\n\t\tbackground-color: $blue2;\n\t}\n}\n.end-lift {\n\tbackground-color: $red-dark;\n\t\n\t&:hover {\n\t\tbackground-color: $red2;\n\t}\n}\n.velocity-numbers {\n\tjustify-content: space-around;\n\talign-items: center;\n\tmargin-bottom: 30px;\n\t@include font-size(60px);\n\t/*@include stroke(3, $primary-color);*/\n\tcolor: $blue;\n\n\t.number {\n\t\tfont-weight: bold;\n\n\t}\n\t.label {\n\t\t@include font-size(12px);\n\t\ttext-shadow: none;\n\t\tcolor: $grey;\n\t\ttext-align: center;\n\t}\n\t.current-lift {\n\t\t@include font-size(90px);\n\t}\n}\n@media (max-width: 1024px) {\n\t.charts-container {\n\t\talign-items: center;\n\t} \n}\n@media (max-width: 768px) {\n\t.charts-container {\n\t\tflex-direction: column;\n\t\tjustify-content: flex-start\n\t} \n}\n\n/*****************\n* Summary\n*****************/\n.lift-data {\n\tspan.title {\n\t\t@include font-size(20px);\n\t}\n\t.data-item {\n\t\tmargin-bottom: 30px;\n\n\t\th3 {\n\t\t\tmargin-bottom: 10px;\n\t\t}\n\t}\n\n}\n.summary-item {\n\n\ttextarea {\n\t\twidth: 100%;\n\t\tmin-height: 200px;\n\t}\n}\n.summary-edit {\n\tcursor: pointer;\n\tcolor: $blue;\n}\n\n/*****************\n* Switch\n*****************/\n.athlete-switch {\n\t.athlete {\n\t\tmargin: 10px;\n\t}\n}\n\n/*****************\n* Admin\n*****************/\nul.admin-list {\n\tli {\n\t\tmargin-bottom: 0.5em;\n\n\t\tspan {\n\t\t\tfont-weight: 700;\n\t\t}\n\n\t\tul {\n\t\t\tmargin: 0.25em 0;\n\n\t\t\tli {\n\t\t\t\tmargin-bottom: 0.25em;\n\t\t\t}\n\t\t}\n\t}\n}",
-			"file": "resources/assets/sass/app.scss",
-			"file_size": 8443,
-			"file_write_time": 131427063840853072,
+			"file": "app/Http/helpers.php",
 			"settings":
 			{
-				"buffer_size": 8443,
+				"buffer_size": 4266,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "resources/assets/sass/app.scss",
+			"settings":
+			{
+				"buffer_size": 10197,
+				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
 		},
@@ -316,17 +368,23 @@
 		"/D/Backup/Websites/Laravel/Homestead/Code/fitai/resources/views/auth",
 		"/D/Backup/Websites/Laravel/Homestead/Code/fitai/resources/views/layouts",
 		"/D/Backup/Websites/Laravel/Homestead/Code/fitai/resources/views/lifts",
+		"/D/Backup/Websites/Laravel/Homestead/Code/fitai/resources/views/rfid",
 		"/D/Backup/Websites/Laravel/Homestead/Code/fitai/storage",
 		"/D/Backup/Websites/Laravel/Homestead/Code/fitai/storage/app"
 	],
 	"file_history":
 	[
+		"/D/Backup/Websites/Laravel/Homestead/Code/fitai/public/js/charts.js",
+		"/C/Users/MonkeyButt/AppData/Local/Temp/fz3temp-2/socket.js",
+		"/D/Backup/Websites/Laravel/Homestead/Code/fitai/resources/views/lifts/create-numbers.blade.php",
+		"/D/Backup/Websites/Laravel/Homestead/Code/fitai/resources/views/lifts/summary.blade.php",
+		"/D/Backup/Websites/Laravel/Homestead/Code/fitai/resources/views/layouts/app.blade.php",
+		"/D/Backup/Websites/Laravel/Homestead/Code/fitai/resources/views/switch.blade.php",
 		"/D/Backup/Websites/Laravel/Homestead/Code/fitai/.gitignore",
+		"/D/Backup/Websites/Laravel/Homestead/Code/fitai/database/migrations/2017_07_10_163503_add_rfid_to_users_table.php",
 		"/D/Backup/Websites/Laravel/Homestead/Code/fitai/config/database.php",
 		"/D/Backup/Websites/Laravel/Homestead/Code/fitai/socket.js",
 		"/D/Backup/Websites/Laravel/Homestead/Code/fitai/.env",
-		"/D/Backup/Websites/Laravel/Homestead/Code/fitai/resources/views/lifts/summary.blade.php",
-		"/D/Backup/Websites/Laravel/Homestead/Code/fitai/resources/views/layouts/app.blade.php",
 		"/D/Backup/Websites/Laravel/Homestead/Code/fitai/resources/views/lifts/create.blade.php",
 		"/D/Backup/Websites/Laravel/Homestead/Code/fitai/resources/assets/js/components/LiftSummary.vue",
 		"/D/Backup/Websites/Laravel/Homestead/Code/fitai/database/migrations/2017_06_28_144658_add_variations_to_lift_types_table.php",
@@ -336,7 +394,6 @@
 		"/D/Backup/Websites/Laravel/Homestead/Code/fitai/resources/assets/js/components/LiftData.vue",
 		"/D/Backup/Websites/Laravel/Homestead/Code/fitai/resources/assets/js/charts.js",
 		"/D/Backup/Websites/Laravel/Homestead/Code/weddingease/composer.json",
-		"/D/Backup/Websites/Laravel/Homestead/Code/fitai/resources/views/switch.blade.php",
 		"/D/Backup/Websites/Laravel/Homestead/Code/fitai/database/migrations/2017_04_24_201804_create_clients_table.php",
 		"/D/Backup/Websites/Laravel/Homestead/Code/fitai/app/Http/Controllers/HomeController.php",
 		"/D/Backup/Websites/Laravel/Homestead/Code/fitai/routes/channels.php",
@@ -444,11 +501,7 @@
 		"/D/Backup/Websites/affinityconnextions.com/webservice/webservice-register.php",
 		"/D/Backup/Websites/alexllc.org/wp-content/themes/alexllc/mania-page.php",
 		"/D/Backup/Websites/alexllc.org/wp-content/themes/alexllc/template-parts/content-studios.php",
-		"/D/Backup/Websites/Laravel/Homestead/Code/weddingease/config/geocoder.php",
-		"/D/Backup/Websites/Laravel/Homestead/Code/weddingease/resources/assets/js/app.js",
-		"/D/Backup/Websites/Laravel/Homestead/Code/weddingease/package.json",
-		"/D/Backup/Websites/Laravel/Homestead/Code/weddingease/app/help.php",
-		"/D/Backup/Websites/Laravel/Homestead/Code/weddingease/config/database.php"
+		"/D/Backup/Websites/Laravel/Homestead/Code/weddingease/config/geocoder.php"
 	],
 	"find":
 	{
@@ -467,6 +520,10 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"axios",
+			"collar",
+			"flexbox",
+			"alert-danger",
 			"'",
 			"lift not",
 			"summary",
@@ -538,48 +595,19 @@
 			[
 				{
 					"buffer": 0,
-					"file": "resources/views/lifts/create-numbers.blade.php",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 3812,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								782,
-								782
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/laravel-blade-master/blade.sublime-syntax",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 170.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 5,
-					"type": "text"
-				},
-				{
-					"buffer": 1,
 					"file": "app/Http/Controllers/LiftController.php",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 7084,
+						"buffer_size": 7459,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								834,
-								834
+								1803,
+								1803
 							]
 						],
 						"settings":
@@ -590,7 +618,36 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 731.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "resources/views/lifts/create-numbers.blade.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 3946,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								3084,
+								3084
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/laravel-blade-master/blade.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 383.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 1,
@@ -598,19 +655,49 @@
 				},
 				{
 					"buffer": 2,
-					"file": "resources/views/lifts/summary.blade.php",
+					"file": "app/Http/Controllers/HomeController.php",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 5192,
+						"buffer_size": 2483,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								0,
-								0
+								1736,
+								1736
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 489.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 5,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "resources/views/lifts/create.blade.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 3534,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								299,
+								299
 							]
 						],
 						"settings":
@@ -622,11 +709,99 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 3,
+					"stack_index": 7,
 					"type": "text"
 				},
 				{
-					"buffer": 3,
+					"buffer": 4,
+					"file": "resources/assets/js/components/LiftData.vue",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1293,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1188,
+								1188
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/vuejs-sublime-complete-master/vue.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 8,
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "resources/views/rfid/listener.blade.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2352,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2139,
+								2139
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/laravel-blade-master/blade.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 442.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 4,
+					"type": "text"
+				},
+				{
+					"buffer": 6,
+					"file": "socket.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 877,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								337,
+								337
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 10,
+					"type": "text"
+				},
+				{
+					"buffer": 7,
 					"file": "resources/assets/js/components/LiftSelect.vue",
 					"semi_transient": false,
 					"settings":
@@ -653,30 +828,30 @@
 						"translation.y": 408.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 4,
+					"stack_index": 14,
 					"type": "text"
 				}
 			]
 		},
 		{
-			"selected": 0,
+			"selected": 1,
 			"sheets":
 			[
 				{
-					"buffer": 4,
+					"buffer": 8,
 					"file": "routes/web.php",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1862,
+						"buffer_size": 2022,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1861,
-								1861
+								431,
+								431
 							]
 						],
 						"settings":
@@ -685,27 +860,56 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 391.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 0,
+					"stack_index": 2,
 					"type": "text"
 				},
 				{
-					"buffer": 5,
-					"file": "resources/assets/js/app.js",
+					"buffer": 9,
+					"file": "resources/assets/js/charts.js",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 6453,
+						"buffer_size": 12128,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								4844,
-								4844
+								3360,
+								3360
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": -0.0,
+						"translation.y": 1646.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 10,
+					"file": "resources/assets/js/app.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 6567,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								3903,
+								3903
 							]
 						],
 						"settings":
@@ -715,27 +919,56 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 926.0,
+						"translation.y": 2778.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 2,
+					"stack_index": 6,
 					"type": "text"
 				},
 				{
-					"buffer": 6,
-					"file": "resources/assets/sass/app.scss",
+					"buffer": 11,
+					"file": "app/Http/helpers.php",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 8443,
+						"buffer_size": 4266,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								7486,
-								7486
+								3890,
+								3842
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 1935.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 9,
+					"type": "text"
+				},
+				{
+					"buffer": 12,
+					"file": "resources/assets/sass/app.scss",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 10197,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								5376,
+								5376
 							]
 						],
 						"settings":
@@ -744,14 +977,14 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 7817.0,
+						"translation.y": 5407.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 6,
+					"stack_index": 11,
 					"type": "text"
 				},
 				{
-					"buffer": 7,
+					"buffer": 13,
 					"file": "resources/assets/sass/_variables.scss",
 					"semi_transient": false,
 					"settings":
@@ -775,11 +1008,11 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 7,
+					"stack_index": 13,
 					"type": "text"
 				},
 				{
-					"buffer": 8,
+					"buffer": 14,
 					"file": "resources/assets/sass/_mixins.scss",
 					"semi_transient": false,
 					"settings":
@@ -805,7 +1038,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 8,
+					"stack_index": 12,
 					"type": "text"
 				}
 			]
@@ -867,12 +1100,40 @@
 		"selected_items":
 		[
 			[
-				"config/data",
-				"config\\database.php"
+				"charts.js",
+				"resources\\assets\\js\\charts.js"
+			],
+			[
+				"helpers.php",
+				"app\\Http\\helpers.php"
+			],
+			[
+				"liftdata.vue",
+				"resources\\assets\\js\\components\\LiftData.vue"
 			],
 			[
 				"socket.js",
 				"socket.js"
+			],
+			[
+				"layout/app",
+				"resources\\views\\layouts\\app.blade.php"
+			],
+			[
+				"homecontr",
+				"app\\Http\\Controllers\\HomeController.php"
+			],
+			[
+				"gitignore",
+				".gitignore"
+			],
+			[
+				".giti",
+				".gitignore"
+			],
+			[
+				"config/data",
+				"config\\database.php"
 			],
 			[
 				".env",
@@ -931,28 +1192,12 @@
 				"database\\migrations\\2017_04_25_150755_create_lifts_table.php"
 			],
 			[
-				"layout/app",
-				"resources\\views\\layouts\\app.blade.php"
-			],
-			[
 				"switch.blade",
 				"resources\\views\\switch.blade.php"
 			],
 			[
-				".giti",
-				".gitignore"
-			],
-			[
 				".vue",
 				"resources\\assets\\js\\components\\Team.vue"
-			],
-			[
-				"homecontr",
-				"app\\Http\\Controllers\\HomeController.php"
-			],
-			[
-				"charts.js",
-				"resources\\assets\\js\\charts.js"
 			],
 			[
 				"athlete.vue",
@@ -1089,10 +1334,6 @@
 			[
 				"teams",
 				"database\\migrations\\2017_04_24_201445_create_teams_table.php"
-			],
-			[
-				"helpers.php",
-				"app\\Http\\helpers.php"
 			],
 			[
 				"collars_table",
@@ -1369,14 +1610,6 @@
 			[
 				"auth",
 				"app\\Providers\\AuthServiceProvider.php"
-			],
-			[
-				"registercontroller",
-				"app\\Http\\Controllers\\Auth\\RegisterController.php"
-			],
-			[
-				"routing/router.php",
-				"vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php"
 			]
 		],
 		"width": 0.0
@@ -1399,7 +1632,7 @@
 		],
 		"width": 0.0
 	},
-	"selected_group": 1,
+	"selected_group": 0,
 	"settings":
 	{
 	},
