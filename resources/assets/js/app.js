@@ -171,35 +171,45 @@ const app = new Vue({
 
                     // console.log(data + ' - time: ' +  now);
 
-                    // If collar is active, then update charts
-                    if (packet.header.active == true) {
+                    // If this is the Admin - Watch screen, then fill in lift data
+                    if (this.adminWatch) {
 
-                        function mean(obj) {
-                            var sum = obj.reduce(function(acc, val) {
-                                return acc + val;
-                            }, 0);
-                            var length = obj.length;
+                        this.liftType = packet.header.lift_type;
+                        this.liftWeight = packet.header.lift_weight;
+                        this.repCount = packet.header.calc_reps;
 
-                            return sum/length;
+                        // update charts
+                        updateCharts();
 
-                        }
+                    } else if (packet.header.active == true) {
 
+                         // Change collar status to active
+                        this.collarActive = packet.header.active;
+
+                        // If collar is active, then update charts
+                        updateCharts();
+
+                    }
+
+                    function updateCharts() {
                         // Get Power and Velocity values
                         var power = mean(packet.content.p_rms);
                         var velocity = mean(packet.content.v_rms);
 
-                        // Update charts
-                        this.collarActive = packet.header.active;
+                        // Update the charts with data
                         updateGauge(velocity);
                         updateLine(velocity);
-                        updateColumn(power);
+                        updateColumn(power); 
+                    }
 
-                        // If this is the Admin - Watch screen, then fill in lift data
-                        if (this.adminWatch) {
-                            this.liftType = packet.header.lift_type;
-                            this.liftWeight = packet.header.lift_weight;
-                            this.repCount = packet.header.calc_reps;
-                        }
+                    function mean(obj) {
+                        var sum = obj.reduce(function(acc, val) {
+                            return acc + val;
+                        }, 0);
+                        var length = obj.length;
+
+                        return sum/length;
+
                     }
 
                 }

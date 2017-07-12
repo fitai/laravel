@@ -38,7 +38,6 @@
 		</form>
 	</div>
 </div> --}}
-<div id="end-lift" class="reset-reps end-lift" v-on:click="endLift">End Lift</div>
 <div id="connect_string"></div>
 <lift-data :athlete-i-d="{{ Auth::id() }}" :lift-weight="liftWeight" :lift-type="liftType" :collar-active="collarActive" :rep-count="repCount" :collar-i-d="collarID" :rfid-collar-i-d="0" v-on:add-athlete="addAthlete" v-on:set-collar-id="setCollarID"></lift-data>
 <h1>Admin - Watch</h1>
