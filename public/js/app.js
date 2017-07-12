@@ -1047,7 +1047,8 @@ var app = new Vue({
         collarActive: 'False',
         athleteID: '',
         liftID: '',
-        liftOptions: []
+        liftOptions: [],
+        adminWatch: false
     },
     methods: {
         getTeam: function getTeam() {
@@ -1161,6 +1162,13 @@ var app = new Vue({
         setCollarID: function setCollarID(id) {
             this.collarID = id;
             console.log('collarID updated');
+        },
+        setAdminCollar: function setAdminCollar() {
+            this.adminWatch = true;
+            drawLine();
+            this.liftType = "";
+            this.liftWeight = "";
+            this.repCount = "";
         }
     },
     mounted: function mounted() {
@@ -1203,6 +1211,13 @@ var app = new Vue({
                         updateGauge(velocity);
                         updateLine(velocity);
                         updateColumn(power);
+
+                        // If this is the Admin - Watch screen, then fill in lift data
+                        if (this.adminWatch) {
+                            this.liftType = packet.header.lift_type;
+                            this.liftWeight = packet.header.lift_weight;
+                            this.repCount = packet.header.calc_reps;
+                        }
                     }
                 }
             }

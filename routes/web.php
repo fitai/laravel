@@ -43,6 +43,7 @@ Route::get('/lift/kill/{id}', 'LiftController@killLift');
 
 // Admin
 Route::get('/admin', 'AdminController@index')->name('admin');
+Route::get('/admin/watch', 'AdminController@watch')->name('admin.watch');
 
 // Test Redis
 Route::get('/redis', function() {

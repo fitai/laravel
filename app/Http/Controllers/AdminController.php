@@ -8,6 +8,7 @@ use App\Coach;
 use App\Client;
 use App\Athlete;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AdminController extends Controller
 {
@@ -35,6 +36,16 @@ class AdminController extends Controller
 
         return view('admin/home', compact('registered', 'lifts'));
     }
+
+    // Admin - Watch
+    public function watch() 
+    {
+        // Get all collars for the User's team
+        $collars = Auth::user()->athlete->team->collars;
+
+        return view('admin/watch', compact('collars'));
+    }
+        
 
     // Get current number of registered athletes
     public function getAthleteCount() 
