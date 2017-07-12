@@ -117,8 +117,7 @@ class LiftController extends Controller
         // $python = explode(PHP_EOL, $pythonExec); // Create array by exploding end of line
 
         // Run on AWS
-        $pythonExec = exec("/home/kyle/virtualenvs/fitai/bin/python /opt/fitai_controller/comms/update_redis.py -v -j '".json_encode($pythonArray)."'", $pythonReturn); 
-        $python = explode(PHP_EOL, $pythonReturn); // Create array by exploding end of line
+        $pythonExec = exec("/home/kyle/virtualenvs/fitai/bin/python /opt/fitai_controller/comms/update_redis.py -v -j '".json_encode($pythonArray)."'", $python); 
 
         // Run always        
         $liftID = explode(": ", $python[4]); // Explode the line with "lift_id: ###"
