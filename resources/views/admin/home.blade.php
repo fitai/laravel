@@ -4,6 +4,12 @@
 
 @section('content')
 <h1>Admin</h1>
+<div>
+	<h3>Links</h3>
+	<ul>
+		<li><a href="{{ route('admin.watch') }}">Device Listener</a></li>
+	</ul>
+</div>
 
 <h2>Registered</h2>
 <ul class="admin-list">
