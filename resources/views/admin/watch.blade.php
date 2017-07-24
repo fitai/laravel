@@ -3,6 +3,7 @@
 @section('title', 'Admin - Watch')
 
 @section('content')
+<h1>Admin - Watch</h1>
 {{-- <div id="overlay" class="overlay">
 	<div class="content center">
 		<form id="lift-new" class="lift new" @submit.prevent="newLift">
@@ -39,10 +40,9 @@
 	</div>
 </div> --}}
 <div id="connect_string"></div>
-<lift-data :athlete-i-d="{{ Auth::id() }}" :lift-weight="liftWeight" :lift-type="liftType" :collar-active="collarActive" :rep-count="repCount" :collar-i-d="collarID" :rfid-collar-i-d="0" v-on:add-athlete="addAthlete" v-on:set-collar-id="setCollarID"></lift-data>
-<h1>Admin - Watch</h1>
+<lift-data :athlete-i-d="{{ Auth::id() }}" :lift-weight="liftWeight" :lift-type="liftType" :collar-active="collarActive" :max-reps="maxReps" :rep-count="repCount" :collar-i-d="collarID" :rfid-collar-i-d="0" v-on:add-athlete="addAthlete" v-on:set-collar-id="setCollarID"></lift-data>
 <div class="center currently-watching">
-	Currently Watching CollarID: 
+	Currently Watching Tracker: 
 	<select name="collarID" required v-model="collarID" v-on:change="setAdminCollar">
 		@foreach ($collars as $collar)
 			<option value="{{ $collar->collar_id }}">{{ $collar->collar_id }}</option>
