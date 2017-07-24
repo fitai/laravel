@@ -28,6 +28,7 @@ const app = new Vue({
         collarID: '',
         liftType: '',
         liftWeight: '',
+        maxReps: '',
         repCount: '',
         liftComments: '',
         collarActive: 'False',
@@ -78,6 +79,7 @@ const app = new Vue({
             var validate = $('form#lift-new').valid();
             if (validate == true) {         
                 console.log('Form validation successful...');
+                $('#lift-new-submit').prop('disabled', true);
 
                 axios.post('/lift/store', this.$data)
                     .then(response => {

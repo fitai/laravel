@@ -1042,6 +1042,7 @@ var app = new Vue({
         collarID: '',
         liftType: '',
         liftWeight: '',
+        maxReps: '',
         repCount: '',
         liftComments: '',
         collarActive: 'False',
@@ -1095,6 +1096,7 @@ var app = new Vue({
             var validate = $('form#lift-new').valid();
             if (validate == true) {
                 console.log('Form validation successful...');
+                $('#lift-new-submit').prop('disabled', true);
 
                 axios.post('/lift/store', this.$data).then(function (response) {
                     console.log(response.data);
@@ -2170,9 +2172,18 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    props: ['collarID', 'liftWeight', 'liftType', 'repCount', 'collarActive', 'athleteID', 'rfidCollarID'],
+    props: ['collarID', 'liftWeight', 'liftType', 'maxReps', 'repCount', 'collarActive', 'athleteID', 'rfidCollarID'],
     mounted: function mounted() {
         console.log('LiftData mounted');
         this.$emit('add-athlete', this.athleteID);
@@ -32528,56 +32539,44 @@ if (false) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
-    staticClass: "data-container flexbox",
-    attrs: {
-      "id": "data-container"
-    }
+    staticClass: "flexbox wrap flexcenter lift-data"
   }, [_c('div', {
-    staticClass: "tab"
-  }, [_c('span', {
-    staticClass: "count-number",
-    attrs: {
-      "id": "collarID"
-    }
-  }, [_vm._v(_vm._s(_vm.collarID))]), _vm._v(" "), _c('span', {
-    staticClass: "count-text"
-  }, [_vm._v("collar")])]), _vm._v(" "), _c('div', {
-    staticClass: "tab"
-  }, [_c('span', {
-    staticClass: "count-number lift-type",
-    attrs: {
-      "id": "lift-type"
-    }
-  }, [_vm._v(_vm._s(_vm.liftType))]), _vm._v(" "), _c('span', {
-    staticClass: "count-text"
-  }, [_vm._v("lift")])]), _vm._v(" "), _c('div', {
-    staticClass: "tab"
-  }, [_c('span', {
-    staticClass: "count-number",
-    attrs: {
-      "id": "lift-weight"
-    }
-  }, [_vm._v(_vm._s(_vm.liftWeight))]), _vm._v(" "), _c('span', {
-    staticClass: "count-text"
+    staticClass: "data-box lift-type center"
+  }, [_c('div', {
+    staticClass: "data"
+  }, [_vm._v(_vm._s(_vm.liftType))]), _vm._v(" "), _c('div', {
+    staticClass: "label"
+  }, [_vm._v("Lift Type")])]), _vm._v(" "), _c('div', {
+    staticClass: "data-box lift-weight center"
+  }, [_c('div', {
+    staticClass: "data"
+  }, [_vm._v(_vm._s(_vm.liftWeight))]), _vm._v(" "), _c('div', {
+    staticClass: "label"
   }, [_vm._v("lbs")])]), _vm._v(" "), _c('div', {
-    staticClass: "tab"
-  }, [_c('span', {
-    staticClass: "count-number",
-    attrs: {
-      "id": "rep-count"
-    }
-  }, [_vm._v(_vm._s(_vm.repCount))]), _vm._v(" "), _c('span', {
-    staticClass: "count-text"
-  }, [_vm._v("reps")])]), _vm._v(" "), _c('div', {
-    staticClass: "tab"
-  }, [_c('span', {
-    staticClass: "count-number",
-    attrs: {
-      "id": "active"
-    }
-  }, [_vm._v(_vm._s(_vm.collarActive))]), _vm._v(" "), _c('span', {
-    staticClass: "count-text"
-  }, [_vm._v("active")])])])
+    staticClass: "data-box lift-current-reps center"
+  }, [_c('div', {
+    staticClass: "data"
+  }, [_vm._v(_vm._s(_vm.repCount))]), _vm._v(" "), _c('div', {
+    staticClass: "label"
+  }, [_vm._v("Current Rep")])]), _vm._v(" "), _c('div', {
+    staticClass: "data-box lift-max-reps center"
+  }, [_c('div', {
+    staticClass: "data"
+  }, [_vm._v(_vm._s(_vm.maxReps))]), _vm._v(" "), _c('div', {
+    staticClass: "label"
+  }, [_vm._v("Max Reps")])]), _vm._v(" "), _c('div', {
+    staticClass: "data-box collar-id center"
+  }, [_c('div', {
+    staticClass: "data"
+  }, [_vm._v(_vm._s(_vm.collarID))]), _vm._v(" "), _c('div', {
+    staticClass: "label"
+  }, [_vm._v("Tracker ID")])]), _vm._v(" "), _c('div', {
+    staticClass: "data-box lift-status center"
+  }, [_c('div', {
+    staticClass: "data"
+  }, [_vm._v(_vm._s(_vm.collarActive))]), _vm._v(" "), _c('div', {
+    staticClass: "label"
+  }, [_vm._v("Active")])])])
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {

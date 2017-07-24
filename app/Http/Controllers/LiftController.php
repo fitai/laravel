@@ -100,7 +100,7 @@ class LiftController extends Controller
             "lift_type" => $request->liftType,
             "lift_weight" => $request->liftWeight,
             "weight_units" => "lbs",
-            "init_num_reps" => $request->repCount,
+            "init_num_reps" => $request->maxReps,
             "calc_reps" => 0,
             "threshold" => "None",
             "curr_state" => 'rest',

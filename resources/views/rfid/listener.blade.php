@@ -8,13 +8,6 @@
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
                 <div class="panel-heading"><h1>RFID</h1></div>
-                @if (count($errors))
-                    <ul class="alert alert-danger">
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                @endif
                 <div class="flexbox column flexcenter verticalcenter">
                     <h2>Swipe your bracelet on the device to login.</h2>
                     <div>Listening to collarID:</div>
