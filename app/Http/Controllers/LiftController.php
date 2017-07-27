@@ -27,7 +27,7 @@ class LiftController extends Controller
     //     }
 
     //     $this->ssh = $ssh;
-    // }
+    }
     
     /**
      * Display a listing of the resource.
