@@ -31,11 +31,12 @@ const app = new Vue({
         maxReps: '',
         repCount: '',
         liftComments: '',
-        collarActive: 'False',
+        collarActive: false,
         athleteID: '',
         liftID: '',
         liftOptions: [],
-        adminWatch: false
+        adminWatch: false,
+        currentVelocity: 0.0
     },
     methods: {
 
@@ -79,13 +80,28 @@ const app = new Vue({
             var validate = $('form#lift-new').valid();
             if (validate == true) {         
                 console.log('Form validation successful...');
+
+                // Show spinner
+                $('#spinner-overlay').css('display', 'flex').hide().fadeIn();
+
+                // Disable button
                 $('#lift-new-submit').prop('disabled', true);
 
                 axios.post('/lift/store', this.$data)
                     .then(response => {
                         console.log(response.data);
                         this.liftID = response.data['liftID'];
-                        $('#overlay').hide();
+
+                        // Hide lift form
+                        $('#lift-overlay').hide();
+
+                        // Hide spinner
+                        $('#spinner-overlay').fadeOut().hide();
+
+                        // Show end lift button
+                        $('#end-lift').show();
+
+                        // Make noise for video recordings
                         beep();
                     });
                 // if (secDelay == null || secDelay == '') {
@@ -96,6 +112,12 @@ const app = new Vue({
         },
         endLift() {
             console.log('Ending Lift');
+
+            // Disable button
+            $('#end-lift').prop('disabled', true);
+
+            // Show spinner
+            $('#spinner-overlay').css('display', 'flex').hide().fadeIn();
 
             // Post to controller and stop Lift
             axios.post('/lift/stop', {
@@ -199,6 +221,7 @@ const app = new Vue({
                         var velocity = mean(packet.content.v_rms);
 
                         // Update the charts with data
+                        this.currentVelocity = velocity;
                         updateGauge(velocity);
                         updateLine(velocity);
                         updateColumn(power); 

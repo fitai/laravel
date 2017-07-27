@@ -1,31 +1,34 @@
 <template>
     <div id="lift-select" class="lift-select">
-        <div>
-            <label for="type">Type:</label><br>
-            <select name="type" v-model="type" required>
-                <option disabled>Type</option>
-                <option v-for="type in typeOptions" v-bind:value="type.type">
-                    {{ type.type }}
-                </option>
-            </select>
-        </div>
-        <div>
-            <label for="type">Variation:</label><br>
-            <select name="variation" v-model="variation" required>    
-                <option disabled>Variation</option>
-                <option v-for="variation in variationsAvailable" v-bind:value="variation">
-                    {{ variation }}
-                </option>               
-            </select>
-        </div>
-        <div>
-            <label for="type">Equipment:</label><br>
-            <select name="equipment" v-model="equipment" required>      
-                <option disabled>Equipment</option>
-                <option v-for="equipment in equipmentAvailable" v-bind:value="equipment">
-                    {{ equipment }}
-                </option>              
-            </select>
+        <h3>Lift Type</h3>
+        <div class="flexbox wrap">
+            <div class="lift-option xs-30">
+                <label for="type" class="field-title">Type</label>
+                <select name="type" v-model="type" required>
+                    <option disabled>Type</option>
+                    <option v-for="type in typeOptions" v-bind:value="type.type">
+                        {{ type.type }}
+                    </option>
+                </select>
+            </div>
+            <div class="lift-option xs-30">
+                <label for="variation" class="field-title">Variation</label>
+                <select name="variation" v-model="variation" required>    
+                    <option disabled>Variation</option>
+                    <option v-for="variation in variationsAvailable" v-bind:value="variation">
+                        {{ variation }}
+                    </option>               
+                </select>
+            </div>
+            <div class="lift-option xs-30">
+                <label for="equipment" class="field-title">Equipment</label>
+                <select name="equipment" v-model="equipment" required>      
+                    <option disabled>Equipment</option>
+                    <option v-for="equipment in equipmentAvailable" v-bind:value="equipment">
+                        {{ equipment }}
+                    </option>              
+                </select>
+            </div>
         </div>
     </div>
 </template>

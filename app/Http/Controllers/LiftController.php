@@ -18,16 +18,16 @@ class LiftController extends Controller
     {
         $this->middleware('auth');
 
-        // // Connect to AWS server via SSH with key
-        // $ssh = new SSH2('52.15.200.179');
-        // $key = new RSA();
-        // $key->loadKey(file_get_contents('/home/vagrant/.ssh/fitai-dev.pem'));
-        // if (!$ssh->login('patrick', $key)) {
-        //     exit('Login Failed');
-        // }
+    //     // Connect to AWS server via SSH with key
+    //     $ssh = new SSH2('52.15.200.179');
+    //     $key = new RSA();
+    //     $key->loadKey(file_get_contents('/home/vagrant/.ssh/fitai-dev.pem'));
+    //     if (!$ssh->login('patrick', $key)) {
+    //         exit('Login Failed');
+    //     }
 
-        // $this->ssh = $ssh;
-    }
+    //     $this->ssh = $ssh;
+    // }
     
     /**
      * Display a listing of the resource.
@@ -52,12 +52,18 @@ class LiftController extends Controller
         // Set default $rfidCollarID
         $rfidCollarID = 0;
 
+        // Get lift options
+        $typeOptions = LiftType::select('type')->groupBy('type')->get();
+        $variationOptions = LiftType::select('variation')->groupBy('variation')->get();
+        $equipmentOptions = LiftType::select('equipment')->groupBy('equipment')->get();
+        $options = LiftType::select('type', 'variation', 'equipment')->groupBy('type', 'variation', 'equipment')->get();
+
         // Check if collarID is passed by RFID
         if ($request->rfidCollarID) :
             $rfidCollarID = $request->rfidCollarID;
         endif;
 
-        return view('lifts/create', compact('rfidCollarID', 'collars')); // Working device
+        return view('lifts/create', compact('rfidCollarID', 'typeOptions', 'variationOptions', 'equipmentOptions', 'options', 'collars')); // Working device
 
     }
     public function test(Request $request)

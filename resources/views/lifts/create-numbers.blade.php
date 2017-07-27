@@ -5,33 +5,34 @@
 @section('body-class', 'new-lift')
 
 @section('content')
-<div id="overlay" class="overlay" style="display: none;">
+<div id="lift-overlay" class="lift-overlay">
 	<div class="content center">
 		<form id="lift-new" class="lift new" @submit.prevent="newLift">
-			<p>
-				<label>Collar: </label>
-				<select name="collarID" required v-model="collarID">
-					@foreach (get_team_collars() as $collar)
-						<option value="{{ $collar->collar_id }}">{{ $collar->collar_id }}</option>
-					@endforeach
-				</select>
-			</p>
-			<p>
-				<lift-select :type-options="{{ $typeOptions }}" :variation-options="{{ $variationOptions }}" :equipment-options="{{ $equipmentOptions }}" :options=" {{ $options }}" v-on:updatelifttype="updateLiftType"></lift-select>
-			</p>
-			<p>
-				<label>Weight: </label>
-				<input name="liftWeight" type="number" min="1" required v-model="liftWeight">
-			</p>
-			<p>
-				<label>Reps: </label>
-				<input name="liftReps" type="number" min="1" required v-model="repCount">
-			</p>
-			<input name="athleteID" type="hidden" value="{{ Auth::id() }}">
-			<p>
-				<button id="lift-new-submit">Submit</button><br>
-				<a href="{{ route('home') }}">Cancel</a>
-			</p>
+			<lift-select :type-options="{{ $typeOptions }}" :variation-options="{{ $variationOptions }}" :equipment-options="{{ $equipmentOptions }}" :options=" {{ $options }}" v-on:updatelifttype="updateLiftType"></lift-select>
+			<h3>Lift Details</h3>
+			<div class="flexbox wrap">
+				<div class="lift-option xs-30">
+					<label class="field-title">Tracker</label>
+					<select name="collarID" required v-model="collarID">
+						@foreach (get_team_collars() as $collar)
+							<option value="{{ $collar->collar_id }}">{{ $collar->collar_id }}</option>
+						@endforeach
+					</select>
+				</div>
+				<div class="lift-option xs-30">
+					<label class="field-title">Weight</label>
+					<input name="liftWeight" type="number" min="1" required v-model="liftWeight">
+				</div>
+				<div class="lift-option xs-30">
+					<label class="field-title">Reps</label>
+					<input name="liftReps" type="number" min="1" required v-model="repCount">
+				</div>
+				<input name="athleteID" type="hidden" value="{{ Auth::id() }}">
+				<div class="lift-option xs-100 lift-actions">
+					<button id="lift-new-submit" class="lift-new-submit"><span class="button__inner">Submit</span></button>
+					<a href="{{ route('home') }}">Cancel</a>
+				</div>
+			</div>
 		</form>
 	</div>
 </div>

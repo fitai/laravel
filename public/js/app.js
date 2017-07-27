@@ -63,17 +63,294 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 55);
+/******/ 	return __webpack_require__(__webpack_require__.s = 3);
 /******/ })
 /************************************************************************/
 /******/ ([
 /* 0 */
 /***/ (function(module, exports, __webpack_require__) {
 
+
+/**
+ * First we will load all of this project's JavaScript dependencies which
+ * includes Vue and other libraries. It is a great starting point when
+ * building robust, powerful web applications using Vue and Laravel.
+ */
+
+__webpack_require__(42);
+
+/**
+ * Next, we will create a fresh Vue application instance and attach it to
+ * the page. Then, you may begin adding components to this application
+ * or customize the JavaScript scaffolding to fit your unique needs.
+ */
+
+Vue.component('example', __webpack_require__(47));
+Vue.component('athlete', __webpack_require__(46));
+Vue.component('team', __webpack_require__(51));
+Vue.component('lift-summary', __webpack_require__(50));
+Vue.component('lift-data', __webpack_require__(48));
+Vue.component('lift-select', __webpack_require__(49));
+
+var app = new Vue({
+    el: '#app',
+    data: {
+        search: '',
+        team: [],
+        collarID: '',
+        liftType: '',
+        liftWeight: '',
+        maxReps: '',
+        repCount: '',
+        liftComments: '',
+        collarActive: false,
+        athleteID: '',
+        liftID: '',
+        liftOptions: [],
+        adminWatch: false,
+        currentVelocity: 0.0
+    },
+    methods: {
+        getTeam: function getTeam() {
+            var _this = this;
+
+            axios.get('/team').then(function (response) {
+                var temp = response.data;
+
+                // Loop through each athlete and createa search string for easy Vue filtering
+                for (var i = 0; i < response.data.length; i++) {
+                    var lowerString = '';
+                    lowerString = temp[i].athlete_first_name + ' ' + temp[i].athlete_last_name;
+                    lowerString = lowerString.toLowerCase();
+
+                    // push search string to object
+                    temp[i].search_string = lowerString;
+                }
+
+                // bind athletes to Vue
+                _this.team = temp;
+            });
+        },
+        addAthlete: function addAthlete($id) {
+            console.log('adding athleteID: ' + $id);
+            this.athleteID = $id;
+        },
+        addLift: function addLift($lift) {
+            this.liftWeight = $lift.lift_weight;
+            this.liftType = $lift.lift_type;
+            this.liftComments = $lift.user_comment;
+            this.liftID = $lift.lift_id;
+
+            if ($lift.final_num_reps > 0) {
+                this.repCount = $lift.final_num_reps;
+            } else {
+                this.repCount = $lift.init_num_reps;
+            }
+        },
+        newLift: function newLift($event) {
+            var _this2 = this;
+
+            $event.preventDefault();
+            console.log('Submitting lift data...');
+            var validate = $('form#lift-new').valid();
+            if (validate == true) {
+                console.log('Form validation successful...');
+
+                // Show spinner
+                $('#spinner-overlay').css('display', 'flex').hide().fadeIn();
+
+                // Disable button
+                $('#lift-new-submit').prop('disabled', true);
+
+                axios.post('/lift/store', this.$data).then(function (response) {
+                    console.log(response.data);
+                    _this2.liftID = response.data['liftID'];
+
+                    // Hide lift form
+                    $('#lift-overlay').hide();
+
+                    // Hide spinner
+                    $('#spinner-overlay').fadeOut().hide();
+
+                    // Show end lift button
+                    $('#end-lift').show();
+
+                    // Make noise for video recordings
+                    beep();
+                });
+                // if (secDelay == null || secDelay == '') {
+                //     secDelay = 0;
+                // }
+                // liftDelay(secDelay);
+            }
+        },
+        endLift: function endLift() {
+            var _this3 = this;
+
+            console.log('Ending Lift');
+
+            // Disable button
+            $('#end-lift').prop('disabled', true);
+
+            // Show spinner
+            $('#spinner-overlay').css('display', 'flex').hide().fadeIn();
+
+            // Post to controller and stop Lift
+            axios.post('/lift/stop', {
+                collarID: this.collarID
+            }).then(function (response) {
+                console.log(response.data);
+                window.location.href = "/lift/summary/" + _this3.liftID;
+            });
+        },
+        updateSummaryField: function updateSummaryField(prop, val, field) {
+            var _this4 = this;
+
+            console.log(prop + " : " + val);
+
+            // Update DB
+            axios.patch('/lift/update', {
+                lift_id: this.liftID,
+                prop: prop,
+                val: val
+            }).then(function (response) {
+                console.log(response.data);
+
+                // Update instance
+                switch (prop) {
+                    case 'liftComments':
+                        _this4.liftComments = val;
+                        break;
+                    case 'repCount':
+                        _this4.repCount = val;
+                        break;
+                    case 'liftWeight':
+                        _this4.liftWeight = val;
+                        break;
+                    case 'liftType':
+                        _this4.liftType = val;
+                        break;
+                }
+
+                // Hide the edit field and show the saved value
+                $('#' + field).show();
+                $('#' + field + '-input').hide();
+            });
+        },
+        updateLiftType: function updateLiftType(name) {
+            this.liftType = name;
+            console.log('updated liftType');
+        },
+        setCollarID: function setCollarID(id) {
+            this.collarID = id;
+            console.log('collarID updated');
+        },
+        setAdminCollar: function setAdminCollar() {
+            this.adminWatch = true;
+            drawLine();
+            this.liftType = "";
+            this.liftWeight = "";
+            this.repCount = "";
+        }
+    },
+    mounted: function mounted() {
+
+        // Socket.io listener
+        socket.on('lifts', function (data) {
+            var now = new Date().getTime();
+            // console.log(data + ' - time: ' +  now);
+
+            // Parse data
+            var packet = JSON.parse(data);
+
+            // Make sure data is JSON
+            if (packet) {
+
+                // Update charts and lift data
+                if (packet.header.collar_id == this.collarID) {
+                    var _updateCharts = function _updateCharts() {
+                        // Get Power and Velocity values
+                        var power = _mean(packet.content.p_rms);
+                        var velocity = _mean(packet.content.v_rms);
+
+                        // Update the charts with data
+                        this.currentVelocity = velocity;
+                        updateGauge(velocity);
+                        updateLine(velocity);
+                        updateColumn(power);
+                    };
+
+                    var _mean = function _mean(obj) {
+                        var sum = obj.reduce(function (acc, val) {
+                            return acc + val;
+                        }, 0);
+                        var length = obj.length;
+
+                        return sum / length;
+                    };
+
+                    // console.log(data + ' - time: ' +  now);
+
+                    // If this is the Admin - Watch screen, then fill in lift data
+                    if (this.adminWatch) {
+
+                        this.liftType = packet.header.lift_type;
+                        this.liftWeight = packet.header.lift_weight;
+                        this.repCount = packet.header.calc_reps;
+
+                        // update charts
+                        _updateCharts();
+                    } else if (packet.header.active == true) {
+
+                        // Change collar status to active
+                        this.collarActive = packet.header.active;
+
+                        // If collar is active, then update charts
+                        _updateCharts();
+                    }
+                }
+            }
+        }.bind(this));
+    },
+
+    computed: {
+        filteredteam: function filteredteam() {
+            var _this5 = this;
+
+            return this.team.filter(function (athlete) {
+                return athlete.search_string.indexOf(_this5.search.toLowerCase()) > -1;
+            });
+        }
+    }
+});
+
+/***/ }),
+/* 1 */,
+/* 2 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 3 */
+/***/ (function(module, exports, __webpack_require__) {
+
+__webpack_require__(0);
+module.exports = __webpack_require__(2);
+
+
+/***/ }),
+/* 4 */,
+/* 5 */,
+/* 6 */,
+/* 7 */,
+/* 8 */
+/***/ (function(module, exports, __webpack_require__) {
+
 "use strict";
 
 
-var bind = __webpack_require__(8);
+var bind = __webpack_require__(16);
 
 /*global toString:true*/
 
@@ -373,7 +650,7 @@ module.exports = {
 
 
 /***/ }),
-/* 1 */
+/* 9 */
 /***/ (function(module, exports) {
 
 // this module is a runtime utility for cleaner component module output and will
@@ -430,14 +707,14 @@ module.exports = function normalizeComponent (
 
 
 /***/ }),
-/* 2 */
+/* 10 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(process) {
 
-var utils = __webpack_require__(0);
-var normalizeHeaderName = __webpack_require__(28);
+var utils = __webpack_require__(8);
+var normalizeHeaderName = __webpack_require__(33);
 
 var PROTECTION_PREFIX = /^\)\]\}',?\n/;
 var DEFAULT_CONTENT_TYPE = {
@@ -454,10 +731,10 @@ function getDefaultAdapter() {
   var adapter;
   if (typeof XMLHttpRequest !== 'undefined') {
     // For browsers use XHR adapter
-    adapter = __webpack_require__(4);
+    adapter = __webpack_require__(12);
   } else if (typeof process !== 'undefined') {
     // For node use HTTP adapter
-    adapter = __webpack_require__(4);
+    adapter = __webpack_require__(12);
   }
   return adapter;
 }
@@ -528,10 +805,10 @@ utils.forEach(['post', 'put', 'patch'], function forEachMethodWithData(method) {
 
 module.exports = defaults;
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(11)))
 
 /***/ }),
-/* 3 */
+/* 11 */
 /***/ (function(module, exports) {
 
 // shim for using process in browser
@@ -717,19 +994,19 @@ process.umask = function() { return 0; };
 
 
 /***/ }),
-/* 4 */
+/* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(process) {
 
-var utils = __webpack_require__(0);
-var settle = __webpack_require__(20);
-var buildURL = __webpack_require__(23);
-var parseHeaders = __webpack_require__(29);
-var isURLSameOrigin = __webpack_require__(27);
-var createError = __webpack_require__(7);
-var btoa = (typeof window !== 'undefined' && window.btoa && window.btoa.bind(window)) || __webpack_require__(22);
+var utils = __webpack_require__(8);
+var settle = __webpack_require__(25);
+var buildURL = __webpack_require__(28);
+var parseHeaders = __webpack_require__(34);
+var isURLSameOrigin = __webpack_require__(32);
+var createError = __webpack_require__(15);
+var btoa = (typeof window !== 'undefined' && window.btoa && window.btoa.bind(window)) || __webpack_require__(27);
 
 module.exports = function xhrAdapter(config) {
   return new Promise(function dispatchXhrRequest(resolve, reject) {
@@ -825,7 +1102,7 @@ module.exports = function xhrAdapter(config) {
     // This is only done if running in a standard browser environment.
     // Specifically not if we're in a web worker, or react-native.
     if (utils.isStandardBrowserEnv()) {
-      var cookies = __webpack_require__(25);
+      var cookies = __webpack_require__(30);
 
       // Add xsrf header
       var xsrfValue = (config.withCredentials || isURLSameOrigin(config.url)) && config.xsrfCookieName ?
@@ -899,10 +1176,10 @@ module.exports = function xhrAdapter(config) {
   });
 };
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(11)))
 
 /***/ }),
-/* 5 */
+/* 13 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -928,7 +1205,7 @@ module.exports = Cancel;
 
 
 /***/ }),
-/* 6 */
+/* 14 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -940,13 +1217,13 @@ module.exports = function isCancel(value) {
 
 
 /***/ }),
-/* 7 */
+/* 15 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var enhanceError = __webpack_require__(19);
+var enhanceError = __webpack_require__(24);
 
 /**
  * Create an Error with the specified message, config, error code, and response.
@@ -964,7 +1241,7 @@ module.exports = function createError(message, config, code, response) {
 
 
 /***/ }),
-/* 8 */
+/* 16 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -982,7 +1259,7 @@ module.exports = function bind(fn, thisArg) {
 
 
 /***/ }),
-/* 9 */
+/* 17 */
 /***/ (function(module, exports) {
 
 var g;
@@ -1009,264 +1286,22 @@ module.exports = g;
 
 
 /***/ }),
-/* 10 */
+/* 18 */
 /***/ (function(module, exports, __webpack_require__) {
 
-
-/**
- * First we will load all of this project's JavaScript dependencies which
- * includes Vue and other libraries. It is a great starting point when
- * building robust, powerful web applications using Vue and Laravel.
- */
-
-__webpack_require__(37);
-
-/**
- * Next, we will create a fresh Vue application instance and attach it to
- * the page. Then, you may begin adding components to this application
- * or customize the JavaScript scaffolding to fit your unique needs.
- */
-
-Vue.component('example', __webpack_require__(42));
-Vue.component('athlete', __webpack_require__(41));
-Vue.component('team', __webpack_require__(46));
-Vue.component('lift-summary', __webpack_require__(45));
-Vue.component('lift-data', __webpack_require__(43));
-Vue.component('lift-select', __webpack_require__(44));
-
-var app = new Vue({
-    el: '#app',
-    data: {
-        search: '',
-        team: [],
-        collarID: '',
-        liftType: '',
-        liftWeight: '',
-        maxReps: '',
-        repCount: '',
-        liftComments: '',
-        collarActive: 'False',
-        athleteID: '',
-        liftID: '',
-        liftOptions: [],
-        adminWatch: false
-    },
-    methods: {
-        getTeam: function getTeam() {
-            var _this = this;
-
-            axios.get('/team').then(function (response) {
-                var temp = response.data;
-
-                // Loop through each athlete and createa search string for easy Vue filtering
-                for (var i = 0; i < response.data.length; i++) {
-                    var lowerString = '';
-                    lowerString = temp[i].athlete_first_name + ' ' + temp[i].athlete_last_name;
-                    lowerString = lowerString.toLowerCase();
-
-                    // push search string to object
-                    temp[i].search_string = lowerString;
-                }
-
-                // bind athletes to Vue
-                _this.team = temp;
-            });
-        },
-        addAthlete: function addAthlete($id) {
-            console.log('adding athleteID: ' + $id);
-            this.athleteID = $id;
-        },
-        addLift: function addLift($lift) {
-            this.liftWeight = $lift.lift_weight;
-            this.liftType = $lift.lift_type;
-            this.liftComments = $lift.user_comment;
-            this.liftID = $lift.lift_id;
-
-            if ($lift.final_num_reps > 0) {
-                this.repCount = $lift.final_num_reps;
-            } else {
-                this.repCount = $lift.init_num_reps;
-            }
-        },
-        newLift: function newLift($event) {
-            var _this2 = this;
-
-            $event.preventDefault();
-            console.log('Submitting lift data...');
-            var validate = $('form#lift-new').valid();
-            if (validate == true) {
-                console.log('Form validation successful...');
-                $('#lift-new-submit').prop('disabled', true);
-
-                axios.post('/lift/store', this.$data).then(function (response) {
-                    console.log(response.data);
-                    _this2.liftID = response.data['liftID'];
-                    $('#overlay').hide();
-                    beep();
-                });
-                // if (secDelay == null || secDelay == '') {
-                //     secDelay = 0;
-                // }
-                // liftDelay(secDelay);
-            }
-        },
-        endLift: function endLift() {
-            var _this3 = this;
-
-            console.log('Ending Lift');
-
-            // Post to controller and stop Lift
-            axios.post('/lift/stop', {
-                collarID: this.collarID
-            }).then(function (response) {
-                console.log(response.data);
-                window.location.href = "/lift/summary/" + _this3.liftID;
-            });
-        },
-        updateSummaryField: function updateSummaryField(prop, val, field) {
-            var _this4 = this;
-
-            console.log(prop + " : " + val);
-
-            // Update DB
-            axios.patch('/lift/update', {
-                lift_id: this.liftID,
-                prop: prop,
-                val: val
-            }).then(function (response) {
-                console.log(response.data);
-
-                // Update instance
-                switch (prop) {
-                    case 'liftComments':
-                        _this4.liftComments = val;
-                        break;
-                    case 'repCount':
-                        _this4.repCount = val;
-                        break;
-                    case 'liftWeight':
-                        _this4.liftWeight = val;
-                        break;
-                    case 'liftType':
-                        _this4.liftType = val;
-                        break;
-                }
-
-                // Hide the edit field and show the saved value
-                $('#' + field).show();
-                $('#' + field + '-input').hide();
-            });
-        },
-        updateLiftType: function updateLiftType(name) {
-            this.liftType = name;
-            console.log('updated liftType');
-        },
-        setCollarID: function setCollarID(id) {
-            this.collarID = id;
-            console.log('collarID updated');
-        },
-        setAdminCollar: function setAdminCollar() {
-            this.adminWatch = true;
-            drawLine();
-            this.liftType = "";
-            this.liftWeight = "";
-            this.repCount = "";
-        }
-    },
-    mounted: function mounted() {
-
-        // Socket.io listener
-        socket.on('lifts', function (data) {
-            var now = new Date().getTime();
-            // console.log(data + ' - time: ' +  now);
-
-            // Parse data
-            var packet = JSON.parse(data);
-
-            // Make sure data is JSON
-            if (packet) {
-
-                // Update charts and lift data
-                if (packet.header.collar_id == this.collarID) {
-                    var _updateCharts = function _updateCharts() {
-                        // Get Power and Velocity values
-                        var power = _mean(packet.content.p_rms);
-                        var velocity = _mean(packet.content.v_rms);
-
-                        // Update the charts with data
-                        updateGauge(velocity);
-                        updateLine(velocity);
-                        updateColumn(power);
-                    };
-
-                    var _mean = function _mean(obj) {
-                        var sum = obj.reduce(function (acc, val) {
-                            return acc + val;
-                        }, 0);
-                        var length = obj.length;
-
-                        return sum / length;
-                    };
-
-                    // console.log(data + ' - time: ' +  now);
-
-                    // If this is the Admin - Watch screen, then fill in lift data
-                    if (this.adminWatch) {
-
-                        this.liftType = packet.header.lift_type;
-                        this.liftWeight = packet.header.lift_weight;
-                        this.repCount = packet.header.calc_reps;
-
-                        // update charts
-                        _updateCharts();
-                    } else if (packet.header.active == true) {
-
-                        // Change collar status to active
-                        this.collarActive = packet.header.active;
-
-                        // If collar is active, then update charts
-                        _updateCharts();
-                    }
-                }
-            }
-        }.bind(this));
-    },
-
-    computed: {
-        filteredteam: function filteredteam() {
-            var _this5 = this;
-
-            return this.team.filter(function (athlete) {
-                return athlete.search_string.indexOf(_this5.search.toLowerCase()) > -1;
-            });
-        }
-    }
-});
+module.exports = __webpack_require__(19);
 
 /***/ }),
-/* 11 */,
-/* 12 */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
-/* 13 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__(14);
-
-/***/ }),
-/* 14 */
+/* 19 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var utils = __webpack_require__(0);
-var bind = __webpack_require__(8);
-var Axios = __webpack_require__(16);
-var defaults = __webpack_require__(2);
+var utils = __webpack_require__(8);
+var bind = __webpack_require__(16);
+var Axios = __webpack_require__(21);
+var defaults = __webpack_require__(10);
 
 /**
  * Create an instance of Axios
@@ -1299,15 +1334,15 @@ axios.create = function create(instanceConfig) {
 };
 
 // Expose Cancel & CancelToken
-axios.Cancel = __webpack_require__(5);
-axios.CancelToken = __webpack_require__(15);
-axios.isCancel = __webpack_require__(6);
+axios.Cancel = __webpack_require__(13);
+axios.CancelToken = __webpack_require__(20);
+axios.isCancel = __webpack_require__(14);
 
 // Expose all/spread
 axios.all = function all(promises) {
   return Promise.all(promises);
 };
-axios.spread = __webpack_require__(30);
+axios.spread = __webpack_require__(35);
 
 module.exports = axios;
 
@@ -1316,13 +1351,13 @@ module.exports.default = axios;
 
 
 /***/ }),
-/* 15 */
+/* 20 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var Cancel = __webpack_require__(5);
+var Cancel = __webpack_require__(13);
 
 /**
  * A `CancelToken` is an object that can be used to request cancellation of an operation.
@@ -1380,18 +1415,18 @@ module.exports = CancelToken;
 
 
 /***/ }),
-/* 16 */
+/* 21 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var defaults = __webpack_require__(2);
-var utils = __webpack_require__(0);
-var InterceptorManager = __webpack_require__(17);
-var dispatchRequest = __webpack_require__(18);
-var isAbsoluteURL = __webpack_require__(26);
-var combineURLs = __webpack_require__(24);
+var defaults = __webpack_require__(10);
+var utils = __webpack_require__(8);
+var InterceptorManager = __webpack_require__(22);
+var dispatchRequest = __webpack_require__(23);
+var isAbsoluteURL = __webpack_require__(31);
+var combineURLs = __webpack_require__(29);
 
 /**
  * Create a new instance of Axios
@@ -1472,13 +1507,13 @@ module.exports = Axios;
 
 
 /***/ }),
-/* 17 */
+/* 22 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var utils = __webpack_require__(0);
+var utils = __webpack_require__(8);
 
 function InterceptorManager() {
   this.handlers = [];
@@ -1531,16 +1566,16 @@ module.exports = InterceptorManager;
 
 
 /***/ }),
-/* 18 */
+/* 23 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var utils = __webpack_require__(0);
-var transformData = __webpack_require__(21);
-var isCancel = __webpack_require__(6);
-var defaults = __webpack_require__(2);
+var utils = __webpack_require__(8);
+var transformData = __webpack_require__(26);
+var isCancel = __webpack_require__(14);
+var defaults = __webpack_require__(10);
 
 /**
  * Throws a `Cancel` if cancellation has been requested.
@@ -1617,7 +1652,7 @@ module.exports = function dispatchRequest(config) {
 
 
 /***/ }),
-/* 19 */
+/* 24 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1643,13 +1678,13 @@ module.exports = function enhanceError(error, config, code, response) {
 
 
 /***/ }),
-/* 20 */
+/* 25 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var createError = __webpack_require__(7);
+var createError = __webpack_require__(15);
 
 /**
  * Resolve or reject a Promise based on response status.
@@ -1675,13 +1710,13 @@ module.exports = function settle(resolve, reject, response) {
 
 
 /***/ }),
-/* 21 */
+/* 26 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var utils = __webpack_require__(0);
+var utils = __webpack_require__(8);
 
 /**
  * Transform the data for a request or a response
@@ -1702,7 +1737,7 @@ module.exports = function transformData(data, headers, fns) {
 
 
 /***/ }),
-/* 22 */
+/* 27 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1745,13 +1780,13 @@ module.exports = btoa;
 
 
 /***/ }),
-/* 23 */
+/* 28 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var utils = __webpack_require__(0);
+var utils = __webpack_require__(8);
 
 function encode(val) {
   return encodeURIComponent(val).
@@ -1820,7 +1855,7 @@ module.exports = function buildURL(url, params, paramsSerializer) {
 
 
 /***/ }),
-/* 24 */
+/* 29 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1839,13 +1874,13 @@ module.exports = function combineURLs(baseURL, relativeURL) {
 
 
 /***/ }),
-/* 25 */
+/* 30 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var utils = __webpack_require__(0);
+var utils = __webpack_require__(8);
 
 module.exports = (
   utils.isStandardBrowserEnv() ?
@@ -1899,7 +1934,7 @@ module.exports = (
 
 
 /***/ }),
-/* 26 */
+/* 31 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1920,13 +1955,13 @@ module.exports = function isAbsoluteURL(url) {
 
 
 /***/ }),
-/* 27 */
+/* 32 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var utils = __webpack_require__(0);
+var utils = __webpack_require__(8);
 
 module.exports = (
   utils.isStandardBrowserEnv() ?
@@ -1995,13 +2030,13 @@ module.exports = (
 
 
 /***/ }),
-/* 28 */
+/* 33 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var utils = __webpack_require__(0);
+var utils = __webpack_require__(8);
 
 module.exports = function normalizeHeaderName(headers, normalizedName) {
   utils.forEach(headers, function processHeader(value, name) {
@@ -2014,13 +2049,13 @@ module.exports = function normalizeHeaderName(headers, normalizedName) {
 
 
 /***/ }),
-/* 29 */
+/* 34 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var utils = __webpack_require__(0);
+var utils = __webpack_require__(8);
 
 /**
  * Parse headers into an object
@@ -2058,7 +2093,7 @@ module.exports = function parseHeaders(headers) {
 
 
 /***/ }),
-/* 30 */
+/* 35 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2092,7 +2127,7 @@ module.exports = function spread(callback) {
 
 
 /***/ }),
-/* 31 */
+/* 36 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2118,7 +2153,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 32 */
+/* 37 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2147,7 +2182,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 33 */
+/* 38 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2195,11 +2230,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 34 */
+/* 39 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
 //
 //
 //
@@ -2324,7 +2362,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 35 */
+/* 40 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2437,7 +2475,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 36 */
+/* 41 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2458,11 +2496,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 37 */
+/* 42 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
-window._ = __webpack_require__(40);
+window._ = __webpack_require__(45);
 
 /**
  * We'll load jQuery and the Bootstrap jQuery plugin which provides support
@@ -2470,9 +2508,9 @@ window._ = __webpack_require__(40);
  * code may be modified to fit the specific needs of your application.
  */
 
-window.$ = window.jQuery = __webpack_require__(39);
+window.$ = window.jQuery = __webpack_require__(44);
 
-__webpack_require__(38);
+__webpack_require__(43);
 
 /**
  * Vue is a modern JavaScript library for building interactive web interfaces
@@ -2480,7 +2518,7 @@ __webpack_require__(38);
  * and simple, leaving you to focus on building your next great project.
  */
 
-window.Vue = __webpack_require__(53);
+window.Vue = __webpack_require__(58);
 
 /**
  * We'll load the axios HTTP library which allows us to easily issue requests
@@ -2488,7 +2526,7 @@ window.Vue = __webpack_require__(53);
  * CSRF token as a header based on the value of the "XSRF" token cookie.
  */
 
-window.axios = __webpack_require__(13);
+window.axios = __webpack_require__(18);
 
 window.axios.defaults.headers.common['X-CSRF-TOKEN'] = window.Laravel.csrfToken;
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
@@ -2515,7 +2553,7 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 // });
 
 /***/ }),
-/* 38 */
+/* 43 */
 /***/ (function(module, exports) {
 
 /*!
@@ -4898,7 +4936,7 @@ if (typeof jQuery === 'undefined') {
 
 
 /***/ }),
-/* 39 */
+/* 44 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -15158,7 +15196,7 @@ return jQuery;
 
 
 /***/ }),
-/* 40 */
+/* 45 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global, module) {var __WEBPACK_AMD_DEFINE_RESULT__;/**
@@ -32247,17 +32285,17 @@ return jQuery;
   }
 }.call(this));
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(9), __webpack_require__(54)(module)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(17), __webpack_require__(59)(module)))
 
 /***/ }),
-/* 41 */
+/* 46 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var Component = __webpack_require__(1)(
+var Component = __webpack_require__(9)(
   /* script */
-  __webpack_require__(31),
+  __webpack_require__(36),
   /* template */
-  __webpack_require__(48),
+  __webpack_require__(53),
   /* scopeId */
   null,
   /* cssModules */
@@ -32284,14 +32322,14 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 42 */
+/* 47 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var Component = __webpack_require__(1)(
+var Component = __webpack_require__(9)(
   /* script */
-  __webpack_require__(32),
+  __webpack_require__(37),
   /* template */
-  __webpack_require__(47),
+  __webpack_require__(52),
   /* scopeId */
   null,
   /* cssModules */
@@ -32318,14 +32356,14 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 43 */
+/* 48 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var Component = __webpack_require__(1)(
+var Component = __webpack_require__(9)(
   /* script */
-  __webpack_require__(33),
+  __webpack_require__(38),
   /* template */
-  __webpack_require__(50),
+  __webpack_require__(55),
   /* scopeId */
   null,
   /* cssModules */
@@ -32352,14 +32390,14 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 44 */
+/* 49 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var Component = __webpack_require__(1)(
+var Component = __webpack_require__(9)(
   /* script */
-  __webpack_require__(34),
+  __webpack_require__(39),
   /* template */
-  __webpack_require__(52),
+  __webpack_require__(57),
   /* scopeId */
   null,
   /* cssModules */
@@ -32386,14 +32424,14 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 45 */
+/* 50 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var Component = __webpack_require__(1)(
+var Component = __webpack_require__(9)(
   /* script */
-  __webpack_require__(35),
+  __webpack_require__(40),
   /* template */
-  __webpack_require__(51),
+  __webpack_require__(56),
   /* scopeId */
   null,
   /* cssModules */
@@ -32420,14 +32458,14 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 46 */
+/* 51 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var Component = __webpack_require__(1)(
+var Component = __webpack_require__(9)(
   /* script */
-  __webpack_require__(36),
+  __webpack_require__(41),
   /* template */
-  __webpack_require__(49),
+  __webpack_require__(54),
   /* scopeId */
   null,
   /* cssModules */
@@ -32454,7 +32492,7 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 47 */
+/* 52 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -32483,7 +32521,7 @@ if (false) {
 }
 
 /***/ }),
-/* 48 */
+/* 53 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -32510,7 +32548,7 @@ if (false) {
 }
 
 /***/ }),
-/* 49 */
+/* 54 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -32534,7 +32572,7 @@ if (false) {
 }
 
 /***/ }),
-/* 50 */
+/* 55 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -32587,7 +32625,7 @@ if (false) {
 }
 
 /***/ }),
-/* 51 */
+/* 56 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -32875,7 +32913,7 @@ if (false) {
 }
 
 /***/ }),
-/* 52 */
+/* 57 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -32884,11 +32922,16 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "id": "lift-select"
     }
-  }, [_c('div', [_c('label', {
+  }, [_c('h3', [_vm._v("Lift Type")]), _vm._v(" "), _c('div', {
+    staticClass: "flexbox wrap"
+  }, [_c('div', {
+    staticClass: "lift-option xs-30"
+  }, [_c('label', {
+    staticClass: "field-title",
     attrs: {
       "for": "type"
     }
-  }, [_vm._v("Type:")]), _c('br'), _vm._v(" "), _c('select', {
+  }, [_vm._v("Type")]), _vm._v(" "), _c('select', {
     directives: [{
       name: "model",
       rawName: "v-model",
@@ -32919,12 +32962,15 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       domProps: {
         "value": type.type
       }
-    }, [_vm._v("\n                " + _vm._s(type.type) + "\n            ")])
-  })], 2)]), _vm._v(" "), _c('div', [_c('label', {
+    }, [_vm._v("\n                    " + _vm._s(type.type) + "\n                ")])
+  })], 2)]), _vm._v(" "), _c('div', {
+    staticClass: "lift-option xs-30"
+  }, [_c('label', {
+    staticClass: "field-title",
     attrs: {
-      "for": "type"
+      "for": "variation"
     }
-  }, [_vm._v("Variation:")]), _c('br'), _vm._v(" "), _c('select', {
+  }, [_vm._v("Variation")]), _vm._v(" "), _c('select', {
     directives: [{
       name: "model",
       rawName: "v-model",
@@ -32955,12 +33001,15 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       domProps: {
         "value": variation
       }
-    }, [_vm._v("\n                " + _vm._s(variation) + "\n            ")])
-  })], 2)]), _vm._v(" "), _c('div', [_c('label', {
+    }, [_vm._v("\n                    " + _vm._s(variation) + "\n                ")])
+  })], 2)]), _vm._v(" "), _c('div', {
+    staticClass: "lift-option xs-30"
+  }, [_c('label', {
+    staticClass: "field-title",
     attrs: {
-      "for": "type"
+      "for": "equipment"
     }
-  }, [_vm._v("Equipment:")]), _c('br'), _vm._v(" "), _c('select', {
+  }, [_vm._v("Equipment")]), _vm._v(" "), _c('select', {
     directives: [{
       name: "model",
       rawName: "v-model",
@@ -32991,8 +33040,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       domProps: {
         "value": equipment
       }
-    }, [_vm._v("\n                " + _vm._s(equipment) + "\n            ")])
-  })], 2)])])
+    }, [_vm._v("\n                    " + _vm._s(equipment) + "\n                ")])
+  })], 2)])])])
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
@@ -33003,7 +33052,7 @@ if (false) {
 }
 
 /***/ }),
-/* 53 */
+/* 58 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -42328,10 +42377,10 @@ Vue$3.compile = compileToFunctions;
 
 module.exports = Vue$3;
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3), __webpack_require__(9)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(11), __webpack_require__(17)))
 
 /***/ }),
-/* 54 */
+/* 59 */
 /***/ (function(module, exports) {
 
 module.exports = function(module) {
@@ -42356,14 +42405,6 @@ module.exports = function(module) {
 	}
 	return module;
 };
-
-
-/***/ }),
-/* 55 */
-/***/ (function(module, exports, __webpack_require__) {
-
-__webpack_require__(10);
-module.exports = __webpack_require__(12);
 
 
 /***/ })
