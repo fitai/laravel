@@ -25,7 +25,7 @@
 				</div>
 				<div class="lift-option xs-30">
 					<label class="field-title">Reps</label>
-					<input name="liftReps" type="number" min="1" required v-model="repCount">
+					<input name="maxReps" type="number" min="1" required v-model="maxReps">
 				</div>
 				<input name="athleteID" type="hidden" value="{{ Auth::id() }}">
 				<div class="lift-option xs-100 lift-actions">

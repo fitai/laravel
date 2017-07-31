@@ -18,15 +18,15 @@ class LiftController extends Controller
     {
         $this->middleware('auth');
 
-    //     // Connect to AWS server via SSH with key
-    //     $ssh = new SSH2('52.15.200.179');
-    //     $key = new RSA();
-    //     $key->loadKey(file_get_contents('/home/vagrant/.ssh/fitai-dev.pem'));
-    //     if (!$ssh->login('patrick', $key)) {
-    //         exit('Login Failed');
-    //     }
+        // Connect to AWS server via SSH with key
+        // $ssh = new SSH2('52.15.200.179');
+        // $key = new RSA();
+        // $key->loadKey(file_get_contents('/home/vagrant/.ssh/fitai-dev.pem'));
+        // if (!$ssh->login('patrick', $key)) {
+        //     exit('Login Failed');
+        // }
 
-    //     $this->ssh = $ssh;
+        // $this->ssh = $ssh;
     }
     
     /**
@@ -122,11 +122,12 @@ class LiftController extends Controller
         // $pythonExec = $this->ssh->exec("/home/kyle/virtualenvs/fitai/bin/python /opt/fitai_controller/comms/update_redis.py -v -j '".json_encode($pythonArray)."'");
         // $python = explode(PHP_EOL, $pythonExec); // Create array by exploding end of line
 
+
         // Run on AWS
         $pythonExec = exec("/home/kyle/virtualenvs/fitai/bin/python /opt/fitai_controller/comms/update_redis.py -v -j '".json_encode($pythonArray)."'", $python); 
 
         // Run always        
-        $liftID = explode(": ", $python[4]); // Explode the line with "lift_id: ###"
+        $liftID = explode(": ", $python[5]); // Explode the line with "lift_id: ###"
 
         return array(
             "exec" => $exec, 

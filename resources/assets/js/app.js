@@ -29,7 +29,7 @@ const app = new Vue({
         liftType: '',
         liftWeight: '',
         maxReps: '',
-        repCount: '',
+        repCount: 0,
         liftComments: '',
         collarActive: false,
         athleteID: '',
@@ -198,6 +198,8 @@ const app = new Vue({
                     // If this is the Admin - Watch screen, then fill in lift data
                     if (this.adminWatch) {
 
+                        console.log(packet);
+
                         this.liftType = packet.header.lift_type;
                         this.liftWeight = packet.header.lift_weight;
                         this.repCount = packet.header.calc_reps;
@@ -210,8 +212,9 @@ const app = new Vue({
                          // Change collar status to active
                         this.collarActive = packet.header.active;
 
-                        // If collar is active, then update charts
-                        updateCharts();
+                        // Update charts and get velocity to update Vue
+                        var vel = updateCharts();
+                        this.currentVelocity = vel.toFixed(2);
 
                     }
 
@@ -221,10 +224,11 @@ const app = new Vue({
                         var velocity = mean(packet.content.v_rms);
 
                         // Update the charts with data
-                        this.currentVelocity = velocity;
                         updateGauge(velocity);
                         updateLine(velocity);
                         updateColumn(power); 
+
+                        return(velocity);
                     }
 
                     function mean(obj) {
