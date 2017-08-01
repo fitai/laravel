@@ -1249,6 +1249,7 @@ var app = new Vue({
 
                         // Change collar status to active
                         this.collarActive = packet.header.active;
+                        this.repCount = packet.header.calc_reps;
 
                         // Update charts and get velocity to update Vue
                         var vel = _updateCharts();
