@@ -64,11 +64,11 @@ class HomeController extends Controller
     }
     public function rfidListener(Request $request) 
     {
-        // Get all collars for the User's team
-        $collars = Auth::user()->athlete->team->collars;
+        // Get all trackers for the User's team
+        $trackers = Auth::user()->athlete->team->trackers;
 
-        $collarID = $request->collarID;
-        return view('rfid/listener', compact('collars', 'collarID'));
+        $trackerID = $request->trackerID;
+        return view('rfid/listener', compact('trackers', 'trackerID'));
     }
     public function rfidLogin(Request $request) 
     {
@@ -86,13 +86,13 @@ class HomeController extends Controller
             return back()->withErrors($error);
         endif;
 
-        $rfidCollarID = $request->collarID;
+        $rfidTrackerID = $request->trackerID;
 
         // Log out as old user and log in as new user
         Auth::logout();
         Auth::login($newUser);
         
-        return redirect('/lift?rfidCollarID='.$rfidCollarID);
+        return redirect('/lift?rfidTrackerID='.$rfidTrackerID);
     }
         
         

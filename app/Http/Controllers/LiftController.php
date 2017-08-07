@@ -18,7 +18,7 @@ class LiftController extends Controller
     {
         $this->middleware('auth');
 
-        // Connect to AWS server via SSH with key
+        // // Connect to AWS server via SSH with key
         // $ssh = new SSH2('52.15.200.179');
         // $key = new RSA();
         // $key->loadKey(file_get_contents('/home/vagrant/.ssh/fitai-dev.pem'));
@@ -46,11 +46,11 @@ class LiftController extends Controller
      */
     public function create(Request $request)
     {
-        // Get all collars for the User's team
-        $collars = Auth::user()->athlete->team->collars;
+        // Get all trackers for the User's team
+        $trackers = Auth::user()->athlete->team->trackers;
 
-        // Set default $rfidCollarID
-        $rfidCollarID = 0;
+        // Set default $rfidTrackerID
+        $rfidTrackerID = 0;
 
         // Get lift options
         $typeOptions = LiftType::select('type')->groupBy('type')->get();
@@ -58,30 +58,30 @@ class LiftController extends Controller
         $equipmentOptions = LiftType::select('equipment')->groupBy('equipment')->get();
         $options = LiftType::select('type', 'variation', 'equipment')->groupBy('type', 'variation', 'equipment')->get();
 
-        // Check if collarID is passed by RFID
-        if ($request->rfidCollarID) :
-            $rfidCollarID = $request->rfidCollarID;
+        // Check if trackerID is passed by RFID
+        if ($request->rfidTrackerID) :
+            $rfidTrackerID = $request->rfidTrackerID;
         endif;
 
-        return view('lifts/create', compact('rfidCollarID', 'typeOptions', 'variationOptions', 'equipmentOptions', 'options', 'collars')); // Working device
+        return view('lifts/create', compact('rfidTrackerID', 'typeOptions', 'variationOptions', 'equipmentOptions', 'options', 'trackers')); // Working device
 
     }
     public function test(Request $request)
     {
-        // Get all collars for the User's team
-        $collars = Auth::user()->athlete->team->collars;
+        // Get all trackers for the User's team
+        $trackers = Auth::user()->athlete->team->trackers;
 
         $typeOptions = LiftType::select('type')->groupBy('type')->get();
         $variationOptions = LiftType::select('variation')->groupBy('variation')->get();
         $equipmentOptions = LiftType::select('equipment')->groupBy('equipment')->get();
         $options = LiftType::select('type', 'variation', 'equipment')->groupBy('type', 'variation', 'equipment')->get();
 
-        // Set default $rfidCollarID
-        $rfidCollarID = 0;
+        // Set default $rfidTrackerID
+        $rfidTrackerID = 0;
 
-        // Check if collarID is passed by RFID
-        if ($request->rfidCollarID) :
-            $rfidCollarID = $request->rfidCollarID;
+        // Check if trackerID is passed by RFID
+        if ($request->rfidTrackerID) :
+            $rfidTrackerID = $request->rfidTrackerID;
         endif;
 
         return view('lifts/create-numbers', compact('typeOptions', 'variationOptions', 'equipmentOptions', 'options')); // New design device
@@ -99,7 +99,7 @@ class LiftController extends Controller
 
         // Create array to send to Python
         $pythonArray = array(
-            "collar_id" => $request->collarID,
+            "tracker_id" => $request->trackerID,
             "athlete_id" => Auth::user()->athlete->athlete_id,
             "lift_id" => 'None',
             "lift_start" => "None",
@@ -152,13 +152,15 @@ class LiftController extends Controller
         }
 
         $pythonArray = array(
-            "collar_id" => $lift->collar_id,
+            "tracker_id" => $lift->tracker_id,
             "lift_id" => $id,
             "active" => false
         );
 
         // // Run on local build
-        // $pythonResponse = $this->ssh->exec("/home/kyle/virtualenvs/fitai/bin/python /opt/fitai_controller/comms/update_redis.py -j '".json_encode($pythonArray)."'");
+        // $pythonExec = $this->ssh->exec("/home/kyle/virtualenvs/fitai/bin/python /opt/fitai_controller/comms/update_redis.py -j '".json_encode($pythonArray)."'");
+        // $pythonArray = explode(PHP_EOL, $pythonExec);
+        // $pythonResponse = $pythonArray[2];
 
         // Run on AWS
         $pythonResponse = exec("/home/kyle/virtualenvs/fitai/bin/python /opt/fitai_controller/comms/update_redis.py -j '".json_encode($pythonArray)."'");
@@ -240,7 +242,7 @@ class LiftController extends Controller
     public function endLift(Request $request) 
     {
         $pythonArray = array(
-            "collar_id" => $request->collarID,
+            "tracker_id" => $request->trackerID,
             "active" => false
         );
 
@@ -258,7 +260,7 @@ class LiftController extends Controller
     public function killLift($id) 
     {
         $pythonArray = array(
-            "collar_id" => $id,
+            "tracker_id" => $id,
             "active" => false
         );
 

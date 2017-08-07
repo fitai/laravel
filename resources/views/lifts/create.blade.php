@@ -13,9 +13,9 @@
 			<div class="flexbox wrap">
 				<div class="lift-option xs-30">
 					<label class="field-title">Tracker</label>
-					<select name="collarID" required v-model="collarID">
-						@foreach (get_team_collars() as $collar)
-							<option value="{{ $collar->collar_id }}">{{ $collar->collar_id }}</option>
+					<select name="trackerID" required v-model="trackerID">
+						@foreach ($trackers as $tracker)
+							<option value="{{ $tracker->tracker_id }}">{{ $tracker->tracker_id }}</option>
 						@endforeach
 					</select>
 				</div>
@@ -42,11 +42,11 @@
 	</div>
 </div>
 <div id="end-lift" class="reset-reps end-lift" v-on:click="endLift">End Lift</div>
-    <ul class="alert alert-warning" v-if='collarActive == false'>
-        <li class="center"><b>WARNING:</b> Your selected collar is not active and is not recording data!</li>
+    <ul class="alert alert-warning" v-if='trackerActive == false'>
+        <li class="center"><b>WARNING:</b> Your selected tracker is not active and is not recording data!</li>
     </ul>
 <div id="connect_string"></div>
-<lift-data :athlete-i-d="{{ Auth::id() }}" :lift-weight="liftWeight" :lift-type="liftType" :collar-active="collarActive" :max-reps="maxReps" :rep-count="repCount" :collar-i-d="collarID" :rfid-collar-i-d="{{ $rfidCollarID }}" v-on:add-athlete="addAthlete" v-on:set-collar-id="setCollarID"></lift-data>
+<lift-data :athlete-i-d="{{ Auth::id() }}" :lift-weight="liftWeight" :lift-type="liftType" :tracker-active="trackerActive" :max-reps="maxReps" :rep-count="repCount" :tracker-i-d="trackerID" :rfid-tracker-i-d="{{ $rfidTrackerID }}" v-on:add-athlete="addAthlete" v-on:set-tracker-id="setTrackerID"></lift-data>
 <div class="lift-section velocity-title">
 	<h2 class="center">Velocity</h2>
 	<div class="label">m/s <sup>2</sup></div>

@@ -16,12 +16,12 @@
             <div class="data">{{ maxReps }}</div>
             <div class="label">Max Reps</div>
         </div>
-        <div class="data-box collar-id center">
-            <div class="data">{{ collarID }}</div>
+        <div class="data-box Tracker-id center">
+            <div class="data">{{ trackerID }}</div>
             <div class="label">Tracker ID</div>
         </div>
         <div class="data-box lift-status center">
-            <div class="data">{{ collarActive }}</div>
+            <div class="data">{{ trackerActive }}</div>
             <div class="label">Active</div>
         </div>
     </div>
@@ -29,13 +29,13 @@
 
 <script>
     export default {
-        props: ['collarID', 'liftWeight', 'liftType', 'maxReps', 'repCount', 'collarActive', 'athleteID', 'rfidCollarID'],
+        props: ['trackerID', 'liftWeight', 'liftType', 'maxReps', 'repCount', 'trackerActive', 'athleteID', 'rfidTrackerID'],
         mounted() {
             console.log('LiftData mounted');
             this.$emit('add-athlete', this.athleteID);
 
-            if (this.rfidCollarID !== 0) {
-                this.$emit('set-collar-id', this.rfidCollarID);
+            if (this.rfidTrackerID !== 0) {
+                this.$emit('set-tracker-id', this.rfidTrackerID);
             }
         }
     }

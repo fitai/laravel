@@ -15,10 +15,10 @@ class Team extends Model
     
     }
 
-    // Get the collars on the team
-    public function collars() 
+    // Get the trackers on the team
+    public function trackers() 
     {
-    	return $this->hasMany('App\Collar', 'team_id', 'team_id');
+    	return $this->hasMany('App\Tracker', 'team_id', 'team_id');
     
     }
     	

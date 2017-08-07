@@ -40,10 +40,10 @@ class AdminController extends Controller
     // Admin - Watch
     public function watch() 
     {
-        // Get all collars for the User's team
-        $collars = Auth::user()->athlete->team->collars;
+        // Get all trackers for the User's team
+        $trackers = Auth::user()->athlete->team->trackers;
 
-        return view('admin/watch', compact('collars'));
+        return view('admin/watch', compact('trackers'));
     }
         
 

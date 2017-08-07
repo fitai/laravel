@@ -8,10 +8,10 @@
 	<div class="content center">
 		<form id="lift-new" class="lift new" @submit.prevent="newLift">
 			<p>
-				<label>Collar: </label>
-				<select name="collarID" required v-model="collarID">
-					@foreach ($collars as $collar)
-						<option value="{{ $collar->collar_id }}">{{ $collar->collar_id }}</option>
+				<label>Tracker: </label>
+				<select name="trackerID" required v-model="trackerID">
+					@foreach ($trackers as $tracker)
+						<option value="{{ $tracker->tracker_id }}">{{ $tracker->tracker_id }}</option>
 					@endforeach
 				</select>
 			</p>
@@ -40,12 +40,12 @@
 	</div>
 </div> --}}
 <div id="connect_string"></div>
-<lift-data :athlete-i-d="{{ Auth::id() }}" :lift-weight="liftWeight" :lift-type="liftType" :collar-active="collarActive" :max-reps="maxReps" :rep-count="repCount" :collar-i-d="collarID" :rfid-collar-i-d="0" v-on:add-athlete="addAthlete" v-on:set-collar-id="setCollarID"></lift-data>
+<lift-data :athlete-i-d="{{ Auth::id() }}" :lift-weight="liftWeight" :lift-type="liftType" :tracker-active="trackerActive" :max-reps="maxReps" :rep-count="repCount" :tracker-i-d="trackerID" :rfid-tracker-i-d="0" v-on:add-athlete="addAthlete" v-on:set-tracker-id="setTrackerID"></lift-data>
 <div class="center currently-watching">
 	Currently Watching Tracker: 
-	<select name="collarID" required v-model="collarID" v-on:change="setAdminCollar">
-		@foreach ($collars as $collar)
-			<option value="{{ $collar->collar_id }}">{{ $collar->collar_id }}</option>
+	<select name="trackerID" required v-model="trackerID" v-on:change="setAdminTracker">
+		@foreach ($trackers as $tracker)
+			<option value="{{ $tracker->tracker_id }}">{{ $tracker->tracker_id }}</option>
 		@endforeach
 	</select>
 </div>

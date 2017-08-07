@@ -25,13 +25,13 @@ const app = new Vue({
     data: {
         search: '',
     	team: [],
-        collarID: '',
+        trackerID: '',
         liftType: '',
         liftWeight: '',
         maxReps: '',
         repCount: 0,
         liftComments: '',
-        collarActive: false,
+        trackerActive: false,
         athleteID: '',
         liftID: '',
         liftOptions: [],
@@ -121,7 +121,7 @@ const app = new Vue({
 
             // Post to controller and stop Lift
             axios.post('/lift/stop', {
-                collarID: this.collarID
+                trackerID: this.trackerID
             })
             .then(response => {
                 console.log(response.data);
@@ -165,11 +165,11 @@ const app = new Vue({
             this.liftType = name;
             console.log('updated liftType');
         },
-        setCollarID(id) {
-            this.collarID = id;
-            console.log('collarID updated');
+        setTrackerID(id) {
+            this.trackerID = id;
+            console.log('trackerID updated');
         },
-        setAdminCollar() {
+        setAdminTracker() {
             this.adminWatch = true;
             drawLine();
             this.liftType = "";
@@ -191,7 +191,7 @@ const app = new Vue({
             if (packet) {
 
                 // Update charts and lift data
-                if (packet.header.collar_id == this.collarID) {
+                if (packet.header.tracker_id == this.trackerID) {
 
                     // console.log(data + ' - time: ' +  now);
 
@@ -209,8 +209,8 @@ const app = new Vue({
 
                     } else if (packet.header.active == true) {
 
-                         // Change collar status to active
-                        this.collarActive = packet.header.active;
+                         // Change tracker status to active
+                        this.trackerActive = packet.header.active;
                         this.repCount = packet.header.calc_reps;
 
                         // Update charts and get velocity to update Vue

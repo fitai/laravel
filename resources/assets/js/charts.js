@@ -182,9 +182,9 @@ function updateLiftType(a) {
 	$("#lift-type").html(a);
 }
 
-// Update Collar ID
-function updateCollarID(a) {
-	$("#collarID").html(a);
+// Update Tracker ID
+function updateTrackerID(a) {
+	$("#trackerID").html(a);
 }
 
 // Update Active
@@ -261,12 +261,12 @@ function startLift() {
 // 	// End lift Operations
 // 	$("#end-lift").click(function(e) {
 // 		e.preventDefault();
-// 		var collarID = $('#collarID').text();
+// 		var trackerID = $('#trackerID').text();
 // 		var liftID = $('#liftID').text();
-// 		/*$.post('lift-stop.php', { "collarID": collarID } , function(data) {
+// 		/*$.post('lift-stop.php', { "trackerID": trackerID } , function(data) {
 // 			console.log(data);
 // 		});*/
-// 		window.location.href = "summary/?collarID="+collarID+"&liftID="+liftID;
+// 		window.location.href = "summary/?trackerID="+trackerID+"&liftID="+liftID;
 // 	});
 // });
 
@@ -289,11 +289,11 @@ function startLift() {
 // 		e.preventDefault();
 // 		var validate = $('form#lift-watch-by-ID').valid();
 // 		if (validate == true) {
-// 			$('#watchSelector').attr('data-val', 'collar');
-// 			var watchID = $('select[name=collarID]').val();
+// 			$('#watchSelector').attr('data-val', 'tracker');
+// 			var watchID = $('select[name=trackerID]').val();
 // 			$('#athleteID').text(watchID);
-// 			$('#current-athlete-name').text('Collar ' + watchID);
-// 			console.log('Now watching collarID:' + watchID);
+// 			$('#current-athlete-name').text('tracker ' + watchID);
+// 			console.log('Now watching trackerID:' + watchID);
 // 			$('#overlay').hide();
 // 		}
 // 	});

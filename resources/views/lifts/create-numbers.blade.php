@@ -13,9 +13,9 @@
 			<div class="flexbox wrap">
 				<div class="lift-option xs-30">
 					<label class="field-title">Tracker</label>
-					<select name="collarID" required v-model="collarID">
-						@foreach (get_team_collars() as $collar)
-							<option value="{{ $collar->collar_id }}">{{ $collar->collar_id }}</option>
+					<select name="trackerID" required v-model="trackerID">
+						@foreach (get_team_trackers() as $tracker)
+							<option value="{{ $tracker->tracker_id }}">{{ $tracker->tracker_id }}</option>
 						@endforeach
 					</select>
 				</div>
@@ -38,7 +38,7 @@
 </div>
 <div id="end-lift" class="reset-reps end-lift" v-on:click="endLift">End Lift</div>
 <div id="connect_string"></div>
-{{-- <lift-data :athlete-i-d="{{ Auth::id() }}" :lift-weight="liftWeight" :lift-type="liftType" :collar-active="collarActive" :rep-count="repCount" :collar-i-d="collarID" v-on:add-athlete="addAthlete"></lift-data> --}}
+{{-- <lift-data :athlete-i-d="{{ Auth::id() }}" :lift-weight="liftWeight" :lift-type="liftType" :tracker-active="trackerActive" :rep-count="repCount" :tracker-i-d="trackerID" v-on:add-athlete="addAthlete"></lift-data> --}}
 {{-- <h1>New Lift</h1>
  --}}{{-- <div class="flexbox charts-container">
 	<div id="chart_div" class="chart"></div>
@@ -64,9 +64,9 @@
 		<div class="data">10</div>
 		<div class="label">Max Reps</div>
 	</div>
-	<div class="data-box collar-id center">
+	<div class="data-box tracker-id center">
 		<div class="data">556</div>
-		<div class="label">Collar ID</div>
+		<div class="label">Tracker ID</div>
 	</div>
 	<div class="data-box lift-status center">
 		<div class="data">False</div>

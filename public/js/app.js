@@ -1039,13 +1039,13 @@ var app = new Vue({
     data: {
         search: '',
         team: [],
-        collarID: '',
+        trackerID: '',
         liftType: '',
         liftWeight: '',
         maxReps: '',
         repCount: 0,
         liftComments: '',
-        collarActive: false,
+        trackerActive: false,
         athleteID: '',
         liftID: '',
         liftOptions: [],
@@ -1139,7 +1139,7 @@ var app = new Vue({
 
             // Post to controller and stop Lift
             axios.post('/lift/stop', {
-                collarID: this.collarID
+                trackerID: this.trackerID
             }).then(function (response) {
                 console.log(response.data);
                 window.location.href = "/lift/summary/" + _this3.liftID;
@@ -1183,11 +1183,11 @@ var app = new Vue({
             this.liftType = name;
             console.log('updated liftType');
         },
-        setCollarID: function setCollarID(id) {
-            this.collarID = id;
-            console.log('collarID updated');
+        setTrackerID: function setTrackerID(id) {
+            this.trackerID = id;
+            console.log('trackerID updated');
         },
-        setAdminCollar: function setAdminCollar() {
+        setAdminTracker: function setAdminTracker() {
             this.adminWatch = true;
             drawLine();
             this.liftType = "";
@@ -1209,7 +1209,7 @@ var app = new Vue({
             if (packet) {
 
                 // Update charts and lift data
-                if (packet.header.collar_id == this.collarID) {
+                if (packet.header.tracker_id == this.trackerID) {
                     var _updateCharts = function _updateCharts() {
                         // Get Power and Velocity values
                         var power = _mean(packet.content.p_rms);
@@ -1247,8 +1247,8 @@ var app = new Vue({
                         _updateCharts();
                     } else if (packet.header.active == true) {
 
-                        // Change collar status to active
-                        this.collarActive = packet.header.active;
+                        // Change tracker status to active
+                        this.trackerActive = packet.header.active;
                         this.repCount = packet.header.calc_reps;
 
                         // Update charts and get velocity to update Vue
@@ -2235,13 +2235,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    props: ['collarID', 'liftWeight', 'liftType', 'maxReps', 'repCount', 'collarActive', 'athleteID', 'rfidCollarID'],
+    props: ['trackerID', 'liftWeight', 'liftType', 'maxReps', 'repCount', 'trackerActive', 'athleteID', 'rfidTrackerID'],
     mounted: function mounted() {
         console.log('LiftData mounted');
         this.$emit('add-athlete', this.athleteID);
 
-        if (this.rfidCollarID !== 0) {
-            this.$emit('set-collar-id', this.rfidCollarID);
+        if (this.rfidTrackerID !== 0) {
+            this.$emit('set-tracker-id', this.rfidTrackerID);
         }
     }
 });
@@ -32620,16 +32620,16 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_vm._v(_vm._s(_vm.maxReps))]), _vm._v(" "), _c('div', {
     staticClass: "label"
   }, [_vm._v("Max Reps")])]), _vm._v(" "), _c('div', {
-    staticClass: "data-box collar-id center"
+    staticClass: "data-box Tracker-id center"
   }, [_c('div', {
     staticClass: "data"
-  }, [_vm._v(_vm._s(_vm.collarID))]), _vm._v(" "), _c('div', {
+  }, [_vm._v(_vm._s(_vm.trackerID))]), _vm._v(" "), _c('div', {
     staticClass: "label"
   }, [_vm._v("Tracker ID")])]), _vm._v(" "), _c('div', {
     staticClass: "data-box lift-status center"
   }, [_c('div', {
     staticClass: "data"
-  }, [_vm._v(_vm._s(_vm.collarActive))]), _vm._v(" "), _c('div', {
+  }, [_vm._v(_vm._s(_vm.trackerActive))]), _vm._v(" "), _c('div', {
     staticClass: "label"
   }, [_vm._v("Active")])])])
 },staticRenderFns: []}
