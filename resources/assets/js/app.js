@@ -30,6 +30,7 @@ const app = new Vue({
         liftWeight: '',
         maxReps: '',
         repCount: 0,
+        finalReps: 0,
         liftComments: '',
         trackerActive: false,
         athleteID: '',
@@ -67,6 +68,8 @@ const app = new Vue({
             this.liftType = $lift.lift_type;
             this.liftComments = $lift.user_comment;
             this.liftID = $lift.lift_id;
+            this.maxReps = $lift.init_num_reps;
+            this.finalReps = $lift.final_num_reps;
 
             if ($lift.final_num_reps > 0) {
                 this.repCount = $lift.final_num_reps;
@@ -108,6 +111,43 @@ const app = new Vue({
                 //     secDelay = 0;
                 // }
                 // liftDelay(secDelay);
+            }
+        },
+        editLift($event) {
+            $event.preventDefault();
+            console.log('Editing lift data...');
+
+            var validate = $('form#lift-edit').valid();
+            if (validate == true) {         
+                console.log('Form validation successful...');
+
+                // Update rep count on summary
+                this.repCount = this.finalReps;
+
+                // Show spinner
+                $('#spinner-overlay').css('display', 'flex').hide().fadeIn();
+
+                // Disable button
+                $('#lift-edit-submit').prop('disabled', true);
+
+                 // Update DB
+                axios.patch('/lift/update', {
+                    lift_id: this.liftID,
+                    lift_type: this.liftType,
+                    lift_weight: this.liftWeight,
+                    final_num_reps: this.finalReps,
+                    user_comment: this.liftComments
+                })
+                .then(response => {
+                    console.log(response.data);
+
+                    // Hide lift form
+                    $('#lift-overlay').hide();
+
+                    // Hide spinner
+                    $('#spinner-overlay').fadeOut().hide();
+                });
+
             }
         },
         endLift() {

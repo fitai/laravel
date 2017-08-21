@@ -8,6 +8,7 @@
 	<h3>Links</h3>
 	<ul>
 		<li><a href="{{ route('admin.watch') }}">Device Listener</a></li>
+		<li><a href="{{ route('admin.athlete.rest') }}">Athlete Rest</a></li>
 	</ul>
 </div>
 

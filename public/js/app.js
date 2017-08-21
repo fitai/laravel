@@ -1044,6 +1044,7 @@ var app = new Vue({
         liftWeight: '',
         maxReps: '',
         repCount: 0,
+        finalReps: 0,
         liftComments: '',
         trackerActive: false,
         athleteID: '',
@@ -1082,6 +1083,8 @@ var app = new Vue({
             this.liftType = $lift.lift_type;
             this.liftComments = $lift.user_comment;
             this.liftID = $lift.lift_id;
+            this.maxReps = $lift.init_num_reps;
+            this.finalReps = $lift.final_num_reps;
 
             if ($lift.final_num_reps > 0) {
                 this.repCount = $lift.final_num_reps;
@@ -1124,6 +1127,41 @@ var app = new Vue({
                 //     secDelay = 0;
                 // }
                 // liftDelay(secDelay);
+            }
+        },
+        editLift: function editLift($event) {
+            $event.preventDefault();
+            console.log('Editing lift data...');
+
+            var validate = $('form#lift-edit').valid();
+            if (validate == true) {
+                console.log('Form validation successful...');
+
+                // Update rep count on summary
+                this.repCount = this.finalReps;
+
+                // Show spinner
+                $('#spinner-overlay').css('display', 'flex').hide().fadeIn();
+
+                // Disable button
+                $('#lift-edit-submit').prop('disabled', true);
+
+                // Update DB
+                axios.patch('/lift/update', {
+                    lift_id: this.liftID,
+                    lift_type: this.liftType,
+                    lift_weight: this.liftWeight,
+                    final_num_reps: this.finalReps,
+                    user_comment: this.liftComments
+                }).then(function (response) {
+                    console.log(response.data);
+
+                    // Hide lift form
+                    $('#lift-overlay').hide();
+
+                    // Hide spinner
+                    $('#spinner-overlay').fadeOut().hide();
+                });
             }
         },
         endLift: function endLift() {
@@ -2431,15 +2469,55 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    props: ['summary', 'liftTypes', 'liftWeight', 'liftType', 'liftComments', 'repCount'],
+    props: ['liftID', 'summary', 'liftTypes', 'liftWeight', 'liftType', 'liftComments', 'repCount', 'maxReps'],
     data: function data() {
         return {
             comments: this.summary.user_comment,
             weight: this.summary.lift_weight,
             type: this.summary.lift_type,
-            reps: ''
+            reps: '',
+            trackerID: this.summary.tracker_id
         };
     },
     mounted: function mounted() {
@@ -32647,280 +32725,72 @@ if (false) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
-    staticClass: "lift-data",
+    attrs: {
+      "id": "summary-data"
+    }
+  }, [_vm._m(0), _vm._v(" "), _c('div', {
+    staticClass: "flexbox wrap flexcenter lift-data",
     attrs: {
       "id": "lift-data"
     }
   }, [_c('div', {
-    staticClass: "data-item"
-  }, [_c('h3', {
-    staticClass: "title"
-  }, [_vm._v("Exercise:")]), _vm._v(" "), _c('div', {
-    staticClass: "summary-item",
+    staticClass: "data-box lift-id center"
+  }, [_c('div', {
+    staticClass: "data"
+  }, [_vm._v(_vm._s(_vm.liftID))]), _vm._v(" "), _c('div', {
+    staticClass: "label"
+  }, [_vm._v("Lift ID")])]), _vm._v(" "), _c('div', {
+    staticClass: "data-box lift-type center"
+  }, [_c('div', {
+    staticClass: "data"
+  }, [_vm._v(_vm._s(_vm.liftType))]), _vm._v(" "), _c('div', {
+    staticClass: "label"
+  }, [_vm._v("Lift Type")])]), _vm._v(" "), _c('div', {
+    staticClass: "data-box lift-weight center"
+  }, [_c('div', {
+    staticClass: "data"
+  }, [_vm._v(_vm._s(_vm.liftWeight))]), _vm._v(" "), _c('div', {
+    staticClass: "label"
+  }, [_vm._v("lbs")])]), _vm._v(" "), _c('div', {
+    staticClass: "data-box lift-rep-count center"
+  }, [_c('div', {
+    staticClass: "data"
+  }, [_vm._v(_vm._s(_vm.repCount))]), _vm._v(" "), _c('div', {
+    staticClass: "label"
+  }, [_vm._v("Rep Count")])]), _vm._v(" "), _c('div', {
+    staticClass: "data-box lift-max-reps center"
+  }, [_c('div', {
+    staticClass: "data"
+  }, [_vm._v(_vm._s(_vm.maxReps))]), _vm._v(" "), _c('div', {
+    staticClass: "label"
+  }, [_vm._v("Init Reps")])]), _vm._v(" "), _c('div', {
+    staticClass: "data-box tracker-id center"
+  }, [_c('div', {
+    staticClass: "data"
+  }, [_vm._v(_vm._s(_vm.trackerID))]), _vm._v(" "), _c('div', {
+    staticClass: "label"
+  }, [_vm._v("Tracker ID")])])]), _vm._v(" "), _c('div', {
+    staticClass: "data-box comments center"
+  }, [_c('div', {
+    staticClass: "label"
+  }, [_vm._v("Comments")]), _vm._v(" "), _c('div', {
+    staticClass: "data"
+  }, [_vm._v(_vm._s(_vm.liftComments))])])])
+},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "summary-data-edit",
     attrs: {
-      "id": "lift-type"
+      "id": "summary-data-edit"
     }
   }, [_c('span', {
-    attrs: {
-      "id": "summary-lift-type"
-    }
-  }, [_vm._v(_vm._s(_vm.liftType))]), _vm._v(" "), _c('span', {
     staticClass: "summary-edit",
     attrs: {
-      "id": "lift-type-edit"
+      "id": "universal-edit"
     }
-  }, [_c('i', {
-    staticClass: "dripicons-document-edit",
-    on: {
-      "click": function($event) {
-        _vm.editField('lift-type')
-      }
-    }
-  })])]), _vm._v(" "), _c('div', {
-    staticStyle: {
-      "display": "none"
-    },
-    attrs: {
-      "id": "lift-type-input"
-    }
-  }, [_c('select', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: (_vm.type),
-      expression: "type"
-    }],
-    on: {
-      "change": function($event) {
-        var $$selectedVal = Array.prototype.filter.call($event.target.options, function(o) {
-          return o.selected
-        }).map(function(o) {
-          var val = "_value" in o ? o._value : o.value;
-          return val
-        });
-        _vm.type = $event.target.multiple ? $$selectedVal : $$selectedVal[0]
-      }
-    }
-  }, _vm._l((_vm.liftTypes), function(option) {
-    return _c('option', {
-      domProps: {
-        "value": option.name_display
-      }
-    }, [_vm._v("\n                    " + _vm._s(option.name_display) + "\n                ")])
-  })), _vm._v(" "), _c('i', {
-    staticClass: "dripicons-checkmark",
-    on: {
-      "click": function($event) {
-        _vm.updateField('lift-type')
-      }
-    }
-  }), _c('i', {
-    staticClass: "dripicons-cross",
-    on: {
-      "click": function($event) {
-        _vm.cancelEdit('lift-type')
-      }
-    }
-  })])]), _vm._v(" "), _c('div', {
-    staticClass: "data-item"
-  }, [_c('h3', {
-    staticClass: "title"
-  }, [_vm._v("Weight:")]), _vm._v(" "), _c('div', {
-    staticClass: "summary-item",
-    attrs: {
-      "id": "weight"
-    }
-  }, [_c('span', {
-    attrs: {
-      "id": "summary-weight"
-    }
-  }, [_vm._v(_vm._s(_vm.liftWeight))]), _vm._v(" "), _c('span', {
-    staticClass: "summary-edit",
-    attrs: {
-      "id": "weight-edit"
-    }
-  }, [_c('i', {
-    staticClass: "dripicons-document-edit",
-    on: {
-      "click": function($event) {
-        _vm.editField('weight')
-      }
-    }
-  })])]), _vm._v(" "), _c('div', {
-    staticStyle: {
-      "display": "none"
-    },
-    attrs: {
-      "id": "weight-input"
-    }
-  }, [_c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: (_vm.weight),
-      expression: "weight"
-    }],
-    attrs: {
-      "type": "number"
-    },
-    domProps: {
-      "value": (_vm.weight)
-    },
-    on: {
-      "input": function($event) {
-        if ($event.target.composing) { return; }
-        _vm.weight = $event.target.value
-      },
-      "blur": function($event) {
-        _vm.$forceUpdate()
-      }
-    }
-  }), _c('i', {
-    staticClass: "dripicons-checkmark",
-    on: {
-      "click": function($event) {
-        _vm.updateField('weight')
-      }
-    }
-  }), _c('i', {
-    staticClass: "dripicons-cross",
-    on: {
-      "click": function($event) {
-        _vm.cancelEdit('weight')
-      }
-    }
-  })])]), _vm._v(" "), _c('div', {
-    staticClass: "data-item"
-  }, [_c('h3', {
-    staticClass: "title"
-  }, [_vm._v("Reps:")]), _vm._v(" "), _c('div', {
-    staticClass: "summary-item",
-    attrs: {
-      "id": "reps"
-    }
-  }, [_c('span', {
-    attrs: {
-      "id": "summary-reps"
-    }
-  }, [_vm._v(_vm._s(_vm.repCount))]), _vm._v(" "), _c('span', {
-    staticClass: "summary-edit",
-    attrs: {
-      "id": "reps-edit"
-    }
-  }, [_c('i', {
-    staticClass: "dripicons-document-edit",
-    on: {
-      "click": function($event) {
-        _vm.editField('reps')
-      }
-    }
-  })])]), _vm._v(" "), _c('div', {
-    staticStyle: {
-      "display": "none"
-    },
-    attrs: {
-      "id": "reps-input"
-    }
-  }, [_c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: (_vm.reps),
-      expression: "reps"
-    }],
-    attrs: {
-      "type": "number"
-    },
-    domProps: {
-      "value": (_vm.reps)
-    },
-    on: {
-      "input": function($event) {
-        if ($event.target.composing) { return; }
-        _vm.reps = $event.target.value
-      },
-      "blur": function($event) {
-        _vm.$forceUpdate()
-      }
-    }
-  }), _c('i', {
-    staticClass: "dripicons-checkmark",
-    on: {
-      "click": function($event) {
-        _vm.updateField('reps')
-      }
-    }
-  }), _c('i', {
-    staticClass: "dripicons-cross",
-    on: {
-      "click": function($event) {
-        _vm.cancelEdit('reps')
-      }
-    }
-  })])]), _vm._v(" "), _c('div', {
-    staticClass: "data-item"
-  }, [_c('h3', {
-    staticClass: "title"
-  }, [_vm._v("Comments:")]), _vm._v(" "), _c('div', {
-    staticClass: "summary-item",
-    attrs: {
-      "id": "comments"
-    }
-  }, [_c('pre', [_c('p', {
-    attrs: {
-      "id": "summary-comments"
-    }
-  }, [_vm._v(_vm._s(_vm.liftComments))])]), _vm._v(" "), _c('span', {
-    staticClass: "summary-edit",
-    attrs: {
-      "id": "comments-edit"
-    }
-  }, [_c('i', {
-    staticClass: "dripicons-document-edit",
-    on: {
-      "click": function($event) {
-        _vm.editField('comments')
-      }
-    }
-  })])]), _vm._v(" "), _c('div', {
-    staticStyle: {
-      "display": "none"
-    },
-    attrs: {
-      "id": "comments-input"
-    }
-  }, [_c('textarea', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: (_vm.comments),
-      expression: "comments"
-    }],
-    domProps: {
-      "value": (_vm.comments)
-    },
-    on: {
-      "input": function($event) {
-        if ($event.target.composing) { return; }
-        _vm.comments = $event.target.value
-      }
-    }
-  }), _c('i', {
-    staticClass: "dripicons-checkmark",
-    on: {
-      "click": function($event) {
-        _vm.updateField('comments')
-      }
-    }
-  }), _c('i', {
-    staticClass: "dripicons-cross",
-    on: {
-      "click": function($event) {
-        _vm.cancelEdit('comments')
-      }
-    }
-  })])])])
-},staticRenderFns: []}
+  }, [_vm._v("Edit Lift Data "), _c('i', {
+    staticClass: "dripicons-document-edit"
+  })])])
+}]}
 module.exports.render._withStripped = true
 if (false) {
   module.hot.accept()

@@ -3,10 +3,48 @@
 @section('title', 'Lift Summary')
 
 @section('content')
-<h1>Lift Summary</h1>
-<lift-summary :summary="{{ $lift }}" :lift-types="{{ $liftTypes }}" :lift-weight="liftWeight" :lift-type="liftType" :lift-comments="liftComments" :rep-count="repCount" v-on:addlift="addLift" v-on:updatefield="updateSummaryField"></lift-summary>
+<div id="lift-overlay" class="lift-overlay" style="display: none;">
+	<div class="content center">
+		<form id="lift-edit" class="lift edit" @submit.prevent="editLift">
+			<div class="flexbox wrap flexcenter">
+				<div class="lift-option xs-30">
+					<label class="field-title">Lift Type</label>
+					<select name="liftType" required v-model="liftType">
+						@foreach ($liftTypes as $liftType)
+							<option value="{{ $liftType->name_display }}">
+								{{ $liftType->name_display }}
+							</option>
+						@endforeach
+					</select>
+				</div>
+				<div class="lift-option xs-30">
+					<label class="field-title">Weight</label>
+					<input name="liftWeight" type="number" min="1" required v-model="liftWeight">
+				</div>
+				<div class="lift-option xs-30">
+					<label class="field-title">Actual Reps</label>
+					<input name="maxReps" type="number" min="0" required v-model="finalReps">
+				</div>
+				<div class="lift-option xs-100">
+					<label class="field-title">Comments</label>
+					<textarea name="liftComments" v-model="liftComments" class="lift-comments"></textarea>
+				</div>
+				<div class="lift-option xs-100 lift-actions">
+					<button id="lift-edit-submit" class="lift-edit-submit"><span class="button__inner">Update</span></button>
+					<a href="#" onclick='location.reload(true); return false;'>Cancel</a>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>
+<div id="spinner-overlay" class="spinner-overlay flexbox column flexcenter verticalcenter hidden">
+	<div class="spinner">
+		<div class="rect1"></div><div class="rect2"></div><div class="rect3"></div><div class="rect4"></div><div class="rect5"></div>
+	</div>
+</div>
+<lift-summary :lift-i-d="liftID" :summary="{{ $lift }}" :lift-types="{{ $liftTypes }}" :lift-weight="liftWeight" :lift-type="liftType" :lift-comments="liftComments" :rep-count="repCount" :max-reps="maxReps" v-on:addlift="addLift" v-on:updatefield="updateSummaryField"></lift-summary>
 <div id="velocity_chart" style="width: 100%; height: 500px"></div>
-<div id="power_chart" style="width: 100%; height: 500px"></div>
+<div id="power_chart" style="width: 100%; height: 500px; display: none;"></div>
 <div id="combo_chart" style="width: 100%; height: 500px; display: none;"></div>
 <div id="json_string" style="display: none;">{{ $pythonResponse }}</div>
 
@@ -18,6 +56,9 @@
 {{-- Google Charts --}}
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <script type="text/javascript" src="{{ asset('js/charts.js') }}"></script>
+
+{{-- Validate.js --}}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.15.1/jquery.validate.js"></script>
 
 <script>
 
@@ -165,6 +206,11 @@
 		var comboChart = new google.visualization.ComboChart(document.getElementById('combo_chart'));
 	    comboChart.draw(comboData, comboOptions);
 	}
+
+
+    $('#body-content').on('click', '#universal-edit', function() {
+        $('#lift-overlay').show();
+    });
 </script>
 
 @endsection

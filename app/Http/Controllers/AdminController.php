@@ -8,6 +8,7 @@ use App\Coach;
 use App\Client;
 use App\Athlete;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 
 class AdminController extends Controller
@@ -44,6 +45,62 @@ class AdminController extends Controller
         $trackers = Auth::user()->athlete->team->trackers;
 
         return view('admin/watch', compact('trackers'));
+    }
+
+     // Admin - Watch
+    public function athleteRest() 
+    {
+        $query = "
+        WITH user_lifts AS (
+                SELECT
+                        lift_id
+                        , athlete_id
+                        , lift_type
+                        , lift_weight::TEXT || ' '::TEXT || weight_units::TEXT AS weight
+                        , COALESCE(init_num_reps, final_num_reps) AS num_reps
+                        , calc_reps
+                        , created_at AS start_time
+                FROM lifts
+                WHERE athlete_id = 3
+                ORDER BY created_at DESC
+        )
+        , lift_lengths AS (
+                SELECT
+                        MAX(timepoint) - MIN(timepoint) AS duration_s
+                        , lift_id
+                FROM lift_data
+                WHERE lift_id IN (SELECT lift_id FROM user_lifts)
+                GROUP BY lift_id
+        )
+        , lift_tot AS (
+                SELECT
+                        ll.duration_s
+                        , ul.*
+                FROM lift_lengths AS ll
+                INNER JOIN user_lifts AS ul
+                        ON ll.lift_id = ul.lift_id
+        )
+        SELECT
+                lt1.athlete_id
+                , a.athlete_last_name || ', ' || a.athlete_first_name AS athlete_name
+                , lt1.lift_type
+                , lt1.weight
+                , lt1.num_reps
+                , lt1.lift_id AS prev_lift_id
+                , lt1.start_time AS prev_lift_start
+                , lt2.lift_id AS next_lift_id
+                , lt2.start_time AS next_lift_start
+                , EXTRACT(EPOCH FROM lt2.start_time - (lt1.start_time + lt1.duration_s * interval '1 second'))::INT AS rest_s
+        FROM lift_tot AS lt1
+        INNER JOIN lift_tot AS lt2
+                ON lt1.lift_id+1 = lt2.lift_id
+        INNER JOIN athletes AS a
+                ON a.athlete_id = lt1.athlete_id
+        ORDER BY lt1.start_time DESC";
+
+        $results = DB::select(DB::raw($query));
+
+        return $results;
     }
         
 

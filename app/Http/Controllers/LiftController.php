@@ -159,14 +159,14 @@ class LiftController extends Controller
 
         // // Run on local build
         // $pythonExec = $this->ssh->exec("/home/kyle/virtualenvs/fitai/bin/python /opt/fitai_controller/comms/update_redis.py -j '".json_encode($pythonArray)."'");
-        // $pythonArray = explode(PHP_EOL, $pythonExec);
-        // $pythonResponse = $pythonArray[2];
+        // $pythonExplode= explode(PHP_EOL, $pythonExec);
+        // $pythonResponse = $pythonExplode[2];
 
         // Run on AWS
         $pythonResponse = exec("/home/kyle/virtualenvs/fitai/bin/python /opt/fitai_controller/comms/update_redis.py -j '".json_encode($pythonArray)."'");
 
         // Get LiftTypes
-        $liftTypes = LiftType::all();
+        $liftTypes = LiftType::all()->sortBy('name_display');
 
         return view('lifts/summary', compact('lift', 'pythonResponse', 'liftTypes'));
     }
@@ -195,8 +195,10 @@ class LiftController extends Controller
     {
         $this->validate($request, [
             'lift_id' => 'required|numeric',
-            'prop' => 'required',
-            'val' => 'required'
+            'lift_type' => 'required',
+            'lift_weight' => 'required|numeric',
+            'final_num_reps' => 'required|numeric',
+            'user_comment' => 'required'
         ]);
 
 
@@ -207,21 +209,27 @@ class LiftController extends Controller
             return ("Lift not found");
         }
 
-        // Update column in Lift
-        switch ($request->prop) {
-            case 'liftComments' :
-                $lift->user_comment = $request->val;
-                break;
-            case 'repCount' :
-                $lift->final_num_reps = $request->val;
-                break;
-            case 'liftWeight' :
-                $lift->lift_weight = $request->val;
-                break;
-            case 'liftType' :
-                $lift->lift_type = $request->val;
-                break;
-        }
+        // Update columns
+        $lift->lift_type = $request->lift_type;
+        $lift->lift_weight = $request->lift_weight;
+        $lift->final_num_reps = $request->final_num_reps;
+        $lift->user_comment = $request->user_comment;
+
+        // // Update column in Lift
+        // switch ($request->prop) {
+        //     case 'liftComments' :
+        //         $lift->user_comment = $request->val;
+        //         break;
+        //     case 'repCount' :
+        //         $lift->final_num_reps = $request->val;
+        //         break;
+        //     case 'liftWeight' :
+        //         $lift->lift_weight = $request->val;
+        //         break;
+        //     case 'liftType' :
+        //         $lift->lift_type = $request->val;
+        //         break;
+        // }
 
        $lift->save();
 

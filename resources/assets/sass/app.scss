@@ -841,16 +841,34 @@ label {
 	}
 
 }
-.summary-item {
+#lift-edit .lift-comments {
+	width: 100%;
+	min-height: 200px;
+	padding: 20px 10px;
+}
+.data-box.comments {
+	border-bottom: 1px solid $grey-light;
+	padding-bottom: 20px;
+	margin-bottom: 20px;
+	@include font-size(15px);
 
-	textarea {
-		width: 100%;
-		min-height: 200px;
+	.label {
+		@include font-size(12px);
+		text-shadow: none;
+		color: #969696;
+		text-align: center;
+		margin-bottom: 6px;
+	}
+	.data {
+		white-space: pre;
 	}
 }
 .summary-edit {
 	cursor: pointer;
 	color: $blue;
+}
+.summary-data-edit {
+	text-align: right;
 }
 
 /*****************
