@@ -29,7 +29,15 @@
 
 <h2>Collected</h2>
 <ul class="admin-list">
-	<li><span>Lifts:</span> {{ $lifts }}</li>
+	<li><span>Lifts:</span> {{ $lifts['total'] }}</li>
+	<li>
+		<span>Lift Type</span>
+		<ul>
+			@foreach ($lifts['typeCount'] as $type => $count)
+				<li>{{ $type }}: {{ $count }}</li>
+			@endforeach
+		</ul>
+	</li>
 </ul>
 
 @endsection

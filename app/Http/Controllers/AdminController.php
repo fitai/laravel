@@ -7,6 +7,7 @@ use App\Team;
 use App\Coach;
 use App\Client;
 use App\Athlete;
+use App\LiftType;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
@@ -137,7 +138,21 @@ class AdminController extends Controller
     // Get current number of Lifts
     public function getLiftCount() 
     {
-        return Lift::count();
+        $liftTypes = LiftType::select('name_display')->groupBy('name_display')->get()->sortBy('name_display');
+        $typeCount = array();
+
+        foreach($liftTypes as $liftType) :
+            $name = $liftType->name_display;
+            $typeCount[$name] = Lift::whereLiftType($name)->count();
+        endforeach;
+
+
+        // Create array to return data
+        $lifts = array(
+            'total' => Lift::count(),
+            'typeCount' => $typeCount
+        );
+        return $lifts;
     }
         
 }
