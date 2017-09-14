@@ -267,7 +267,7 @@ class LiftController extends Controller
             Lift::where('lift_id', $request->liftID)->update(array('test_lift' => true));
         endif;
 
-        return array($exec, $pythonExec);
+        return array($exec, $pythonExec, $request->testLift);
     }
 
     public function killLift($id) 
