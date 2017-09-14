@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddEndedAtToLiftTable extends Migration
+class AddTestLiftToLiftTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,7 +14,7 @@ class AddEndedAtToLiftTable extends Migration
     public function up()
     {
         Schema::table('lifts', function (Blueprint $table) {
-            $table->dateTime('ended_at')->nullable();
+            $table->boolean('test_lift')->nullable();
         });
     }
 
@@ -26,7 +26,7 @@ class AddEndedAtToLiftTable extends Migration
     public function down()
     {
         Schema::table('lifts', function (Blueprint $table) {
-            $table->dropColumn('ended_at');
+            $table->dropColumn('test_lift');
         });
     }
 }

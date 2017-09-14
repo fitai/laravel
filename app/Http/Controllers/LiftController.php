@@ -157,10 +157,10 @@ class LiftController extends Controller
             "active" => false
         );
 
-        // // Run on local build
-        // $pythonExec = $this->ssh->exec("/home/kyle/virtualenvs/fitai/bin/python /opt/fitai_controller/comms/update_redis.py -j '".json_encode($pythonArray)."'");
-        // $pythonExplode= explode(PHP_EOL, $pythonExec);
-        // $pythonResponse = $pythonExplode[2];
+        // Run on local build
+        $pythonExec = $this->ssh->exec("/home/kyle/virtualenvs/fitai/bin/python /opt/fitai_controller/comms/update_redis.py -j '".json_encode($pythonArray)."'");
+        $pythonExplode= explode(PHP_EOL, $pythonExec);
+        $pythonResponse = $pythonExplode[2];
 
         // Run on AWS
         $pythonResponse = exec("/home/kyle/virtualenvs/fitai/bin/python /opt/fitai_controller/comms/update_redis.py -j '".json_encode($pythonArray)."'");
@@ -261,6 +261,11 @@ class LiftController extends Controller
 
         // Run on AWS
         $pythonExec = exec("/home/kyle/virtualenvs/fitai/bin/python /opt/fitai_controller/comms/update_redis.py -v -j '".json_encode($pythonArray)."'"); 
+
+        // Mark lift as test if required
+        if ($request->testLift == true) :
+            Lift::where('lift_id', $request->liftID)->update(array('test_lift' => true));
+        endif;
 
         return array($exec, $pythonExec);
     }

@@ -1051,7 +1051,8 @@ var app = new Vue({
         liftID: '',
         liftOptions: [],
         adminWatch: false,
-        currentVelocity: 0.0
+        currentVelocity: 0.0,
+        testLift: false
     },
     methods: {
         getTeam: function getTeam() {
@@ -1177,7 +1178,9 @@ var app = new Vue({
 
             // Post to controller and stop Lift
             axios.post('/lift/stop', {
-                trackerID: this.trackerID
+                liftID: this.liftID,
+                trackerID: this.trackerID,
+                testLift: this.liftTest
             }).then(function (response) {
                 console.log(response.data);
                 window.location.href = "/lift/summary/" + _this3.liftID;

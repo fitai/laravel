@@ -27,6 +27,11 @@
 					<label class="field-title">Reps</label>
 					<input name="maxReps" type="number" min="1" required v-model="maxReps">
 				</div>
+				@if (Auth::user()->admin)
+					<div class="lift-option xs-100">
+						<input type="checkbox" id="testLift" name="testLift" v-model="testLift"><label for="testLift">Test Lift</label>
+					</div>
+				@endif
 				<input name="athleteID" type="hidden" value="{{ Auth::id() }}">
 				<div class="lift-option xs-100 lift-actions">
 					<button id="lift-new-submit" class="lift-new-submit"><span class="button__inner">Submit</span></button>
