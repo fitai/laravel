@@ -1169,6 +1169,7 @@ var app = new Vue({
             var _this3 = this;
 
             console.log('Ending Lift');
+            console.log('testLift: ' + this.testLift);
 
             // Disable button
             $('#end-lift').prop('disabled', true);
@@ -1180,7 +1181,7 @@ var app = new Vue({
             axios.post('/lift/stop', {
                 liftID: this.liftID,
                 trackerID: this.trackerID,
-                testLift: this.liftTest
+                testLift: this.testLift
             }).then(function (response) {
                 console.log(response.data);
                 window.location.href = "/lift/summary/" + _this3.liftID;
