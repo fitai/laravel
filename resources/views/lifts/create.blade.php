@@ -142,6 +142,5 @@ if (athleteID == 4) {
 	@endphp
 }
 
-
 </script>
 @endsection

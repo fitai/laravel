@@ -1324,6 +1324,98 @@ var app = new Vue({
             this.$children[0].variation = "Standard";
             this.$children[0].equipment = "BB";
         }
+        if (getUrlParameter('tim')) {
+            switch (getUrlParameter('tim')) {
+                case 'sqb245':
+                    this.liftWeight = 245;
+                    this.maxReps = 5;
+                    this.$children[0].type = "Squat";
+                    this.$children[0].variation = "Back";
+                    this.$children[0].equipment = "BB";
+                    this.trackerID = 555;
+                    break;
+                case 'sqf245':
+                    this.liftWeight = 245;
+                    this.maxReps = 5;
+                    this.$children[0].type = "Squat";
+                    this.$children[0].variation = "Front";
+                    this.$children[0].equipment = "BB";
+                    this.trackerID = 555;
+                    break;
+                case 'dsb245':
+                    this.liftWeight = 245;
+                    this.maxReps = 5;
+                    this.$children[0].type = "Deadlift";
+                    this.$children[0].variation = "Standard";
+                    this.$children[0].equipment = "BB";
+                    this.trackerID = 555;
+                    break;
+                case 'dub245':
+                    this.liftWeight = 245;
+                    this.maxReps = 5;
+                    this.$children[0].type = "Deadlift";
+                    this.$children[0].variation = "Sumo";
+                    this.$children[0].equipment = "BB";
+                    this.trackerID = 555;
+                    break;
+                case 'drb245':
+                    this.liftWeight = 245;
+                    this.maxReps = 5;
+                    this.$children[0].type = "Deadlift";
+                    this.$children[0].variation = "Romanian";
+                    this.$children[0].equipment = "BB";
+                    this.trackerID = 555;
+                    break;
+                case 'dtt245':
+                    this.liftWeight = 245;
+                    this.maxReps = 5;
+                    this.$children[0].type = "Deadlift";
+                    this.$children[0].variation = "Trap Bar";
+                    this.$children[0].equipment = "TB";
+                    this.trackerID = 555;
+                    break;
+                case 'bsb195':
+                    this.liftWeight = 195;
+                    this.maxReps = 5;
+                    this.$children[0].type = "Bench";
+                    this.$children[0].variation = "Standard";
+                    this.$children[0].equipment = "BB";
+                    this.trackerID = 555;
+                    break;
+                case 'bcb185':
+                    this.liftWeight = 185;
+                    this.maxReps = 5;
+                    this.$children[0].type = "Bench";
+                    this.$children[0].variation = "Close Grip";
+                    this.$children[0].equipment = "BB";
+                    this.trackerID = 555;
+                    break;
+                case 'bsd90':
+                    this.liftWeight = 90;
+                    this.maxReps = 5;
+                    this.$children[0].type = "Bench";
+                    this.$children[0].variation = "Standard";
+                    this.$children[0].equipment = "DB";
+                    this.trackerID = 555;
+                    break;
+                case 'bib185':
+                    this.liftWeight = 185;
+                    this.maxReps = 5;
+                    this.$children[0].type = "Bench";
+                    this.$children[0].variation = "Incline";
+                    this.$children[0].equipment = "BB";
+                    this.trackerID = 555;
+                    break;
+                case 'bid80':
+                    this.liftWeight = 80;
+                    this.maxReps = 5;
+                    this.$children[0].type = "Bench";
+                    this.$children[0].variation = "Incline";
+                    this.$children[0].equipment = "DB";
+                    this.trackerID = 555;
+                    break;
+            }
+        }
     },
 
     computed: {
