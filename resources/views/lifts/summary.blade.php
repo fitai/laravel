@@ -47,6 +47,11 @@
 <div id="power_chart" style="width: 100%; height: 500px; display: none;"></div>
 <div id="combo_chart" style="width: 100%; height: 500px; display: none;"></div>
 <div id="json_string" style="display: none;">{{ $pythonResponse }}</div>
+<div class="next-lift">
+	<a href="{{ route('lift') }}">
+		<button class="lift-new-submit">Start Next Lift</button>
+	</a>
+</div>
 
 @endsection
 

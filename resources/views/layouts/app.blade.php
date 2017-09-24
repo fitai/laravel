@@ -111,7 +111,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.1/socket.io.js"></script>
     <script>
         // var socket = io('http://192.168.10.10:3000'); // Connect to local server
-        var socket = io('http://52.15.200.179:3000'); // Connect to AWS
+        var socket = io('http://18.221.103.145:3000'); // Connect to AWS
 
         if (socket) {
             console.log('Socket.io connected');

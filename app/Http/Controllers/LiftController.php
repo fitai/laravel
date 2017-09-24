@@ -19,7 +19,7 @@ class LiftController extends Controller
         $this->middleware('auth');
 
         // // Connect to AWS server via SSH with key
-        // $ssh = new SSH2('52.15.200.179');
+        // $ssh = new SSH2('18.221.103.145');
         // $key = new RSA();
         // $key->loadKey(file_get_contents('/home/vagrant/.ssh/fitai-dev.pem'));
         // if (!$ssh->login('patrick', $key)) {
