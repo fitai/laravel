@@ -1333,6 +1333,7 @@ var app = new Vue({
                     this.$children[0].variation = "Back";
                     this.$children[0].equipment = "BB";
                     this.trackerID = 555;
+                    console.log('sqb245 loaded');
                     break;
                 case 'sqf245':
                     this.liftWeight = 245;
