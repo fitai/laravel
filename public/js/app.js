@@ -1284,6 +1284,7 @@ var app = new Vue({
                         this.liftType = packet.header.lift_type;
                         this.liftWeight = packet.header.lift_weight;
                         this.repCount = packet.header.calc_reps;
+                        this.trackerActive = packet.header.active;
 
                         // update charts
                         _updateCharts();
