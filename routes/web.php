@@ -40,6 +40,7 @@ Route::post('/lift/stop', 'LiftController@endLift')->name('lift.stop');
 Route::get('/lift/summary/{id}', 'LiftController@show')->name('lift.summary');
 Route::patch('/lift/update', 'LiftController@update')->name('lift.update');
 Route::get('/lift/kill/{id}', 'LiftController@killLift');
+Route::post('/lift/get-type', 'LiftController@getTypeData');
 
 // Admin
 Route::get('/admin', 'AdminController@index')->name('admin');

@@ -97,7 +97,11 @@
             }
         },
         mounted() {
+            // emit lift to parent
             this.$emit('addlift', this.summary);
+
+            // emit lift types to parent
+            this.$emit('addliftoptions', this.liftTypes);
 
             if (this.summary.final_num_reps > 0) {
                 this.reps = this.summary.final_num_reps;
@@ -106,6 +110,7 @@
             }
         },
         methods: {
+
             editField(field) {
                 $('#'+field).hide();
                 $('#'+field+'-input').show();
@@ -143,5 +148,6 @@
             }
 
         }
+
     }
 </script>

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Auth;
 use App\Lift;
 use App\LiftType;
+use App\LiftSchedule;
 use phpseclib\Net\SSH2;
 use phpseclib\Crypt\RSA;
 use Illuminate\Http\Request;
@@ -18,15 +19,15 @@ class LiftController extends Controller
     {
         $this->middleware('auth');
 
-        // // Connect to AWS server via SSH with key
-        // $ssh = new SSH2('18.221.103.145');
-        // $key = new RSA();
-        // $key->loadKey(file_get_contents('/home/vagrant/.ssh/fitai-dev.pem'));
-        // if (!$ssh->login('patrick', $key)) {
-        //     exit('Login Failed');
-        // }
+        // Connect to AWS server via SSH with key
+        $ssh = new SSH2('18.221.103.145');
+        $key = new RSA();
+        $key->loadKey(file_get_contents('/home/vagrant/.ssh/fitai-dev.pem'));
+        if (!$ssh->login('patrick', $key)) {
+            exit('Login Failed');
+        }
 
-        // $this->ssh = $ssh;
+        $this->ssh = $ssh;
     }
     
     /**
@@ -62,6 +63,9 @@ class LiftController extends Controller
         if ($request->rfidTrackerID) :
             $rfidTrackerID = $request->rfidTrackerID;
         endif;
+
+        // Check for scheduled lifts
+        // $scheduled = LiftSchedule::where()
 
         return view('lifts/create', compact('rfidTrackerID', 'typeOptions', 'variationOptions', 'equipmentOptions', 'options', 'trackers')); // Working device
 
@@ -145,7 +149,7 @@ class LiftController extends Controller
      */
     public function show($id)
     {
-        $lift = Lift::find($id);
+        $lift = Lift::where('lift_id', $id)->with('typeData')->first();
 
         if (!$lift) {
             return redirect()->back()->withErrors('Lift not found');
@@ -198,7 +202,7 @@ class LiftController extends Controller
             'lift_type' => 'required',
             'lift_weight' => 'required|numeric',
             'final_num_reps' => 'required|numeric',
-            'user_comment' => 'required'
+            'user_comment' => ''
         ]);
 
 
@@ -262,6 +266,9 @@ class LiftController extends Controller
         // Run on AWS
         $pythonExec = exec("/home/kyle/virtualenvs/fitai/bin/python /opt/fitai_controller/comms/update_redis.py -v -j '".json_encode($pythonArray)."'"); 
 
+        // Add timestamp to ended_at
+        Lift::where('lift_id', $request->liftID)->update(array('ended_at' => \Carbon\Carbon::now()));
+
         // Mark lift as test if required
         if ($request->testLift == true) :
             Lift::where('lift_id', $request->liftID)->update(array('test_lift' => true));
@@ -287,5 +294,16 @@ class LiftController extends Controller
 
         return array($exec, $pythonExec);
     }
+
+    // Get the LiftType data
+    public function getTypeData(Request $request) 
+    {
+        $nameSafe = $request->nameSafe;
+
+        $type = LiftType::where('name_safe', $nameSafe)->first();
+
+        return $type;
+    }
+        
         
 }

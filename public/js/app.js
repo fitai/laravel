@@ -1052,7 +1052,8 @@ var app = new Vue({
         liftOptions: [],
         adminWatch: false,
         currentVelocity: 0.0,
-        testLift: false
+        testLift: false,
+        typeData: []
     },
     methods: {
         getTeam: function getTeam() {
@@ -1086,6 +1087,8 @@ var app = new Vue({
             this.liftID = $lift.lift_id;
             this.maxReps = $lift.init_num_reps;
             this.finalReps = $lift.final_num_reps;
+            this.typeData = $lift.type_data;
+            this.trackerID = $lift.tracker_id;
 
             if ($lift.final_num_reps > 0) {
                 this.repCount = $lift.final_num_reps;
@@ -1131,6 +1134,8 @@ var app = new Vue({
             }
         },
         editLift: function editLift($event) {
+            var _this3 = this;
+
             $event.preventDefault();
             console.log('Editing lift data...');
 
@@ -1144,7 +1149,7 @@ var app = new Vue({
                 // Show spinner
                 $('#spinner-overlay').css('display', 'flex').hide().fadeIn();
 
-                // Disable button
+                // Disable update button
                 $('#lift-edit-submit').prop('disabled', true);
 
                 // Update DB
@@ -1157,16 +1162,30 @@ var app = new Vue({
                 }).then(function (response) {
                     console.log(response.data);
 
+                    // Update typeData
+                    var liftOptions = _this3.liftOptions;
+
+                    // Loop through liftOptions to find the correct liftType
+                    for (var option in liftOptions) {
+                        if (liftOptions[option].name_display == _this3.liftType) {
+                            // update typeData
+                            _this3.typeData = liftOptions[option];
+                        }
+                    }
+
                     // Hide lift form
                     $('#lift-overlay').hide();
 
                     // Hide spinner
                     $('#spinner-overlay').fadeOut().hide();
+
+                    // Enable update button
+                    $('#lift-edit-submit').prop('disabled', false);
                 });
             }
         },
         endLift: function endLift() {
-            var _this3 = this;
+            var _this4 = this;
 
             console.log('Ending Lift');
             console.log('testLift: ' + this.testLift);
@@ -1184,11 +1203,11 @@ var app = new Vue({
                 testLift: this.testLift
             }).then(function (response) {
                 console.log(response.data);
-                window.location.href = "/lift/summary/" + _this3.liftID;
+                window.location.href = "/lift/summary/" + _this4.liftID;
             });
         },
         updateSummaryField: function updateSummaryField(prop, val, field) {
-            var _this4 = this;
+            var _this5 = this;
 
             console.log(prop + " : " + val);
 
@@ -1203,16 +1222,16 @@ var app = new Vue({
                 // Update instance
                 switch (prop) {
                     case 'liftComments':
-                        _this4.liftComments = val;
+                        _this5.liftComments = val;
                         break;
                     case 'repCount':
-                        _this4.repCount = val;
+                        _this5.repCount = val;
                         break;
                     case 'liftWeight':
-                        _this4.liftWeight = val;
+                        _this5.liftWeight = val;
                         break;
                     case 'liftType':
-                        _this4.liftType = val;
+                        _this5.liftType = val;
                         break;
                 }
 
@@ -1235,9 +1254,13 @@ var app = new Vue({
             this.liftType = "";
             this.liftWeight = "";
             this.repCount = "";
+        },
+        addLiftOptions: function addLiftOptions(options) {
+            this.liftOptions = options;
         }
     },
     mounted: function mounted() {
+        var _this6 = this;
 
         // Socket.io listener
         socket.on('lifts', function (data) {
@@ -1318,6 +1341,7 @@ var app = new Vue({
             }
         }
 
+        // Pre-assigned lift setups
         if (getUrlParameter('test') == 1) {
             this.liftWeight = 35;
             this.maxReps = 10;
@@ -1418,15 +1442,108 @@ var app = new Vue({
                     break;
             }
         }
+
+        // Dynamic Lift parameters
+        if (getUrlParameter('liftWeight')) {
+            var weight = getUrlParameter('liftWeight');
+            this.liftWeight = weight;
+        }
+        if (getUrlParameter('trackerID')) {
+            var trackerID = getUrlParameter('trackerID');
+            this.trackerID = trackerID;
+        }
+        if (getUrlParameter('maxReps')) {
+            var reps = getUrlParameter('maxReps');
+            this.maxReps = reps;
+        }
+        if (getUrlParameter('liftType')) {
+            var type = getUrlParameter('liftType');
+            this.$children[0].type = type;
+        }
+        if (getUrlParameter('liftEq')) {
+            var equipment = getUrlParameter('liftEq');
+            this.$children[0].equipment = equipment;
+        }
+        if (getUrlParameter('liftVariation')) {
+            var variation = getUrlParameter('liftVariation');
+            this.$children[0].variation = variation;
+        }
+        if (getUrlParameter('nameSafe')) {
+            var nameSafe = getUrlParameter('nameSafe');
+
+            axios.post('/lift/get-type', { nameSafe: nameSafe }).then(function (response) {
+                var liftType = response.data;
+                _this6.$children[0].type = liftType.type;
+                _this6.$children[0].variation = liftType.variation;
+                _this6.$children[0].equipment = liftType.equipment;
+            });
+        }
     },
 
     computed: {
         filteredteam: function filteredteam() {
-            var _this5 = this;
+            var _this7 = this;
 
             return this.team.filter(function (athlete) {
-                return athlete.search_string.indexOf(_this5.search.toLowerCase()) > -1;
+                return athlete.search_string.indexOf(_this7.search.toLowerCase()) > -1;
             });
+        },
+
+        repsActual: {
+            get: function get() {
+
+                // If finalReps has been updated, then use this number
+                if (this.finalReps > 0) {
+                    return this.finalReps;
+                }
+
+                // If it hasn't been updated, use the initial reps input at the start of the lift
+                return this.maxReps;
+            },
+            set: function set(val) {
+                this.finalReps = parseInt(val);
+            }
+        },
+
+        // Create URL parameters for Next Rep button
+        nextRepParams: function nextRepParams() {
+            var params = "/lift/?";
+
+            if (this.liftWeight) {
+                var weight = this.liftWeight;
+                params += "liftWeight=" + weight + "&";
+            }
+
+            if (this.finalReps) {
+                var reps = this.finalReps;
+
+                if (reps < 1) {
+                    reps = this.maxReps;
+                }
+                params += "maxReps=" + reps + "&";
+            }
+
+            if (this.trackerID) {
+                var trackerID = this.trackerID;
+                params += "trackerID=" + trackerID + "&";
+            }
+
+            if (this.typeData.type) {
+                var type = this.typeData.type;
+                params += "liftType=" + type + "&";
+            }
+
+            if (this.typeData.variation) {
+                var variation = this.typeData.variation;
+                params += "liftVariation=" + variation + "&";
+            }
+
+            if (this.typeData.equipment) {
+                var equipment = this.typeData.equipment;
+                params += "liftEq=" + equipment + "&";
+            }
+
+            return params;
         }
     }
 });
@@ -2619,7 +2736,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         };
     },
     mounted: function mounted() {
+        // emit lift to parent
         this.$emit('addlift', this.summary);
+
+        // emit lift types to parent
+        this.$emit('addliftoptions', this.liftTypes);
 
         if (this.summary.final_num_reps > 0) {
             this.reps = this.summary.final_num_reps;
@@ -2665,6 +2786,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.$emit('updatefield', prop, val, field);
         }
     }
+
 });
 
 /***/ }),

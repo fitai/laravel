@@ -38,7 +38,8 @@ const app = new Vue({
         liftOptions: [],
         adminWatch: false,
         currentVelocity: 0.0,
-        testLift: false
+        testLift: false,
+        typeData: []
     },
     methods: {
 
@@ -71,6 +72,8 @@ const app = new Vue({
             this.liftID = $lift.lift_id;
             this.maxReps = $lift.init_num_reps;
             this.finalReps = $lift.final_num_reps;
+            this.typeData = $lift.type_data;
+            this.trackerID = $lift.tracker_id;
 
             if ($lift.final_num_reps > 0) {
                 this.repCount = $lift.final_num_reps;
@@ -128,7 +131,7 @@ const app = new Vue({
                 // Show spinner
                 $('#spinner-overlay').css('display', 'flex').hide().fadeIn();
 
-                // Disable button
+                // Disable update button
                 $('#lift-edit-submit').prop('disabled', true);
 
                  // Update DB
@@ -142,11 +145,25 @@ const app = new Vue({
                 .then(response => {
                     console.log(response.data);
 
+                    // Update typeData
+                    var liftOptions = this.liftOptions;
+
+                    // Loop through liftOptions to find the correct liftType
+                    for (var option in liftOptions) {
+                        if (liftOptions[option].name_display == this.liftType) {
+                            // update typeData
+                            this.typeData = liftOptions[option];
+                        }
+                    }
+
                     // Hide lift form
                     $('#lift-overlay').hide();
 
                     // Hide spinner
                     $('#spinner-overlay').fadeOut().hide();
+
+                    // Enable update button
+                    $('#lift-edit-submit').prop('disabled', false);
                 });
 
             }
@@ -219,6 +236,9 @@ const app = new Vue({
             this.liftType = "";
             this.liftWeight = "";
             this.repCount = "";
+        },
+        addLiftOptions(options) {
+            this.liftOptions = options;
         }
     },
     mounted() {
@@ -309,6 +329,7 @@ const app = new Vue({
             }
         }
 
+        // Pre-assigned lift setups
         if (getUrlParameter('test') == 1) {
             this.liftWeight = 35;
             this.maxReps = 10;
@@ -410,12 +431,105 @@ const app = new Vue({
             }
         }
 
+        // Dynamic Lift parameters
+        if (getUrlParameter('liftWeight')) {
+            var weight = getUrlParameter('liftWeight'); 
+            this.liftWeight = weight;
+        }
+        if (getUrlParameter('trackerID')) {
+            var trackerID = getUrlParameter('trackerID'); 
+            this.trackerID = trackerID;
+        }
+        if (getUrlParameter('maxReps')) {
+            var reps = getUrlParameter('maxReps'); 
+            this.maxReps = reps;
+        }
+        if (getUrlParameter('liftType')) {
+            var type = getUrlParameter('liftType'); 
+            this.$children[0].type = type;
+        }
+        if (getUrlParameter('liftEq')) {
+            var equipment = getUrlParameter('liftEq'); 
+            this.$children[0].equipment = equipment;
+        }
+        if (getUrlParameter('liftVariation')) {
+            var variation = getUrlParameter('liftVariation'); 
+            this.$children[0].variation = variation;
+        }
+        if (getUrlParameter('nameSafe')) {
+            var nameSafe = getUrlParameter('nameSafe'); 
+
+            axios.post('/lift/get-type', { nameSafe: nameSafe })
+                .then(response => {
+                    var liftType = response.data;
+                    this.$children[0].type = liftType.type;
+                    this.$children[0].variation = liftType.variation;
+                    this.$children[0].equipment = liftType.equipment;
+                });
+        }
+
     },
     computed: {
         filteredteam() {
             return this.team.filter( (athlete) => {
                 return athlete.search_string.indexOf(this.search.toLowerCase()) > -1;
             });
+        },
+        repsActual: {
+            get: function() {
+
+                // If finalReps has been updated, then use this number
+                if (this.finalReps > 0) {
+                    return this.finalReps;
+                }
+
+                // If it hasn't been updated, use the initial reps input at the start of the lift
+                return this.maxReps;
+            },
+            set: function(val) {
+                this.finalReps = parseInt(val);
+            }
+        },
+
+        // Create URL parameters for Next Rep button
+        nextRepParams: function() {
+            var params = "/lift/?";
+
+            if (this.liftWeight) {
+                var weight = this.liftWeight;
+                params += "liftWeight=" + weight + "&";
+            }
+
+            if (this.finalReps) {
+                var reps = this.finalReps;
+
+                if (reps < 1) {
+                    reps = this.maxReps;
+                }
+                params += "maxReps=" + reps + "&";
+            }
+
+            if (this.trackerID) {
+                var trackerID = this.trackerID;
+                params += "trackerID=" + trackerID + "&";
+            }
+
+            if (this.typeData.type) {
+                var type = this.typeData.type;
+                params += "liftType=" + type + "&";
+            }
+
+            if (this.typeData.variation) {
+                var variation = this.typeData.variation;
+                params += "liftVariation=" + variation + "&";
+            }
+
+            if (this.typeData.equipment) {
+                var equipment = this.typeData.equipment;
+                params += "liftEq=" + equipment + "&";
+            }
+
+            return params;
         }
     }
 });

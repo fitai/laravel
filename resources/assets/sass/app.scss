@@ -641,6 +641,17 @@ label {
 		border-color: $blue;
 		color: $white;
 	}
+
+	&.orange {
+		color: $orange;
+		border-color: $orange;
+
+		&:hover,
+		&:focus {
+			box-shadow: inset 0 0 0 2em $orange;
+			color: $white;
+		}
+	}
 }
 .chart {
 	margin: 0 10px;
