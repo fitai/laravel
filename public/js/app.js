@@ -1039,21 +1039,22 @@ var app = new Vue({
     data: {
         search: '',
         team: [],
-        trackerID: '',
-        liftType: '',
-        liftWeight: '',
-        maxReps: '',
-        repCount: 0,
-        finalReps: 0,
-        liftComments: '',
+        trackerID: '', // tracker_id
+        liftType: '', // lift_type
+        liftWeight: '', // lift_weight
+        maxReps: '', // init_num_reps
+        repCount: 0, // calc_reps
+        finalReps: 0, // final_num_reps
+        liftComments: '', // user_comment
         trackerActive: false,
-        athleteID: '',
-        liftID: '',
+        athleteID: '', // athlete_id
+        liftID: '', // lift_id
         liftOptions: [],
         adminWatch: false,
         currentVelocity: 0.0,
-        testLift: false,
-        typeData: []
+        testLift: false, // test_lift
+        typeData: [],
+        repCountEdit: 0
     },
     methods: {
         getTeam: function getTeam() {
@@ -1090,12 +1091,12 @@ var app = new Vue({
             this.typeData = $lift.type_data;
             this.trackerID = $lift.tracker_id;
 
+            // Check to see if the final_num_reps has been set
             if ($lift.final_num_reps > 0) {
-                this.repCount = $lift.final_num_reps;
-                console.log('using final_num_reps');
+                this.repCountEdit = $lift.final_num_reps;
             } else {
-                this.repCount = $lift.calc_reps;
-                console.log('using calc_reps');
+                // If the final_num_reps has not been set, then use the automated rep count
+                this.repCountEdit = $lift.calc_reps;
             }
         },
         newLift: function newLift($event) {
@@ -1159,7 +1160,7 @@ var app = new Vue({
                     lift_id: this.liftID,
                     lift_type: this.liftType,
                     lift_weight: this.liftWeight,
-                    final_num_reps: this.finalReps,
+                    final_num_reps: this.repCountEdit,
                     user_comment: this.liftComments
                 }).then(function (response) {
                     console.log(response.data);
@@ -1496,14 +1497,17 @@ var app = new Vue({
 
                 // If finalReps has been updated, then use this number
                 if (this.finalReps > 0) {
+                    this.repCountEdit = parseInt(this.finalReps);
                     return this.finalReps;
                 }
 
                 // If it hasn't been updated, use the initial reps input at the start of the lift
+                this.repCountEdit = parseInt(this.maxReps);
                 return this.maxReps;
             },
             set: function set(val) {
-                this.finalReps = parseInt(val);
+                // this.finalReps = parseInt(val);
+                this.repCountEdit = parseInt(val);
             }
         },
 
@@ -2727,7 +2731,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    props: ['liftID', 'summary', 'liftTypes', 'liftWeight', 'liftType', 'liftComments', 'repCount', 'maxReps'],
+    props: ['liftID', 'summary', 'liftTypes', 'liftWeight', 'liftType', 'liftComments', 'repCountEdit', 'maxReps'],
     data: function data() {
         return {
             comments: this.summary.user_comment,
@@ -32977,7 +32981,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "data-box lift-rep-count center"
   }, [_c('div', {
     staticClass: "data"
-  }, [_vm._v(_vm._s(_vm.repCount))]), _vm._v(" "), _c('div', {
+  }, [_vm._v(_vm._s(_vm.repCountEdit))]), _vm._v(" "), _c('div', {
     staticClass: "label"
   }, [_vm._v("Rep Count")])]), _vm._v(" "), _c('div', {
     staticClass: "data-box lift-max-reps center"

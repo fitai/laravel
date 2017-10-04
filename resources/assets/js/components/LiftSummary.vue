@@ -17,7 +17,7 @@
                 <div class="label">lbs</div>
             </div>
             <div class="data-box lift-rep-count center">
-                <div class="data">{{ repCount }}</div>
+                <div class="data">{{ repCountEdit }}</div>
                 <div class="label">Rep Count</div>
             </div>
             <div class="data-box lift-max-reps center">
@@ -86,7 +86,7 @@
 
 <script>
     export default {
-        props: ['liftID', 'summary', 'liftTypes', 'liftWeight', 'liftType', 'liftComments', 'repCount', 'maxReps'],
+        props: ['liftID', 'summary', 'liftTypes', 'liftWeight', 'liftType', 'liftComments', 'repCountEdit', 'maxReps'],
         data() {
             return {
                 comments: this.summary.user_comment,

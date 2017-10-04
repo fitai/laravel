@@ -23,7 +23,7 @@
 				</div>
 				<div class="lift-option xs-30">
 					<label class="field-title">Actual Reps</label>
-					<input name="maxReps" type="number" min="0" required v-model="repsActual">
+					<input name="maxReps" type="number" min="0" required v-model="repCountEdit">
 				</div>
 				<div class="lift-option xs-100">
 					<label class="field-title">Comments</label>
@@ -42,7 +42,7 @@
 		<div class="rect1"></div><div class="rect2"></div><div class="rect3"></div><div class="rect4"></div><div class="rect5"></div>
 	</div>
 </div>
-<lift-summary :lift-i-d="liftID" :summary="{{ $lift }}" :lift-types="{{ $liftTypes }}" :lift-weight="liftWeight" :lift-type="liftType" :lift-comments="liftComments" :rep-count="repCount" :max-reps="maxReps" v-on:addlift="addLift" v-on:addliftoptions="addLiftOptions" v-on:updatefield="updateSummaryField"></lift-summary>
+<lift-summary :lift-i-d="liftID" :summary="{{ $lift }}" :lift-types="{{ $liftTypes }}" :lift-weight="liftWeight" :lift-type="liftType" :lift-comments="liftComments" :rep-count-edit="repCountEdit" :max-reps="maxReps" v-on:addlift="addLift" v-on:addliftoptions="addLiftOptions" v-on:updatefield="updateSummaryField"></lift-summary>
 <div id="velocity_chart" style="width: 100%; height: 500px"></div>
 <div id="power_chart" style="width: 100%; height: 500px; display: none;"></div>
 <div id="combo_chart" style="width: 100%; height: 500px; display: none;"></div>

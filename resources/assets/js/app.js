@@ -25,21 +25,22 @@ const app = new Vue({
     data: {
         search: '',
     	team: [],
-        trackerID: '',
-        liftType: '',
-        liftWeight: '',
-        maxReps: '',
-        repCount: 0,
-        finalReps: 0,
-        liftComments: '',
+        trackerID: '', // tracker_id
+        liftType: '', // lift_type
+        liftWeight: '', // lift_weight
+        maxReps: '', // init_num_reps
+        repCount: 0, // calc_reps
+        finalReps: 0, // final_num_reps
+        liftComments: '', // user_comment
         trackerActive: false,
-        athleteID: '',
-        liftID: '',
+        athleteID: '', // athlete_id
+        liftID: '', // lift_id
         liftOptions: [],
         adminWatch: false,
         currentVelocity: 0.0,
-        testLift: false,
-        typeData: []
+        testLift: false, // test_lift
+        typeData: [],
+        repCountEdit: 0
     },
     methods: {
 
@@ -75,12 +76,12 @@ const app = new Vue({
             this.typeData = $lift.type_data;
             this.trackerID = $lift.tracker_id;
 
+            // Check to see if the final_num_reps has been set
             if ($lift.final_num_reps > 0) {
-                this.repCount = $lift.final_num_reps;
-                console.log('using final_num_reps');
+                this.repCountEdit = $lift.final_num_reps;
             } else {
-                this.repCount = $lift.calc_reps;
-                console.log('using calc_reps');
+                // If the final_num_reps has not been set, then use the automated rep count
+                this.repCountEdit = $lift.calc_reps;
             }
         },
         newLift($event) {
@@ -141,7 +142,7 @@ const app = new Vue({
                     lift_id: this.liftID,
                     lift_type: this.liftType,
                     lift_weight: this.liftWeight,
-                    final_num_reps: this.finalReps,
+                    final_num_reps: this.repCountEdit,
                     user_comment: this.liftComments
                 })
                 .then(response => {
@@ -482,14 +483,17 @@ const app = new Vue({
 
                 // If finalReps has been updated, then use this number
                 if (this.finalReps > 0) {
+                    this.repCountEdit = parseInt(this.finalReps);
                     return this.finalReps;
                 }
 
                 // If it hasn't been updated, use the initial reps input at the start of the lift
+                this.repCountEdit = parseInt(this.maxReps);
                 return this.maxReps;
             },
             set: function(val) {
-                this.finalReps = parseInt(val);
+                // this.finalReps = parseInt(val);
+                this.repCountEdit = parseInt(val);
             }
         },
 
