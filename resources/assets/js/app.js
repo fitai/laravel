@@ -77,8 +77,10 @@ const app = new Vue({
 
             if ($lift.final_num_reps > 0) {
                 this.repCount = $lift.final_num_reps;
+                console.log('using final_num_reps');
             } else {
-                this.repCount = $lift.init_num_reps;
+                this.repCount = $lift.calc_reps;
+                console.log('using calc_reps');
             }
         },
         newLift($event) {
