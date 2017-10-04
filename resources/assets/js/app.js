@@ -67,6 +67,7 @@ const app = new Vue({
             this.athleteID = $id;
         },
         addLift($lift) {
+            console.log('adding lift data to summary');
             this.liftWeight = $lift.lift_weight;
             this.liftType = $lift.lift_type;
             this.liftComments = $lift.user_comment;
@@ -78,10 +79,12 @@ const app = new Vue({
 
             // Check to see if the final_num_reps has been set
             if ($lift.final_num_reps > 0) {
+                console.log('final_num_reps > 0');
                 this.repCountEdit = $lift.final_num_reps;
             } else {
-                // If the final_num_reps has not been set, then use the automated rep count
-                this.repCountEdit = $lift.calc_reps;
+                // If the final_num_reps has not been set, then use the initial rep count
+                console.log('init_num_reps');
+                this.repCountEdit = $lift.init_num_reps;
             }
         },
         newLift($event) {
@@ -478,24 +481,27 @@ const app = new Vue({
                 return athlete.search_string.indexOf(this.search.toLowerCase()) > -1;
             });
         },
-        repsActual: {
-            get: function() {
+        // repsActual: {
+        //     get: function() {
 
-                // If finalReps has been updated, then use this number
-                if (this.finalReps > 0) {
-                    this.repCountEdit = parseInt(this.finalReps);
-                    return this.finalReps;
-                }
+        //         // If finalReps has been updated, then use this number
+        //         if (this.finalReps > 0) {
+        //             this.repCountEdit = parseInt(this.finalReps);
+        //             console.log('rCE = fR');
+        //             return this.finalReps;
+        //         }
 
-                // If it hasn't been updated, use the initial reps input at the start of the lift
-                this.repCountEdit = parseInt(this.maxReps);
-                return this.maxReps;
-            },
-            set: function(val) {
-                // this.finalReps = parseInt(val);
-                this.repCountEdit = parseInt(val);
-            }
-        },
+        //         // If it hasn't been updated, use the initial reps input at the start of the lift
+        //         this.repCountEdit = parseInt(this.maxReps);
+        //         console.log('rCE = mR');
+        //         return this.maxReps;
+        //     },
+        //     set: function(val) {
+        //         // this.finalReps = parseInt(val);
+        //         this.repCountEdit = parseInt(val);
+        //         console.log('rCE = val');
+        //     }
+        // },
 
         // Create URL parameters for Next Rep button
         nextRepParams: function() {
