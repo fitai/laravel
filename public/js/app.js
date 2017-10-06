@@ -1206,7 +1206,8 @@ var app = new Vue({
             axios.post('/lift/stop', {
                 liftID: this.liftID,
                 trackerID: this.trackerID,
-                testLift: this.testLift
+                testLift: this.testLift,
+                calc_reps: this.repCount
             }).then(function (response) {
                 console.log(response.data);
                 window.location.href = "/lift/summary/" + _this4.liftID;

@@ -267,7 +267,10 @@ class LiftController extends Controller
         $pythonExec = exec("/home/kyle/virtualenvs/fitai/bin/python /opt/fitai_controller/comms/update_redis.py -v -j '".json_encode($pythonArray)."'"); 
 
         // Add timestamp to ended_at
-        Lift::where('lift_id', $request->liftID)->update(array('ended_at' => \Carbon\Carbon::now()));
+        Lift::where('lift_id', $request->liftID)->update(array(
+            'ended_at' => \Carbon\Carbon::now(),
+            'calc_reps' => $request->calc_reps
+        ));
 
         // Mark lift as test if required
         if ($request->testLift == true) :
