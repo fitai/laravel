@@ -1526,14 +1526,13 @@ var app = new Vue({
                 params += "liftWeight=" + weight + "&";
             }
 
-            if (this.finalReps) {
-                var reps = this.finalReps;
+            console.log('checking reps');
+            var reps = this.finalReps;
 
-                if (reps < 1) {
-                    reps = this.maxReps;
-                }
-                params += "maxReps=" + reps + "&";
+            if (reps < 1) {
+                reps = this.maxReps;
             }
+            params += "maxReps=" + reps + "&";
 
             if (this.trackerID) {
                 var trackerID = this.trackerID;

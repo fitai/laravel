@@ -4,6 +4,14 @@
 		"selected_items":
 		[
 			[
+				"final",
+				"final_num_reps"
+			],
+			[
+				"repCount",
+				"repCountEdit"
+			],
+			[
 				"type",
 				"typeData"
 			],
@@ -177,6 +185,15 @@
 			}
 		},
 		{
+			"file": "/D/Backup/Websites/businesswebsite.builders/wp-content/themes/customizr/portfolio-page.php",
+			"settings":
+			{
+				"buffer_size": 9375,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		},
+		{
 			"file": "app/Lift.php",
 			"settings":
 			{
@@ -189,7 +206,7 @@
 			"file": "resources/views/lifts/summary.blade.php",
 			"settings":
 			{
-				"buffer_size": 7465,
+				"buffer_size": 7476,
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
@@ -206,7 +223,7 @@
 			"file": "resources/assets/js/components/LiftSummary.vue",
 			"settings":
 			{
-				"buffer_size": 6802,
+				"buffer_size": 6810,
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
@@ -224,7 +241,7 @@
 			"file": "resources/assets/js/app.js",
 			"settings":
 			{
-				"buffer_size": 18863,
+				"buffer_size": 19563,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
@@ -502,6 +519,10 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"addlift",
+			"actual",
+			"actualReps",
+			"finalreps",
 			"filter",
 			"editlift",
 			"liftWeight",
@@ -625,11 +646,7 @@
 			"$maxBudget",
 			"budget-vendors",
 			"each",
-			"budget-item",
-			"bootstrap",
-			"migrations",
-			"showregistr",
-			"type"
+			"budget-item"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -655,7 +672,7 @@
 	"groups":
 	[
 		{
-			"selected": 0,
+			"selected": 1,
 			"sheets":
 			[
 				{
@@ -671,8 +688,8 @@
 						"selection":
 						[
 							[
-								4327,
-								4327
+								788,
+								788
 							]
 						],
 						"settings":
@@ -682,14 +699,43 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 1717.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 0,
+					"stack_index": 2,
 					"type": "text"
 				},
 				{
 					"buffer": 1,
+					"file": "/D/Backup/Websites/businesswebsite.builders/wp-content/themes/customizr/portfolio-page.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 9375,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2326,
+								2326
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 208.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
 					"file": "app/Lift.php",
 					"semi_transient": false,
 					"settings":
@@ -713,24 +759,24 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 4,
+					"stack_index": 6,
 					"type": "text"
 				},
 				{
-					"buffer": 2,
+					"buffer": 3,
 					"file": "resources/views/lifts/summary.blade.php",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 7465,
+						"buffer_size": 7476,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								2608,
-								2608
+								983,
+								983
 							]
 						],
 						"settings":
@@ -739,14 +785,14 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 320.0,
+						"translation.y": 32.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 3,
+					"stack_index": 4,
 					"type": "text"
 				},
 				{
-					"buffer": 3,
+					"buffer": 4,
 					"file": "resources/views/lifts/create.blade.php",
 					"semi_transient": false,
 					"settings":
@@ -771,24 +817,24 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 6,
+					"stack_index": 7,
 					"type": "text"
 				},
 				{
-					"buffer": 4,
+					"buffer": 5,
 					"file": "resources/assets/js/components/LiftSummary.vue",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 6802,
+						"buffer_size": 6810,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								4658,
-								4658
+								5049,
+								5049
 							]
 						],
 						"settings":
@@ -798,20 +844,20 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 1402.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 2,
+					"stack_index": 5,
 					"type": "text"
 				}
 			]
 		},
 		{
-			"selected": 1,
+			"selected": 3,
 			"sheets":
 			[
 				{
-					"buffer": 5,
+					"buffer": 6,
 					"file": "database/migrations/2017_09_26_225912_create_lift_schedules_table.php",
 					"semi_transient": false,
 					"settings":
@@ -837,24 +883,24 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 8,
+					"stack_index": 9,
 					"type": "text"
 				},
 				{
-					"buffer": 6,
+					"buffer": 7,
 					"file": "resources/assets/js/app.js",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 18863,
+						"buffer_size": 19563,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								2875,
-								2875
+								17499,
+								17499
 							]
 						],
 						"settings":
@@ -864,14 +910,14 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 837.0,
+						"translation.y": 2015.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 1,
+					"stack_index": 3,
 					"type": "text"
 				},
 				{
-					"buffer": 7,
+					"buffer": 8,
 					"file": "public/js/charts.js",
 					"semi_transient": false,
 					"settings":
@@ -896,11 +942,11 @@
 						"translation.y": 1.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 11,
+					"stack_index": 12,
 					"type": "text"
 				},
 				{
-					"buffer": 8,
+					"buffer": 9,
 					"file": "resources/assets/sass/app.scss",
 					"semi_transient": false,
 					"settings":
@@ -912,8 +958,8 @@
 						"selection":
 						[
 							[
-								10098,
-								10098
+								0,
+								0
 							]
 						],
 						"settings":
@@ -922,14 +968,14 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 9605.0,
+						"translation.y": 896.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 5,
+					"stack_index": 0,
 					"type": "text"
 				},
 				{
-					"buffer": 9,
+					"buffer": 10,
 					"file": "routes/web.php",
 					"semi_transient": false,
 					"settings":
@@ -954,11 +1000,11 @@
 						"translation.y": 112.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 7,
+					"stack_index": 8,
 					"type": "text"
 				},
 				{
-					"buffer": 10,
+					"buffer": 11,
 					"file": "resources/assets/sass/_variables.scss",
 					"semi_transient": false,
 					"settings":
@@ -982,11 +1028,11 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 10,
+					"stack_index": 11,
 					"type": "text"
 				},
 				{
-					"buffer": 11,
+					"buffer": 12,
 					"file": "resources/assets/sass/_mixins.scss",
 					"semi_transient": false,
 					"settings":
@@ -1012,7 +1058,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 9,
+					"stack_index": 10,
 					"type": "text"
 				}
 			]
@@ -1606,7 +1652,7 @@
 		],
 		"width": 0.0
 	},
-	"selected_group": 0,
+	"selected_group": 1,
 	"settings":
 	{
 	},
