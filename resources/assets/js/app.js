@@ -7,6 +7,14 @@
 
 require('./bootstrap');
 
+// Include Moment.js
+window.moment = require('moment');
+window.moment = require('moment-timezone');
+
+// Set time zone to UTC
+moment.tz('UTC');
+
+
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
@@ -40,7 +48,9 @@ const app = new Vue({
         currentVelocity: 0.0,
         testLift: false, // test_lift
         typeData: [],
-        repCountEdit: 0
+        repCountEdit: 0,
+        lastLift: [],
+        currentTime: ''
     },
     methods: {
 
@@ -246,6 +256,19 @@ const app = new Vue({
         },
         addLiftOptions(options) {
             this.liftOptions = options;
+        },
+        updateTime() {
+            let self = this;
+
+            // Set initial value for currentTime
+            self.currentTime = moment.tz('UTC').format();
+
+            // Create loop that updates currentTime every minute
+            setInterval(function() {
+                var time = moment.tz('UTC').format();
+                console.log('updating currentTime to ' + time);
+                self.currentTime = time;
+            }, 60000);
         }
     },
     mounted() {
@@ -319,6 +342,17 @@ const app = new Vue({
             }
             
         }.bind(this));
+
+
+        // Get User's last lift
+        axios.get('/lift/last')
+            .then(response => {
+                this.lastLift = response.data;
+                $('#time-since-last-lift').css({opacity: 1});
+            });
+
+        // Trigger updateTime method
+        this.updateTime();
 
         // Check for test parameter on lift
         function getUrlParameter(sParam) {
@@ -542,6 +576,15 @@ const app = new Vue({
             }
 
             return params;
-        }
+        },
+
+        // calculate the time since athlete's last lift
+        timeSinceLastLift: function() {
+
+                var lastLift = moment.tz(this.lastLift.ended_at, 'UTC');
+
+                return moment(lastLift).from(this.currentTime);
+
+            }
     }
 });

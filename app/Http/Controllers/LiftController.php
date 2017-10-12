@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Auth;
 use App\Lift;
+use App\Athlete;
 use App\LiftType;
 use App\LiftSchedule;
 use phpseclib\Net\SSH2;
@@ -66,6 +67,7 @@ class LiftController extends Controller
 
         // Check for scheduled lifts
         // $scheduled = LiftSchedule::where()
+
 
         return view('lifts/create', compact('rfidTrackerID', 'typeOptions', 'variationOptions', 'equipmentOptions', 'options', 'trackers')); // Working device
 
@@ -307,6 +309,19 @@ class LiftController extends Controller
 
         return $type;
     }
+
+    // Get the last lift of designated Athlete
+    public function getLastLift($id = null) 
+    {
+        if ($id) :
+            $lift = Athlete::find($id)->lastLift();
+        else:
+            $lift = Auth::user()->athlete->lastLift();
+        endif;
+
+        return $lift;
+    }
+        
         
         
 }

@@ -179,7 +179,7 @@
 			"file": "app/Http/Controllers/LiftController.php",
 			"settings":
 			{
-				"buffer_size": 9825,
+				"buffer_size": 9895,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
@@ -241,7 +241,7 @@
 			"file": "resources/assets/js/app.js",
 			"settings":
 			{
-				"buffer_size": 19537,
+				"buffer_size": 19579,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
@@ -681,15 +681,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 9825,
+						"buffer_size": 9895,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								181,
-								181
+								9895,
+								9895
 							]
 						],
 						"settings":
@@ -699,7 +699,7 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 4512.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 0,
@@ -892,15 +892,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 19537,
+						"buffer_size": 19579,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								18709,
-								18709
+								6735,
+								6735
 							]
 						],
 						"settings":
@@ -910,7 +910,7 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 7950.0,
+						"translation.y": 2501.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 1,

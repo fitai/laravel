@@ -264,7 +264,13 @@ header {
 		}
 	}
 }
-.nav-footer {
+.time-since {
+	opacity: 0;
+	transition: all 0.5s;
+	color: #FFF;
+	@include font-size(14px);
+}
+.nav-footer .menu-login {
 	border-top: 1px solid #7b7b7b;
 	margin-top: 20px;
 	padding-top: 20px;

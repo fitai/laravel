@@ -76,11 +76,14 @@
                         @endif
                     </div>
                     <div class="nav-footer">
-                        <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Log Out</a><br>
-                        {{ get_athlete_name() }}
-                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                            {{ csrf_field() }}
-                        </form>
+                        <div id="time-since-last-lift" class="time-since">You completed your last lift:<br><span>@{{ timeSinceLastLift }}</span></div>
+                        <div id="menu-login" class="menu-login">
+                            <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Log Out</a><br>
+                            {{ get_athlete_name() }}
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                {{ csrf_field() }}
+                            </form>
+                        </div>
                     </div>
                 </div>
             </nav>

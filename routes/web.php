@@ -27,6 +27,7 @@ Route::get('/team', function() {
 	return Auth::user()->athlete->team->athletes;
 })->middleware('auth');
 
+
 // RFID
 Route::get('/rfid', 'HomeController@rfidListener')->name('rfid.listener');
 Route::post('/rfid/login', 'HomeController@rfidLogin')->name('rfid.login');
@@ -41,6 +42,7 @@ Route::get('/lift/summary/{id}', 'LiftController@show')->name('lift.summary');
 Route::patch('/lift/update', 'LiftController@update')->name('lift.update');
 Route::get('/lift/kill/{id}', 'LiftController@killLift');
 Route::post('/lift/get-type', 'LiftController@getTypeData');
+Route::get('/lift/last/{athlete_id?}', 'LiftController@getLastLift');
 
 // Admin
 Route::get('/admin', 'AdminController@index')->name('admin');
