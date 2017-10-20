@@ -261,14 +261,14 @@ const app = new Vue({
             let self = this;
 
             // Set initial value for currentTime
-            self.currentTime = moment.tz('UTC').format();
+            self.currentTime = moment.tz('America/New_York').format();
 
             // Create loop that updates currentTime every minute
             setInterval(function() {
-                var time = moment.tz('UTC').format();
-                console.log('updating currentTime to ' + time);
+                var time = moment.tz('America/New_York').format();
+                // console.log('updating currentTime to ' + time);
                 self.currentTime = time;
-            }, 60000);
+            }, 1000);
         }
     },
     mounted() {
@@ -581,9 +581,18 @@ const app = new Vue({
         // calculate the time since athlete's last lift
         timeSinceLastLift: function() {
 
-                var lastLift = moment.tz(this.lastLift.ended_at, 'UTC');
+                var lastLift = moment.tz(this.lastLift.ended_at, 'America/New_York');
+                var time = '';
 
-                return moment(lastLift).from(this.currentTime);
+                // return moment(lastLift).from(this.currentTime);
+                var diff = moment(this.currentTime).diff(lastLift);
+                if (diff < 3600000) {
+                    time = moment(diff).format('mm:ss');
+                } else {
+                    time = moment(lastLift).from(this.currentTime);
+                }
+
+                return time;
 
             }
     }
