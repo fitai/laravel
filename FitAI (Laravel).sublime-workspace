@@ -195,8 +195,16 @@
 			"file": "app/Http/Controllers/LiftController.php",
 			"settings":
 			{
-				"buffer_size": 10172,
+				"buffer_size": 10205,
 				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/D/Backup/Websites/paintandunwine.com/ - Copy (2).htaccess",
+			"settings":
+			{
+				"buffer_size": 567,
 				"line_ending": "Unix"
 			}
 		},
@@ -231,7 +239,7 @@
 			"file": "resources/assets/js/app.js",
 			"settings":
 			{
-				"buffer_size": 21111,
+				"buffer_size": 21146,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
@@ -354,6 +362,8 @@
 	],
 	"file_history":
 	[
+		"/D/Backup/Websites/paintandunwine.com/.htaccess",
+		"/D/Backup/Websites/paintandunwine.com/ - Copy.htaccess",
 		"/D/Backup/Websites/Laravel/Homestead/Code/fitai/resources/assets/js/components/LiftData.vue",
 		"/D/Backup/Websites/Laravel/Homestead/Code/fitai/resources/assets/js/components/LiftSelect.vue",
 		"/D/Backup/Websites/Laravel/Homestead/Code/fitai/.gitignore",
@@ -479,13 +489,11 @@
 		"/D/Backup/Websites/Laravel/Homestead/Code/weddingease/app/Mail/EmailVerification.php",
 		"/D/Backup/Websites/Laravel/Homestead/Code/weddingease/resources/views/emails/check.email.blade.php",
 		"/D/Backup/Websites/Laravel/Homestead/Code/weddingease/vendor/laravel/framework/src/Illuminate/Foundation/Auth/User.php",
-		"/D/Backup/Websites/Laravel/Homestead/Code/weddingease/resources/views/emails/verification.blade.php",
-		"/D/Backup/Websites/Laravel/Homestead/Code/weddingease/config/services.php",
-		"/D/Backup/Websites/Laravel/Homestead/Code/weddingease/resources/views/home.blade.php"
+		"/D/Backup/Websites/Laravel/Homestead/Code/weddingease/resources/views/emails/verification.blade.php"
 	],
 	"find":
 	{
-		"height": 24.0
+		"height": 40.0
 	},
 	"find_in_files":
 	{
@@ -501,6 +509,7 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"currentTime",
 			"aws",
 			"currentTime",
 			"aws",
@@ -627,8 +636,7 @@
 			"data-vval",
 			"date",
 			"getselectedvend",
-			"date",
-			"$maxBudget"
+			"date"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -663,15 +671,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 10172,
+						"buffer_size": 10205,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								856,
-								856
+								10169,
+								10169
 							]
 						],
 						"settings":
@@ -682,6 +690,34 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
+						"translation.y": 4752.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "/D/Backup/Websites/paintandunwine.com/ - Copy (2).htaccess",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 567,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								567
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Text/Plain text.tmLanguage"
+						},
+						"translation.x": 0.0,
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
@@ -689,7 +725,7 @@
 					"type": "text"
 				},
 				{
-					"buffer": 1,
+					"buffer": 2,
 					"file": "config/app.php",
 					"semi_transient": false,
 					"settings":
@@ -715,11 +751,11 @@
 						"translation.y": 368.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 2,
+					"stack_index": 3,
 					"type": "text"
 				},
 				{
-					"buffer": 2,
+					"buffer": 3,
 					"file": "resources/views/layouts/app.blade.php",
 					"semi_transient": false,
 					"settings":
@@ -745,11 +781,11 @@
 						"translation.y": 800.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 4,
+					"stack_index": 5,
 					"type": "text"
 				},
 				{
-					"buffer": 3,
+					"buffer": 4,
 					"file": "database/migrations/2017_09_26_225912_create_lift_schedules_table.php",
 					"semi_transient": false,
 					"settings":
@@ -775,7 +811,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 8,
+					"stack_index": 9,
 					"type": "text"
 				}
 			]
@@ -785,20 +821,20 @@
 			"sheets":
 			[
 				{
-					"buffer": 4,
+					"buffer": 5,
 					"file": "resources/assets/js/app.js",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 21111,
+						"buffer_size": 21146,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								9199,
-								9199
+								20715,
+								20715
 							]
 						],
 						"settings":
@@ -809,14 +845,14 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 3655.0,
+						"translation.y": 8788.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 0,
+					"stack_index": 2,
 					"type": "text"
 				},
 				{
-					"buffer": 5,
+					"buffer": 6,
 					"file": "resources/assets/sass/app.scss",
 					"semi_transient": false,
 					"settings":
@@ -841,11 +877,11 @@
 						"translation.y": 176.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 3,
+					"stack_index": 4,
 					"type": "text"
 				},
 				{
-					"buffer": 6,
+					"buffer": 7,
 					"file": "routes/web.php",
 					"semi_transient": false,
 					"settings":
@@ -870,11 +906,11 @@
 						"translation.y": 64.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 5,
+					"stack_index": 6,
 					"type": "text"
 				},
 				{
-					"buffer": 7,
+					"buffer": 8,
 					"file": "resources/assets/sass/_variables.scss",
 					"semi_transient": false,
 					"settings":
@@ -898,11 +934,11 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 6,
+					"stack_index": 7,
 					"type": "text"
 				},
 				{
-					"buffer": 8,
+					"buffer": 9,
 					"file": "resources/assets/sass/_mixins.scss",
 					"semi_transient": false,
 					"settings":
@@ -928,7 +964,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 7,
+					"stack_index": 8,
 					"type": "text"
 				}
 			]
@@ -1522,7 +1558,7 @@
 		],
 		"width": 0.0
 	},
-	"selected_group": 1,
+	"selected_group": 0,
 	"settings":
 	{
 	},

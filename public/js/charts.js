@@ -163,8 +163,14 @@ function drawLine() {
 	// powerChart.draw(powerData, google.charts.Line.convertOptions(powerOptions));
 }
 function updateLine(a) {
-  velocityData.addRow([getCurrentTime(), a]);
-  velocityChart.draw(velocityData, google.charts.Line.convertOptions(velocityOptions));
+	// Check to see if there are more than 300 data points
+	if (velocityData.og.length >= 300) {
+		velocityData.removeRow(0);
+ 	}
+
+ 	// Add new data to line chart
+	velocityData.addRow([getCurrentTime(), a]);
+	velocityChart.draw(velocityData, google.charts.Line.convertOptions(velocityOptions));
 }
 
 //Rep Count
