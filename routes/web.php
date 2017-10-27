@@ -43,6 +43,7 @@ Route::patch('/lift/update', 'LiftController@update')->name('lift.update');
 Route::get('/lift/kill/{id}', 'LiftController@killLift');
 Route::post('/lift/get-type', 'LiftController@getTypeData');
 Route::get('/lift/last/{athlete_id?}', 'LiftController@getLastLift');
+Route::get('/lift/next/{athlete_id?}', 'LiftController@getNextLift');
 
 // Admin
 Route::get('/admin', 'AdminController@index')->name('admin');

@@ -46,6 +46,7 @@
         mounted() {
             console.log('Lift-select mounted');
             // this.$emit('loadteam');
+            this.$emit('getnextlift');
         },
         computed: {
             typesAvailable: function() {

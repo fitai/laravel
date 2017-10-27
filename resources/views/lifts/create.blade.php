@@ -7,8 +7,15 @@
 @section('content')
 <div id="lift-overlay" class="lift-overlay">
 	<div class="content center">
+		<div id="next-lift" class="next-lift" v-if="showNextLift">
+			<h3>Next Scheduled Lift</h3>
+			<b>Lift Type:</b> @{{ showNextLift.name }}<br>
+			<b>Tracker:</b> @{{ showNextLift.tracker }}<br>
+			<b>Reps:</b> </b> @{{ showNextLift.reps }}<br>
+			<button v-on:click="useNextLift()">Use This Lift</button>
+		</div>
 		<form id="lift-new" class="lift new" @submit.prevent="newLift">
-			<lift-select :type-options="{{ $typeOptions }}" :variation-options="{{ $variationOptions }}" :equipment-options="{{ $equipmentOptions }}" :options=" {{ $options }}" v-on:updatelifttype="updateLiftType"></lift-select>
+			<lift-select :type-options="{{ $typeOptions }}" :variation-options="{{ $variationOptions }}" :equipment-options="{{ $equipmentOptions }}" :options=" {{ $options }}" v-on:updatelifttype="updateLiftType" v-on:getnextlift="getNextLift"></lift-select>
 			<h3>Lift Details</h3>
 			<div class="flexbox wrap">
 				<div class="lift-option xs-30">

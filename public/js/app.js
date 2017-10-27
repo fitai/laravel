@@ -16641,6 +16641,8 @@ var app = new Vue({
         typeData: [],
         repCountEdit: 0,
         lastLift: [],
+        nextLift: null,
+        scheduledLiftID: null,
         currentTime: ''
     },
     methods: {
@@ -16781,7 +16783,7 @@ var app = new Vue({
             var _this4 = this;
 
             console.log('Ending Lift');
-            console.log('testLift: ' + this.testLift);
+            // console.log('testLift: ' + this.testLift);
 
             // Disable button
             $('#end-lift').prop('disabled', true);
@@ -16794,7 +16796,8 @@ var app = new Vue({
                 liftID: this.liftID,
                 trackerID: this.trackerID,
                 testLift: this.testLift,
-                calc_reps: this.repCount
+                calcReps: this.repCount,
+                scheduledLiftID: this.scheduledLiftID
             }).then(function (response) {
                 console.log(response.data);
                 window.location.href = "/lift/summary/" + _this4.liftID;
@@ -16864,10 +16867,38 @@ var app = new Vue({
                 // console.log('updating currentTime to ' + time);
                 self.currentTime = time;
             }, 1000);
+        },
+        getNextLift: function getNextLift() {
+            var _this6 = this;
+
+            console.log('Checking for scheduled lifts');
+
+            // Get User's next lift
+            axios.get('/lift/next').then(function (response) {
+                _this6.nextLift = response.data;
+            });
+        },
+        useNextLift: function useNextLift() {
+            if (this.nextLift) {
+                console.log('using nextLift data');
+
+                // Update lift data fields
+                this.liftWeight = this.nextLift.lift_weight;
+                this.maxReps = this.nextLift.reps;
+                this.$children[0].type = this.nextLift.lift_type;
+                this.$children[0].variation = this.nextLift.lift_variation;
+                this.$children[0].equipment = this.nextLift.lift_equipment;
+                this.trackerID = this.nextLift.tracker_id;
+
+                // update scheduledLiftID
+                this.scheduledLiftID = this.nextLift.id;
+            } else {
+                console.log('Next lift not scheduled');
+            }
         }
     },
     mounted: function mounted() {
-        var _this6 = this;
+        var _this7 = this;
 
         // Socket.io listener
         socket.on('lifts', function (data) {
@@ -16934,7 +16965,7 @@ var app = new Vue({
 
         // Get User's last lift
         axios.get('/lift/last').then(function (response) {
-            _this6.lastLift = response.data;
+            _this7.lastLift = response.data;
             $('#time-since-last-lift').css({ opacity: 1 });
         });
 
@@ -16957,6 +16988,15 @@ var app = new Vue({
             }
         }
 
+        function updateLiftFields(type, variation, equipment, tracker, weight, reps) {
+            this.$children[0].type = type;
+            this.$children[0].variation = variation;
+            this.$children[0].equipment = equipment;
+            this.trackerID = tracker;
+            this.liftWeight = weight;
+            this.maxReps = reps;
+        }
+
         // Pre-assigned lift setups
         if (getUrlParameter('test') == 1) {
             this.liftWeight = 35;
@@ -16968,6 +17008,7 @@ var app = new Vue({
         if (getUrlParameter('tim')) {
             switch (getUrlParameter('tim')) {
                 case 'sqb245':
+                    // updateLiftFields('Squat', 'Back', 'BB', 555, 245, 5);
                     this.liftWeight = 245;
                     this.maxReps = 5;
                     this.$children[0].type = "Squat";
@@ -17089,19 +17130,19 @@ var app = new Vue({
 
             axios.post('/lift/get-type', { nameSafe: nameSafe }).then(function (response) {
                 var liftType = response.data;
-                _this6.$children[0].type = liftType.type;
-                _this6.$children[0].variation = liftType.variation;
-                _this6.$children[0].equipment = liftType.equipment;
+                _this7.$children[0].type = liftType.type;
+                _this7.$children[0].variation = liftType.variation;
+                _this7.$children[0].equipment = liftType.equipment;
             });
         }
     },
 
     computed: {
         filteredteam: function filteredteam() {
-            var _this7 = this;
+            var _this8 = this;
 
             return this.team.filter(function (athlete) {
-                return athlete.search_string.indexOf(_this7.search.toLowerCase()) > -1;
+                return athlete.search_string.indexOf(_this8.search.toLowerCase()) > -1;
             });
         },
 
@@ -17182,6 +17223,30 @@ var app = new Vue({
             }
 
             return time;
+        },
+
+        // Create option to start next scheduled lift
+        showNextLift: function showNextLift() {
+            var scheduled = null;
+
+            if (this.nextLift) {
+                var equipment = this.nextLift.lift_equipment;
+                var type = this.nextLift.lift_type;
+                var variation = this.nextLift.lift_variation;
+                var weight = this.nextLift.lift_weight;
+                var reps = this.nextLift.reps;
+                var tracker = this.nextLift.tracker_id;
+
+                var name = type + " " + variation + " - " + equipment;
+
+                scheduled = {
+                    name: name,
+                    reps: reps,
+                    tracker: tracker
+                };
+            }
+
+            return scheduled;
         }
     }
 });
@@ -18191,6 +18256,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     mounted: function mounted() {
         console.log('Lift-select mounted');
         // this.$emit('loadteam');
+        this.$emit('getnextlift');
     },
 
     computed: {

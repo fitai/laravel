@@ -6,6 +6,7 @@ use Auth;
 use App\Lift;
 use App\Athlete;
 use App\LiftType;
+use Carbon\Carbon;
 use App\LiftSchedule;
 use phpseclib\Net\SSH2;
 use phpseclib\Crypt\RSA;
@@ -64,10 +65,6 @@ class LiftController extends Controller
         if ($request->rfidTrackerID) :
             $rfidTrackerID = $request->rfidTrackerID;
         endif;
-
-        // Check for scheduled lifts
-        // $scheduled = LiftSchedule::where()
-
 
         return view('lifts/create', compact('rfidTrackerID', 'typeOptions', 'variationOptions', 'equipmentOptions', 'options', 'trackers')); // Working device
 
@@ -270,13 +267,18 @@ class LiftController extends Controller
 
         // Add timestamp to ended_at
         Lift::where('lift_id', $request->liftID)->update(array(
-            'ended_at' => \Carbon\Carbon::now(),
-            'calc_reps' => $request->calc_reps
+            'ended_at' => Carbon::now(),
+            'calc_reps' => $request->calcReps
         ));
 
         // Mark lift as test if required
         if ($request->testLift == true) :
             Lift::where('lift_id', $request->liftID)->update(array('test_lift' => true));
+        endif;
+
+        // Mark scheduledLift complete if required
+        if ($request->scheduledLiftID) :
+            LiftSchedule::whereId($request->scheduledLiftID)->update(array('end_time' => Carbon::now()));
         endif;
 
         return array($exec, $pythonExec, $request->testLift);
@@ -321,6 +323,19 @@ class LiftController extends Controller
 
         return $lift;
     }
+
+    public function getNextLift($id = null) 
+    {
+        // Check for scheduled lifts
+        if ($id) :
+            $scheduled = Athlete::find($id)->nextLift();
+        else:
+            $scheduled = Auth::user()->athlete->nextLift();
+        endif;
+
+        return $scheduled;
+    }
+        
         
         
         

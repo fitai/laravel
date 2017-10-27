@@ -3,6 +3,8 @@
 namespace App;
 
 use App\Lift;
+use Carbon\Carbon;
+use App\LiftSchedule;
 use Illuminate\Database\Eloquent\Model;
 
 class Athlete extends Model
@@ -29,6 +31,21 @@ class Athlete extends Model
     	return $lastLift;
 
     }
+
+    // Get the athlete's next scheduled lift
+    public function nextLift()
+    {   
+        $nextLift = LiftSchedule::where([
+            ['athlete_id', '=', $this->athlete_id], 
+            ['end_time', '=', null],
+            ['start_time', '>=', Carbon::now()]
+        ])
+        ->orderBy('start_time', 'desc')
+        ->first();
+
+        return $nextLift;
+    }
+        
     	
     	
 

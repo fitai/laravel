@@ -201,11 +201,12 @@
 			}
 		},
 		{
-			"file": "/D/Backup/Websites/paintandunwine.com/ - Copy (2).htaccess",
+			"file": "resources/assets/js/charts.js",
 			"settings":
 			{
-				"buffer_size": 567,
-				"line_ending": "Unix"
+				"buffer_size": 12429,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
 			}
 		},
 		{
@@ -362,6 +363,9 @@
 	],
 	"file_history":
 	[
+		"/D/Backup/Websites/Laravel/Homestead/Code/fitai/public/js/charts.js",
+		"/D/Backup/Websites/Laravel/Homestead/Code/fitai/resources/assets/js/charts.js",
+		"/D/Backup/Websites/paintandunwine.com/ - Copy (2).htaccess",
 		"/D/Backup/Websites/paintandunwine.com/.htaccess",
 		"/D/Backup/Websites/paintandunwine.com/ - Copy.htaccess",
 		"/D/Backup/Websites/Laravel/Homestead/Code/fitai/resources/assets/js/components/LiftData.vue",
@@ -370,7 +374,6 @@
 		"/D/Backup/Websites/Laravel/Homestead/Code/fitai/resources/assets/js/components/LiftSummary.vue",
 		"/D/Backup/Websites/Laravel/Homestead/Code/fitai/resources/views/lifts/create.blade.php",
 		"/D/Backup/Websites/Laravel/Homestead/Code/fitai/app/Athlete.php",
-		"/D/Backup/Websites/Laravel/Homestead/Code/fitai/public/js/charts.js",
 		"/D/Backup/Websites/Laravel/Homestead/Code/fitai/package.json",
 		"/D/Backup/Websites/Laravel/Homestead/Code/fitai/resources/views/lifts/summary.blade.php",
 		"/D/Backup/Websites/Laravel/Homestead/Code/fitai/app/Lift.php",
@@ -397,7 +400,6 @@
 		"/D/Backup/Websites/Laravel/Homestead/Code/fitai/resources/views/admin/watch.blade.php",
 		"/D/Backup/Websites/Laravel/Homestead/Code/fitai/app/Http/Controllers/LiftController.php",
 		"/C/Users/MonkeyButt/AppData/Local/Temp/fz3temp-2/socket.js",
-		"/D/Backup/Websites/Laravel/Homestead/Code/fitai/resources/assets/js/charts.js",
 		"/D/Backup/Websites/Laravel/Homestead/Code/fitai/database/migrations/2017_08_07_221029_rename_collars_table_to_trackers_table.php",
 		"/D/Backup/Websites/Laravel/Homestead/Code/fitai/database/migrations/2017_07_10_163503_add_rfid_to_users_table.php",
 		"/D/Backup/Websites/paintandunwine.com/wp-content/themes/pharmacy-master/functions.php",
@@ -488,8 +490,7 @@
 		"/D/Backup/Websites/Laravel/Homestead/Code/weddingease/app/Http/Controllers/Auth/LoginController.php",
 		"/D/Backup/Websites/Laravel/Homestead/Code/weddingease/app/Mail/EmailVerification.php",
 		"/D/Backup/Websites/Laravel/Homestead/Code/weddingease/resources/views/emails/check.email.blade.php",
-		"/D/Backup/Websites/Laravel/Homestead/Code/weddingease/vendor/laravel/framework/src/Illuminate/Foundation/Auth/User.php",
-		"/D/Backup/Websites/Laravel/Homestead/Code/weddingease/resources/views/emails/verification.blade.php"
+		"/D/Backup/Websites/Laravel/Homestead/Code/weddingease/vendor/laravel/framework/src/Illuminate/Foundation/Auth/User.php"
 	],
 	"find":
 	{
@@ -509,6 +510,7 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			">",
 			"currentTime",
 			"aws",
 			"currentTime",
@@ -635,8 +637,7 @@
 			"@php if",
 			"data-vval",
 			"date",
-			"getselectedvend",
-			"date"
+			"getselectedvend"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -678,8 +679,8 @@
 						"selection":
 						[
 							[
-								10169,
-								10169
+								8719,
+								8719
 							]
 						],
 						"settings":
@@ -690,7 +691,7 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 4752.0,
+						"translation.y": 5450.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 0,
@@ -698,27 +699,28 @@
 				},
 				{
 					"buffer": 1,
-					"file": "/D/Backup/Websites/paintandunwine.com/ - Copy (2).htaccess",
+					"file": "resources/assets/js/charts.js",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 567,
+						"buffer_size": 12429,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								0,
-								567
+								4506,
+								4506
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/Text/Plain text.tmLanguage"
+							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
+							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 2181.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 1,
@@ -833,8 +835,8 @@
 						"selection":
 						[
 							[
-								20715,
-								20715
+								5677,
+								5678
 							]
 						],
 						"settings":
@@ -845,7 +847,7 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 8788.0,
+						"translation.y": 2117.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 2,
@@ -1026,6 +1028,14 @@
 		"selected_items":
 		[
 			[
+				"charts.js",
+				"resources\\assets\\js\\charts.js"
+			],
+			[
+				"charts",
+				"resources\\assets\\js\\charts.js"
+			],
+			[
 				"liftdata",
 				"resources\\assets\\js\\components\\LiftData.vue"
 			],
@@ -1096,10 +1106,6 @@
 			[
 				"view/lift",
 				"resources\\views\\lifts\\create.blade.php"
-			],
-			[
-				"charts.js",
-				"public\\js\\charts.js"
 			],
 			[
 				"admin/",
@@ -1532,10 +1538,6 @@
 			[
 				"vendorcontr",
 				"app\\Http\\Controllers\\VendorController.php"
-			],
-			[
-				"vendorcreate",
-				"resources\\views\\vendor\\create.blade.php"
 			]
 		],
 		"width": 0.0
