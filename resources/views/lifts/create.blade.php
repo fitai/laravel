@@ -7,7 +7,7 @@
 @section('content')
 <div id="lift-overlay" class="lift-overlay">
 	<div class="content center">
-		<div id="next-lift" class="next-lift" v-if="showNextLift">
+		<div id="next-lift" class="next-lift" v-if="showNextLift" v-cloak>
 			<h3>Next Scheduled Lift</h3>
 			<b>Lift Type:</b> @{{ showNextLift.name }}<br>
 			<b>Tracker:</b> @{{ showNextLift.tracker }}<br>
