@@ -58,7 +58,7 @@
         <li class="center"><b>WARNING:</b> Your selected tracker is not active and is not recording data!</li>
     </ul>
 <div id="connect_string"></div>
-<lift-data :athlete-i-d="{{ Auth::id() }}" :lift-weight="liftWeight" :lift-type="liftType" :tracker-active="trackerActive" :max-reps="maxReps" :rep-count="repCount" :tracker-i-d="trackerID" :rfid-tracker-i-d="{{ $rfidTrackerID }}" v-on:add-athlete="addAthlete" v-on:set-tracker-id="setTrackerID"></lift-data>
+<lift-data :athlete-i-d="{{ Auth::id() }}" :lift-weight="liftWeight" :lift-type="liftType" :tracker-active="trackerActive" :max-reps="maxReps" :rep-count="repCount" :tracker-i-d="trackerID" :rfid-tracker-i-d="{{ $rfidTrackerID }}" :lift-i-d="liftID" v-on:add-athlete="addAthlete" v-on:set-tracker-id="setTrackerID"></lift-data>
 <div class="lift-section velocity-title">
 	<h2 class="center">Velocity</h2>
 	<div class="label">m/s <sup>2</sup></div>

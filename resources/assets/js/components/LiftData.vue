@@ -24,12 +24,16 @@
             <div class="data">{{ trackerActive }}</div>
             <div class="label">Active</div>
         </div>
+        <div class="data-box lift-id center">
+            <div class="data">{{ liftID }}</div>
+            <div class="label">Lift ID</div>
+        </div>
     </div>
 </template>
 
 <script>
     export default {
-        props: ['trackerID', 'liftWeight', 'liftType', 'maxReps', 'repCount', 'trackerActive', 'athleteID', 'rfidTrackerID'],
+        props: ['trackerID', 'liftWeight', 'liftType', 'maxReps', 'repCount', 'trackerActive', 'athleteID', 'rfidTrackerID', 'liftID'],
         mounted() {
             console.log('LiftData mounted');
             this.$emit('add-athlete', this.athleteID);

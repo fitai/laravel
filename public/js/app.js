@@ -18189,9 +18189,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    props: ['trackerID', 'liftWeight', 'liftType', 'maxReps', 'repCount', 'trackerActive', 'athleteID', 'rfidTrackerID'],
+    props: ['trackerID', 'liftWeight', 'liftType', 'maxReps', 'repCount', 'trackerActive', 'athleteID', 'rfidTrackerID', 'liftID'],
     mounted: function mounted() {
         console.log('LiftData mounted');
         this.$emit('add-athlete', this.athleteID);
@@ -50108,7 +50112,13 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "data"
   }, [_vm._v(_vm._s(_vm.trackerActive))]), _vm._v(" "), _c('div', {
     staticClass: "label"
-  }, [_vm._v("Active")])])])
+  }, [_vm._v("Active")])]), _vm._v(" "), _c('div', {
+    staticClass: "data-box lift-id center"
+  }, [_c('div', {
+    staticClass: "data"
+  }, [_vm._v(_vm._s(_vm.liftID))]), _vm._v(" "), _c('div', {
+    staticClass: "label"
+  }, [_vm._v("Lift ID")])])])
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
