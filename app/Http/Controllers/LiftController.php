@@ -214,12 +214,22 @@ class LiftController extends Controller
         ]);
 
 
-        $lift = Lift::find($request->lift_id);
+        // $lift = Lift::find($request->lift_id);
 
-        if (!$lift) :
-            // return response()->json(['message' => 'Lift not found']);
-            return response('Lift not found', 500);
-        endif;
+        // if (!$lift) :
+        //     // return response()->json(['message' => 'Lift not found']);
+        //     return response('Lift not found', 500);
+        // endif;
+
+        try {
+
+            $lift = Lift::find($request->lift_id);
+
+        } catch (Exception $e) {
+
+            return response($e->getMessage(), $e->getStatusCode());
+
+        }
 
 
         // Update columns
