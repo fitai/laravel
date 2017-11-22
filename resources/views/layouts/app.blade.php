@@ -103,6 +103,11 @@
                         </ul>
                     @endif
                     @yield('content')
+                    <div id="js-errors" class="js-errors" v-if="jsErrors" v-cloak>
+                        <div class="alert alert-danger" @click="clearError">
+                            @{{ jsErrors }}
+                        </div>
+                    </div>
                 </div>
             </div> <!-- #main -->
         </div> <!-- #body-content -->
@@ -114,7 +119,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.1/socket.io.js"></script>
     <script>
         // var socket = io('http://192.168.10.10:3000'); // Connect to local server
-        var socket = io('http://18.221.103.145:3000'); // Connect to AWS
+        var socket = io('http://dev.fitai.co:3000'); // Connect to AWS
 
         if (socket) {
             console.log('Socket.io connected');
@@ -124,6 +129,7 @@
     {{-- Project Scripts --}}
     <script src="{{ asset('js/app.js') }}"></script>
     <script src="{{ asset('js/global.js') }}"></script>
+    <script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
     {{-- Page specific scripts --}}
     @yield('pagescripts')

@@ -128,9 +128,18 @@ class LiftController extends Controller
 
         // Run on AWS
         $pythonExec = exec("/home/kyle/virtualenvs/fitai/bin/python /opt/fitai_controller/comms/update_redis.py -v -j '".json_encode($pythonArray)."'", $python); 
+        
+        // Get liftID from python response  
+        try {
+                  
+            $liftID = explode(": ", $python[5]); // Explode the line with "lift_id: ###"
 
-        // Run always        
-        $liftID = explode(": ", $python[5]); // Explode the line with "lift_id: ###"
+
+        } catch (Exception $e) {
+
+            // return response()->json(['message' => $e->getMessage()]);
+            return response($e->getMessage(), $e->getStatusCode());
+        }
 
         return array(
             "exec" => $exec, 
@@ -205,12 +214,13 @@ class LiftController extends Controller
         ]);
 
 
-        // Get Lift
         $lift = Lift::find($request->lift_id);
 
-        if (!$lift) {
-            return ("Lift not found");
-        }
+        if (!$lift) :
+            // return response()->json(['message' => 'Lift not found']);
+            return response('Lift not found', 500);
+        endif;
+
 
         // Update columns
         $lift->lift_type = $request->lift_type;
@@ -234,9 +244,17 @@ class LiftController extends Controller
         //         break;
         // }
 
-       $lift->save();
+        // Save changes to $lift
+        try {
 
-       return "Lift $request->lift_id updated successfully";
+            $lift->save();
+            return "Lift $request->lift_id updated successfully";
+
+        } catch (Exception $e) {
+
+            return response($e->getMessage(), $e->getStatusCode());
+
+        }
     }
 
     /**

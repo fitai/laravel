@@ -16643,9 +16643,20 @@ var app = new Vue({
         lastLift: [],
         nextLift: null,
         scheduledLiftID: null,
-        currentTime: ''
+        currentTime: '',
+        jsErrors: false
     },
     methods: {
+        updateError: function updateError(data) {
+            console.log('updating jsErrors');
+            this.jsErrors = data;
+            setTimeout(function () {
+                $('#js-errors').effect('shake');
+            }, 300);
+        },
+        clearError: function clearError() {
+            this.jsErrors = false;
+        },
         getTeam: function getTeam() {
             var _this = this;
 
@@ -16721,6 +16732,13 @@ var app = new Vue({
 
                     // Make noise for video recordings
                     beep();
+                }).catch(function (error) {
+                    _this2.updateError('Lift creation failed: ' + error.response.data.message);
+                    console.log('Creating a lift has failed');
+                    console.log(error.response);
+
+                    // Hide spinner
+                    $('#spinner-overlay').fadeOut().hide();
                 });
                 // if (secDelay == null || secDelay == '') {
                 //     secDelay = 0;
@@ -16755,6 +16773,7 @@ var app = new Vue({
                     final_num_reps: this.repCountEdit,
                     user_comment: this.liftComments
                 }).then(function (response) {
+                    console.log('Lift data updated');
                     console.log(response.data);
 
                     // Update typeData
@@ -16770,6 +16789,16 @@ var app = new Vue({
 
                     // Hide lift form
                     $('#lift-overlay').hide();
+
+                    // Hide spinner
+                    $('#spinner-overlay').fadeOut().hide();
+
+                    // Enable update button
+                    $('#lift-edit-submit').prop('disabled', false);
+                }).catch(function (error) {
+                    _this3.updateError('Update failed: ' + error.response.data.message);
+                    console.log('Updating lift has failed');
+                    console.log(error.response.data);
 
                     // Hide spinner
                     $('#spinner-overlay').fadeOut().hide();
@@ -16801,6 +16830,16 @@ var app = new Vue({
             }).then(function (response) {
                 console.log(response.data);
                 window.location.href = "/lift/summary/" + _this4.liftID;
+            }).catch(function (error) {
+                _this4.updateError('Ending lift failed: ' + error.response.data.message);
+                console.log('Ending lift has failed');
+                console.log(error.response.data);
+
+                // Hide spinner
+                $('#spinner-overlay').fadeOut().hide();
+
+                // Enable update button
+                $('#end-lift').prop('disabled', false);
             });
         },
         updateSummaryField: function updateSummaryField(prop, val, field) {

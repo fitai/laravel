@@ -494,6 +494,24 @@ label {
     background-color: #fcf8e3;
     border-color: #faebcc;
 }
+.js-errors {
+	position: fixed;
+	z-index: 1000;
+	top: 10px;
+	right: 20px;
+	width: calc(100vw - 60px);
+	cursor: pointer;
+}
+@media (min-width: 600px) {
+	.js-errors {
+		width: calc(100vw - 260px);
+	}
+}
+@media (min-width: 1300px) {
+	.js-errors {
+		width: calc(100vw - 20%);
+	}
+}
 
 /* Vue */
 [v-cloak] {

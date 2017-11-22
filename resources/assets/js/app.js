@@ -52,10 +52,20 @@ const app = new Vue({
         lastLift: [],
         nextLift: null,
         scheduledLiftID: null,
-        currentTime: ''
+        currentTime: '',
+        jsErrors: false
     },
     methods: {
-
+        updateError(data) {
+            console.log('updating jsErrors');
+            this.jsErrors = data;
+            setTimeout( function() {
+                $('#js-errors').effect('shake');
+            }, 300);
+        },
+        clearError() {
+            this.jsErrors = false;
+        },
     	getTeam() {
     		axios.get('/team').then(response =>  {
                 var temp = response.data;
@@ -128,6 +138,14 @@ const app = new Vue({
 
                         // Make noise for video recordings
                         beep();
+                    })
+                    .catch(error => {
+                        this.updateError('Lift creation failed: ' + error.response.data.message);
+                        console.log('Creating a lift has failed');
+                        console.log(error.response);
+
+                        // Hide spinner
+                        $('#spinner-overlay').fadeOut().hide();
                     });
                 // if (secDelay == null || secDelay == '') {
                 //     secDelay = 0;
@@ -161,6 +179,7 @@ const app = new Vue({
                     user_comment: this.liftComments
                 })
                 .then(response => {
+                    console.log('Lift data updated');
                     console.log(response.data);
 
                     // Update typeData
@@ -182,8 +201,18 @@ const app = new Vue({
 
                     // Enable update button
                     $('#lift-edit-submit').prop('disabled', false);
-                });
+                })
+                .catch(error => {
+                    this.updateError('Update failed: ' + error.response.data.message);
+                    console.log('Updating lift has failed');
+                    console.log(error.response.data);
 
+                    // Hide spinner
+                    $('#spinner-overlay').fadeOut().hide();
+
+                    // Enable update button
+                    $('#lift-edit-submit').prop('disabled', false);
+                });
             }
         },
         endLift() {
@@ -207,7 +236,18 @@ const app = new Vue({
             .then(response => {
                 console.log(response.data);
                 window.location.href = "/lift/summary/"+this.liftID;
-            });
+            })
+            .catch(error => {
+                    this.updateError('Ending lift failed: ' + error.response.data.message);
+                    console.log('Ending lift has failed');
+                    console.log(error.response.data);
+
+                    // Hide spinner
+                    $('#spinner-overlay').fadeOut().hide();
+
+                    // Enable update button
+                    $('#end-lift').prop('disabled', false);
+                });
         },
         updateSummaryField(prop, val, field) {
             console.log(prop + " : " + val);

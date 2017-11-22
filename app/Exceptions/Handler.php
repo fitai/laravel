@@ -44,6 +44,26 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
+        if ($request->ajax() || $request->wantsJson()) {
+
+            // Define the response
+            $response = [
+                'errors' => 'Sorry, something went wrong.'
+            ];
+
+            // Add the exception class name, message and stack trace to response
+            $response['exception'] = get_class($exception); // Reflection might be better here
+            $response['message'] = $exception->getMessage();
+            $response['trace'] = $exception->getTrace();
+
+            // Get status code
+            $status = method_exists($exception, 'getStatusCode') ? $exception->getStatusCode() : 500;
+
+            // Return a JSON response with the response array and status code
+            // return response()->json(['message' => $response, 'status' => $status]);
+            return response()->json($response, $status);
+        }
+        
         return parent::render($request, $exception);
     }
 
