@@ -2,7 +2,7 @@
     <div id="lift-select" class="lift-select">
         <h3>Lift Type</h3>
         <div class="flexbox wrap">
-            <div class="lift-option xs-30">
+            <div class="lift-option xs-100 md-45 lg-30">
                 <label for="type" class="field-title">Type</label>
                 <select name="type" v-model="type" required>
                     <option disabled>Type</option>
@@ -11,7 +11,7 @@
                     </option>
                 </select>
             </div>
-            <div class="lift-option xs-30">
+            <div class="lift-option xs-100 md-45 lg-30">
                 <label for="variation" class="field-title">Variation</label>
                 <select name="variation" v-model="variation" required>    
                     <option disabled>Variation</option>
@@ -20,7 +20,7 @@
                     </option>               
                 </select>
             </div>
-            <div class="lift-option xs-30">
+            <div class="lift-option xs-100 md-45 lg-30">
                 <label for="equipment" class="field-title">Equipment</label>
                 <select name="equipment" v-model="equipment" required>      
                     <option disabled>Equipment</option>

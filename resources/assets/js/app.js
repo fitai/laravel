@@ -134,6 +134,9 @@ const app = new Vue({
                         $('#spinner-overlay').fadeOut().hide();
 
                         // Show end lift button
+                        $('#velocity_chart').addClass('active');
+
+                        // Show end lift button
                         $('#end-lift').show();
 
                         // Make noise for video recordings

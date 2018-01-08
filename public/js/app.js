@@ -16728,6 +16728,9 @@ var app = new Vue({
                     $('#spinner-overlay').fadeOut().hide();
 
                     // Show end lift button
+                    $('#velocity_chart').addClass('active');
+
+                    // Show end lift button
                     $('#end-lift').show();
 
                     // Make noise for video recordings
@@ -50269,7 +50272,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('h3', [_vm._v("Lift Type")]), _vm._v(" "), _c('div', {
     staticClass: "flexbox wrap"
   }, [_c('div', {
-    staticClass: "lift-option xs-30"
+    staticClass: "lift-option xs-100 md-45 lg-30"
   }, [_c('label', {
     staticClass: "field-title",
     attrs: {
@@ -50308,7 +50311,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }
     }, [_vm._v("\n                    " + _vm._s(type.type) + "\n                ")])
   })], 2)]), _vm._v(" "), _c('div', {
-    staticClass: "lift-option xs-30"
+    staticClass: "lift-option xs-100 md-45 lg-30"
   }, [_c('label', {
     staticClass: "field-title",
     attrs: {
@@ -50347,7 +50350,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }
     }, [_vm._v("\n                    " + _vm._s(variation) + "\n                ")])
   })], 2)]), _vm._v(" "), _c('div', {
-    staticClass: "lift-option xs-30"
+    staticClass: "lift-option xs-100 md-45 lg-30"
   }, [_c('label', {
     staticClass: "field-title",
     attrs: {

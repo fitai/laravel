@@ -168,7 +168,7 @@ header {
 	.nav-hamburger {
 		position: absolute;
 		top: 0;
-		right: 0;
+		right: 10px;
 		display: flex;
 		align-items: center;
 		height: 100%;
@@ -336,14 +336,14 @@ header {
 
 /* Spinner */
 .spinner-overlay {
-	position: absolute;
+	position: fixed;
     top: 0;
     right: 0;
     bottom: 0;
     left: 0;
     background-color: rgba(0, 0, 0, 0.8);
     height: 100%;
-    z-index: 2;
+    z-index: 2000;
     padding: 0 20px;
 }
 .spinner {
@@ -783,14 +783,19 @@ label {
 	}
 }
 .end-lift {
-	top: 16px;
+	top: auto;
+	right: auto;
+	bottom: 0;
+	z-index: 1000;
+	text-align: center;
 	border: 2px solid $red-dark;
 	border-radius: 0;
-	background-color: transparent;
-	color: $red-dark;
+	background-color: $red-light;
+	color: $white;
 	font-variant: small-caps;
 	transition: all 0.5s;
 	display: none;
+	width: 100%;
 
 	
 	&:hover,
@@ -802,6 +807,7 @@ label {
 	}
 }
 .velocity-numbers {
+	flex-direction: column;
 	justify-content: space-around;
 	align-items: center;
 	margin-bottom: 30px;
@@ -837,6 +843,7 @@ label {
 	    border-style: inset;
 	    border-color: #ccc;
 	    background-clor: #fbfbfb;
+	    width: 100%;
 	}
 	.data {
 		font-family: $secondary-font;
@@ -884,6 +891,33 @@ label {
 			color: #fff;
 			background-color: $blue;
 		}
+	}
+}
+.velocity-chart {
+	display: none;
+	&.active {
+		display: block;
+		margin-bottom: 60px;
+	}
+}
+@media (min-width: 768px) {
+	.velocity-chart.active {
+		margin-bottom: 0;
+	}
+	.end-lift {
+		top: 16px;
+		left: auto;
+		right: 10px;
+		bottom: auto;
+		background-color: transparent;
+		color: $red-dark;
+		width: auto;
+	}
+	.velocity-numbers {
+		flex-direction: row;
+	}
+	.lift-data .data-box {
+		width: auto;
 	}
 }
 @media (max-width: 1024px) {

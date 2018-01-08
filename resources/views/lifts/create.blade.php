@@ -26,7 +26,7 @@
 			<lift-select :type-options="{{ $typeOptions }}" :variation-options="{{ $variationOptions }}" :equipment-options="{{ $equipmentOptions }}" :options=" {{ $options }}" v-on:updatelifttype="updateLiftType" v-on:getnextlift="getNextLift"></lift-select>
 			<h3>Lift Details</h3>
 			<div class="flexbox wrap">
-				<div class="lift-option xs-30">
+				<div class="lift-option xs-100 md-45 lg-30">
 					<label class="field-title">Tracker</label>
 					<select name="trackerID" required v-model="trackerID">
 						@foreach ($trackers as $tracker)
@@ -34,11 +34,11 @@
 						@endforeach
 					</select>
 				</div>
-				<div class="lift-option xs-30">
+				<div class="lift-option xs-100 md-45 lg-30">
 					<label class="field-title">Weight</label>
 					<input name="liftWeight" type="number" min="1" required v-model="liftWeight">
 				</div>
-				<div class="lift-option xs-30">
+				<div class="lift-option xs-100 md-45 lg-30">
 					<label class="field-title">Reps</label>
 					<input name="maxReps" type="number" min="1" required v-model="maxReps">
 				</div>
@@ -91,7 +91,7 @@
 </div>
 <div id="liftID" class="hidden">
 </div>
-<div id="velocity_chart" style="width: 100%; height: 350px"></div>
+<div id="velocity_chart" class="velocity-chart" style="width: 100%; height: 350px;"></div>
 @endsection
 
 
