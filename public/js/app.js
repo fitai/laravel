@@ -16884,6 +16884,15 @@ var app = new Vue({
             this.trackerID = id;
             console.log('trackerID updated');
         },
+        presetLift: function presetLift(type, variation, equipment, tracker, weight, reps) {
+            console.log('Preset loading');
+            this.liftWeight = weight;
+            this.maxReps = reps;
+            this.$children[0].type = type;
+            this.$children[0].variation = variation;
+            this.$children[0].equipment = equipment;
+            this.trackerID = tracker;
+        },
         setAdminTracker: function setAdminTracker() {
             this.adminWatch = true;
             drawLine();

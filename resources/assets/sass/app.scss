@@ -870,6 +870,22 @@ label {
 		text-align: center;
 	}
 }
+.lift-presets {
+	.small-button {
+		padding: 5px 8px;
+		font-size: 1rem;
+		cursor: pointer;
+		color: $blue;
+		background-color: transparent;
+		border: 2px solid $blue;
+		transition: all 0.25s;
+
+		&:hover {
+			color: #fff;
+			background-color: $blue;
+		}
+	}
+}
 @media (max-width: 1024px) {
 	.charts-container {
 		align-items: center;

@@ -14,6 +14,14 @@
 			<b>Reps:</b> </b> @{{ showNextLift.reps }}<br>
 			<button v-on:click="useNextLift()">Use This Lift</button>
 		</div>
+		@if ( in_array(Auth::user()->athlete->athlete_id, array(1, 3)) )
+			<div class="lift-presets">
+				<h3>Presets</h3>
+				<button class="small-button" @click="presetLift('Squat', 'Back', 'BB', '555', 1, 0)">Back Squat</button>
+				<button class="small-button" @click="presetLift('Bench', 'Standard', 'BB', '555', 1, 0)">Standard Bench</button>
+				<button class="small-button" @click="presetLift('Deadlift', 'Standard', 'BB', '555', 1, 0)">Standard Deadlift</button>
+			</div>
+		@endif
 		<form id="lift-new" class="lift new" @submit.prevent="newLift">
 			<lift-select :type-options="{{ $typeOptions }}" :variation-options="{{ $variationOptions }}" :equipment-options="{{ $equipmentOptions }}" :options=" {{ $options }}" v-on:updatelifttype="updateLiftType" v-on:getnextlift="getNextLift"></lift-select>
 			<h3>Lift Details</h3>
