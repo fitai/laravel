@@ -213,54 +213,11 @@
 			}
 		},
 		{
-			"file": "resources/views/layouts/app.blade.php",
-			"settings":
-			{
-				"buffer_size": 6229,
-				"encoding": "UTF-8",
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "app/Exceptions/Handler.php",
-			"settings":
-			{
-				"buffer_size": 2741,
-				"encoding": "UTF-8",
-				"line_ending": "Unix"
-			}
-		},
-		{
 			"file": "resources/views/lifts/create.blade.php",
 			"settings":
 			{
-				"buffer_size": 5630,
+				"buffer_size": 6027,
 				"encoding": "UTF-8",
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "resources/views/lifts/summary.blade.php",
-			"settings":
-			{
-				"buffer_size": 7476,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "/G/Users/MonkeyButt/.homestead/Homestead.yaml",
-			"settings":
-			{
-				"buffer_size": 719,
-				"encoding": "UTF-8",
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "resources/assets/js/components/LiftData.vue",
-			"settings":
-			{
-				"buffer_size": 1662,
 				"line_ending": "Windows"
 			}
 		},
@@ -268,7 +225,8 @@
 			"file": "resources/assets/js/components/LiftSelect.vue",
 			"settings":
 			{
-				"buffer_size": 4665,
+				"buffer_size": 4704,
+				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
 		},
@@ -292,7 +250,7 @@
 			"file": "resources/assets/js/app.js",
 			"settings":
 			{
-				"buffer_size": 25481,
+				"buffer_size": 25595,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
@@ -301,16 +259,7 @@
 			"file": "resources/assets/sass/app.scss",
 			"settings":
 			{
-				"buffer_size": 15593,
-				"encoding": "UTF-8",
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "/C/Users/MonkeyButt/VirtualBox VMs/homestead-7/Logs/VBoxHardening.log",
-			"settings":
-			{
-				"buffer_size": 101703,
+				"buffer_size": 16114,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
@@ -415,9 +364,14 @@
 	],
 	"file_history":
 	[
-		"/C/Windows/System32/drivers/etc/hosts",
-		"/G/Users/MonkeyButt/.homestead/Homestead.yaml",
+		"/D/Backup/Websites/Laravel/Homestead/Code/fitai/app/Http/Controllers/LiftController.php",
+		"/D/Backup/Websites/Laravel/Homestead/Code/fitai/resources/views/layouts/app.blade.php",
 		"/D/Backup/Websites/Laravel/Homestead/Code/fitai/app/Exceptions/Handler.php",
+		"/D/Backup/Websites/Laravel/Homestead/Code/fitai/resources/assets/js/components/LiftData.vue",
+		"/G/Users/MonkeyButt/.homestead/Homestead.yaml",
+		"/D/Backup/Websites/Laravel/Homestead/Code/fitai/resources/views/lifts/summary.blade.php",
+		"/C/Users/MonkeyButt/VirtualBox VMs/homestead-7/Logs/VBoxHardening.log",
+		"/C/Windows/System32/drivers/etc/hosts",
 		"/D/Backup/Websites/Laravel/Homestead/Code/fitai/config/app.php",
 		"/D/Backup/Websites/Laravel/Homestead/Code/fitai/resources/assets/js/charts.js",
 		"/D/Backup/Websites/Laravel/Homestead/Code/fitai/app/Athlete.php",
@@ -428,12 +382,10 @@
 		"/D/Backup/Websites/paintandunwine.com/ - Copy (2).htaccess",
 		"/D/Backup/Websites/paintandunwine.com/.htaccess",
 		"/D/Backup/Websites/paintandunwine.com/ - Copy.htaccess",
-		"/D/Backup/Websites/Laravel/Homestead/Code/fitai/resources/assets/js/components/LiftData.vue",
 		"/D/Backup/Websites/Laravel/Homestead/Code/fitai/resources/assets/js/components/LiftSelect.vue",
 		"/D/Backup/Websites/Laravel/Homestead/Code/fitai/.gitignore",
 		"/D/Backup/Websites/Laravel/Homestead/Code/fitai/resources/views/lifts/create.blade.php",
 		"/D/Backup/Websites/Laravel/Homestead/Code/fitai/package.json",
-		"/D/Backup/Websites/Laravel/Homestead/Code/fitai/resources/views/lifts/summary.blade.php",
 		"/D/Backup/Websites/Laravel/Homestead/Code/fitai/app/Lift.php",
 		"/D/Backup/Websites/businesswebsite.builders/wp-content/themes/customizr/portfolio-page.php",
 		"/D/Backup/Websites/Laravel/Homestead/Code/fitai/app/Team.php",
@@ -446,7 +398,6 @@
 		"/D/Backup/Websites/businesswebsite.builders/wp-content/themes/customizr/logo-page.php",
 		"/D/Backup/Websites/tayklin.com/clients/sweeddreams/wp-config.php",
 		"/D/Backup/Websites/Laravel/Homestead/Code/fitai/public/mix.js",
-		"/D/Backup/Websites/Laravel/Homestead/Code/fitai/resources/views/layouts/app.blade.php",
 		"/D/Backup/Websites/Laravel/Homestead/Code/fitai/bootstrap/cache/config.php",
 		"/D/Backup/Websites/Laravel/Homestead/Code/fitai/.env",
 		"/D/Backup/Websites/Laravel/Homestead/Code/fitai/resources/views/admin/home.blade.php",
@@ -456,7 +407,6 @@
 		"/D/Backup/Websites/Laravel/Homestead/Code/fitai/database/migrations/2017_08_12_224610_add_ended_at_to_lift_table.php",
 		"/D/Backup/Websites/tayklin.com/clients/bigds/wp-content/themes/bigdskc/style.scss",
 		"/D/Backup/Websites/Laravel/Homestead/Code/fitai/resources/views/admin/watch.blade.php",
-		"/D/Backup/Websites/Laravel/Homestead/Code/fitai/app/Http/Controllers/LiftController.php",
 		"/C/Users/MonkeyButt/AppData/Local/Temp/fz3temp-2/socket.js",
 		"/D/Backup/Websites/Laravel/Homestead/Code/fitai/database/migrations/2017_08_07_221029_rename_collars_table_to_trackers_table.php",
 		"/D/Backup/Websites/Laravel/Homestead/Code/fitai/database/migrations/2017_07_10_163503_add_rfid_to_users_table.php",
@@ -541,8 +491,7 @@
 		"/D/Backup/Websites/Laravel/Homestead/Code/weddingease/resources/views/auth/checkEmail.blade.php",
 		"/D/Backup/Websites/Laravel/Homestead/Code/weddingease/vendor/laravel/framework/src/Illuminate/Routing/RouteSignatureParameters.php",
 		"/D/Backup/Websites/Laravel/Homestead/Code/weddingease/vendor/laravel/framework/src/Illuminate/Foundation/Auth/RegistersUsers.php",
-		"/D/Backup/Websites/Laravel/Homestead/Code/weddingease/config/mail.php",
-		"/D/Backup/Websites/Laravel/Homestead/Code/weddingease/app/Http/Controllers/Auth/RegisterController.php"
+		"/D/Backup/Websites/Laravel/Homestead/Code/weddingease/config/mail.php"
 	],
 	"find":
 	{
@@ -562,6 +511,11 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			".end-lift",
+			".velocity-chart",
+			"data-box",
+			"30",
+			"id",
 			"2px solid $blue",
 			"variation",
 			"liftType",
@@ -684,12 +638,7 @@
 			"axios",
 			"collar",
 			"flexbox",
-			"alert-danger",
-			"'",
-			"lift not",
-			"summary",
-			"flexbox",
-			"* lift"
+			"alert-danger"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -715,7 +664,7 @@
 	"groups":
 	[
 		{
-			"selected": 3,
+			"selected": 0,
 			"sheets":
 			[
 				{
@@ -731,99 +680,38 @@
 						"selection":
 						[
 							[
-								8910,
-								8710
+								392,
+								392
 							]
 						],
 						"settings":
 						{
-							"history_list_is_closing": true,
 							"syntax": "Packages/PHP/PHP.sublime-syntax",
 							"tab_size": 4,
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 4485.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 6,
+					"stack_index": 1,
 					"type": "text"
 				},
 				{
 					"buffer": 1,
-					"file": "resources/views/layouts/app.blade.php",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 6229,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								5556,
-								5556
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/laravel-blade-master/blade.sublime-syntax",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 1772.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 8,
-					"type": "text"
-				},
-				{
-					"buffer": 2,
-					"file": "app/Exceptions/Handler.php",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 2741,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1341,
-								1341
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/PHP/PHP.sublime-syntax",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 272.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 7,
-					"type": "text"
-				},
-				{
-					"buffer": 3,
 					"file": "resources/views/lifts/create.blade.php",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 5630,
+						"buffer_size": 6027,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								651,
-								651
+								3614,
+								3614
 							]
 						],
 						"settings":
@@ -832,62 +720,41 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 1056.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 2,
 					"type": "text"
 				},
 				{
-					"buffer": 4,
-					"file": "resources/views/lifts/summary.blade.php",
+					"buffer": 2,
+					"file": "resources/assets/js/components/LiftSelect.vue",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 7476,
+						"buffer_size": 4704,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								0,
-								0
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/laravel-blade-master/blade.sublime-syntax",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 5,
-					"type": "text"
-				},
-				{
-					"buffer": 5,
-					"file": "/G/Users/MonkeyButt/.homestead/Homestead.yaml",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 719,
-						"regions":
-						{
-						},
-						"selection":
-						[
+								174,
+								174
+							],
 							[
-								506,
-								506
+								607,
+								607
+							],
+							[
+								1097,
+								1097
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/YAML/YAML.sublime-syntax",
-							"tab_size": 2,
+							"syntax": "Packages/vuejs-sublime-complete-master/vue.tmLanguage",
+							"tab_size": 4,
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
@@ -898,67 +765,7 @@
 					"type": "text"
 				},
 				{
-					"buffer": 6,
-					"file": "resources/assets/js/components/LiftData.vue",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 1662,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								0
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/vuejs-sublime-complete-master/vue.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 12,
-					"type": "text"
-				},
-				{
-					"buffer": 7,
-					"file": "resources/assets/js/components/LiftSelect.vue",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 4665,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								0
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/vuejs-sublime-complete-master/vue.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 11,
-					"type": "text"
-				},
-				{
-					"buffer": 8,
+					"buffer": 3,
 					"file": "app/LiftSchedule.php",
 					"semi_transient": false,
 					"settings":
@@ -982,17 +789,17 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 10,
+					"stack_index": 5,
 					"type": "text"
 				}
 			]
 		},
 		{
-			"selected": 3,
+			"selected": 2,
 			"sheets":
 			[
 				{
-					"buffer": 9,
+					"buffer": 4,
 					"file": "routes/web.php",
 					"semi_transient": false,
 					"settings":
@@ -1017,24 +824,24 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 9,
+					"stack_index": 6,
 					"type": "text"
 				},
 				{
-					"buffer": 10,
+					"buffer": 5,
 					"file": "resources/assets/js/app.js",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 25481,
+						"buffer_size": 25595,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								10345,
-								10345
+								4628,
+								4628
 							]
 						],
 						"settings":
@@ -1045,27 +852,27 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 4417.0,
+						"translation.y": 1653.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 3,
 					"type": "text"
 				},
 				{
-					"buffer": 11,
+					"buffer": 6,
 					"file": "resources/assets/sass/app.scss",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 15593,
+						"buffer_size": 16114,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								14098,
-								14098
+								1925,
+								338
 							]
 						],
 						"settings":
@@ -1074,42 +881,14 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 13525.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 1,
-					"type": "text"
-				},
-				{
-					"buffer": 12,
-					"file": "/C/Users/MonkeyButt/VirtualBox VMs/homestead-7/Logs/VBoxHardening.log",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 101703,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								0
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/zzz A File Icon zzz/aliases/Plain Text (Log).sublime-syntax"
-						},
-						"translation.x": 0.0,
-						"translation.y": 23515.0,
+						"translation.y": 48.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 0,
 					"type": "text"
 				},
 				{
-					"buffer": 13,
+					"buffer": 7,
 					"file": "resources/assets/sass/_variables.scss",
 					"semi_transient": false,
 					"settings":
@@ -1133,11 +912,11 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 13,
+					"stack_index": 7,
 					"type": "text"
 				},
 				{
-					"buffer": 14,
+					"buffer": 8,
 					"file": "resources/assets/sass/_mixins.scss",
 					"semi_transient": false,
 					"settings":
@@ -1163,7 +942,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 14,
+					"stack_index": 8,
 					"type": "text"
 				}
 			]

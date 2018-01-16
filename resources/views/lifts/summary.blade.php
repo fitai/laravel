@@ -7,7 +7,7 @@
 	<div class="content center">
 		<form id="lift-edit" class="lift edit" @submit.prevent="editLift">
 			<div class="flexbox wrap flexcenter">
-				<div class="lift-option xs-30">
+				<div class="lift-option xs-100 md-45 lg-30">
 					<label class="field-title">Lift Type</label>
 					<select name="liftType" required v-model="liftType">
 						@foreach ($liftTypes as $liftType)
@@ -17,11 +17,11 @@
 						@endforeach
 					</select>
 				</div>
-				<div class="lift-option xs-30">
+				<div class="lift-option xs-100 md-45 lg-30">
 					<label class="field-title">Weight</label>
 					<input name="liftWeight" type="number" min="1" required v-model="liftWeight">
 				</div>
-				<div class="lift-option xs-30">
+				<div class="lift-option xs-100 md-45 lg-30">
 					<label class="field-title">Actual Reps</label>
 					<input name="maxReps" type="number" min="0" required v-model="repCountEdit">
 				</div>
