@@ -143,13 +143,13 @@ class AdminController extends Controller
 
         foreach($liftTypes as $liftType) :
             $name = $liftType->name_display;
-            $typeCount[$name] = Lift::whereLiftType($name)->count();
+            $typeCount[$name] = Lift::whereLiftType($name)->where('test_lift', '!=', null)->count();
         endforeach;
 
 
         // Create array to return data
         $lifts = array(
-            'total' => Lift::count(),
+            'total' => Lift::where('test_lift', '!=', null)->count(),
             'typeCount' => $typeCount
         );
         return $lifts;

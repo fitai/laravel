@@ -259,7 +259,7 @@
 			"file": "resources/assets/sass/app.scss",
 			"settings":
 			{
-				"buffer_size": 16114,
+				"buffer_size": 16182,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
@@ -364,12 +364,12 @@
 	],
 	"file_history":
 	[
+		"/D/Backup/Websites/Laravel/Homestead/Code/fitai/resources/views/lifts/summary.blade.php",
 		"/D/Backup/Websites/Laravel/Homestead/Code/fitai/app/Http/Controllers/LiftController.php",
 		"/D/Backup/Websites/Laravel/Homestead/Code/fitai/resources/views/layouts/app.blade.php",
 		"/D/Backup/Websites/Laravel/Homestead/Code/fitai/app/Exceptions/Handler.php",
 		"/D/Backup/Websites/Laravel/Homestead/Code/fitai/resources/assets/js/components/LiftData.vue",
 		"/G/Users/MonkeyButt/.homestead/Homestead.yaml",
-		"/D/Backup/Websites/Laravel/Homestead/Code/fitai/resources/views/lifts/summary.blade.php",
 		"/C/Users/MonkeyButt/VirtualBox VMs/homestead-7/Logs/VBoxHardening.log",
 		"/C/Windows/System32/drivers/etc/hosts",
 		"/D/Backup/Websites/Laravel/Homestead/Code/fitai/config/app.php",
@@ -511,6 +511,8 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			".data",
+			"xs-30",
 			".end-lift",
 			".velocity-chart",
 			"data-box",
@@ -636,9 +638,7 @@
 			"data-container",
 			"lifft",
 			"axios",
-			"collar",
-			"flexbox",
-			"alert-danger"
+			"collar"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -694,7 +694,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 1,
+					"stack_index": 0,
 					"type": "text"
 				},
 				{
@@ -710,8 +710,8 @@
 						"selection":
 						[
 							[
-								3614,
-								3614
+								1739,
+								1721
 							]
 						],
 						"settings":
@@ -720,7 +720,7 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 1056.0,
+						"translation.y": 256.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 2,
@@ -864,15 +864,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 16114,
+						"buffer_size": 16182,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1925,
-								338
+								15639,
+								15639
 							]
 						],
 						"settings":
@@ -881,10 +881,10 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 48.0,
+						"translation.y": 14885.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 0,
+					"stack_index": 1,
 					"type": "text"
 				},
 				{
@@ -1536,7 +1536,7 @@
 		],
 		"width": 0.0
 	},
-	"selected_group": 1,
+	"selected_group": 0,
 	"settings":
 	{
 	},
