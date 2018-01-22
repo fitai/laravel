@@ -273,6 +273,17 @@ header {
 	color: #FFF;
 	@include font-size(14px);
 }
+.time-since-mobile {
+	opacity: 0;
+	transition: all 0.5s;
+	color: #FFF;
+	@include font-size(14px);
+	width: calc(100% - 20px);
+	margin-bottom: 10px;
+	background-color: $blue;
+	padding: 10px;
+	text-align: center;
+}
 .nav-footer .menu-login {
 	border-top: 1px solid #7b7b7b;
 	margin-top: 20px;
@@ -328,6 +339,9 @@ header {
 		.close-menu {
 			display: none;
 		}
+	}
+	.time-since-mobile {
+		display: none;
 	}
 }
 

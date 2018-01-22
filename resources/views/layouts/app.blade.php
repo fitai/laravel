@@ -89,7 +89,9 @@
             </nav>
             <div id="main">
                 <header>
-                    <img id="logo" src="/images/fitai-logo-black.svg">
+                    <a href="{{ route('home') }}">
+                        <img id="logo" src="/images/fitai-logo-black.svg">
+                    </a>    
                     <div id="nav-hamburger" class="nav-hamburger hamburger-menu">
                         <i class="dripicons-menu"></i>
                     </div>
@@ -102,6 +104,7 @@
                             @endforeach
                         </ul>
                     @endif
+                    <div id="time-since-last-lift-mobile" class="time-since-mobile">You completed your last lift:<br><span>@{{ timeSinceLastLift }}</span></div>
                     @yield('content')
                     <div id="js-errors" class="js-errors" v-if="jsErrors" v-cloak>
                         <div class="alert alert-danger" @click="clearError">

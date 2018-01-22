@@ -433,6 +433,7 @@ const app = new Vue({
             .then(response => {
                 this.lastLift = response.data;
                 $('#time-since-last-lift').css({opacity: 1});
+                $('#time-since-last-lift-mobile').css({opacity: 1});
             });
 
         // Trigger updateTime method
