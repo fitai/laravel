@@ -140,6 +140,10 @@ class AdminController extends Controller
     {
         $liftTypes = LiftType::select('name_display')->groupBy('name_display')->get()->sortBy('name_display');
         $typeCount = array();
+        $realLifts = Lift::where('test_lift', '=', null)->get();
+        $editedRepCount = $realLifts->sum('final_num_reps');
+        $naturalRepCount = $realLifts->where('final_num_reps', '=', null)->sum('init_num_reps');
+        $repCount = $editedRepCount + $naturalRepCount;
 
         foreach($liftTypes as $liftType) :
             $name = $liftType->name_display;
@@ -150,7 +154,8 @@ class AdminController extends Controller
         // Create array to return data
         $lifts = array(
             'total' => Lift::where('test_lift', '=', null)->count(),
-            'typeCount' => $typeCount
+            'typeCount' => $typeCount,
+            'repCount' => $repCount
         );
         return $lifts;
     }

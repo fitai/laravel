@@ -30,6 +30,7 @@
 <h2>Collected</h2>
 <ul class="admin-list">
 	<li><span>Lifts:</span> {{ $lifts['total'] }}</li>
+	<li><span>Reps:</span> {{ $lifts['repCount'] }}</li>
 	<li>
 		<span>Lift Type</span>
 		<ul>
