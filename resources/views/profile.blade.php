@@ -19,6 +19,7 @@
                     Team: {{ get_athlete_team_name() }}<br>
                     Team ID: {{ get_athlete_team_id() }}<br>
                     Next Lift: {{ print_r(get_next_lift()) }} --}}
+                </div>
             </div>
         </div>
     </div>
