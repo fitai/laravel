@@ -4,11 +4,18 @@ function nl2br (str, is_xhtml) {
 }
 
 // Mobile navigation open listener
-$(document).on('click', '#nav-hamburger', function() {
-	$('#nav-menu').show();
+$(document).on('click', '#nav-hamburger', function () {
+  $('#nav-menu').addClass('active').show();
 });
 
 // Mobile navigation close listener
-$(document).on('click', '#close-menu', function() {
-	$('#nav-menu').hide();
+$(document).on('click', '#close-menu', function () {
+  $('#nav-menu').removeClass('active').hide();
+});
+
+// Hide mobile navigation if click off screen
+$(document).on('click', '#dynamic-content', function () {
+	if ($('#nav-menu').hasClass('active')) {
+		$('#nav-menu').removeClass('active').hide();
+	}
 });
