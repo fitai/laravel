@@ -237,6 +237,9 @@ header {
 		flex-direction: column;
 		justify-content: space-between;
 	}
+	&.active {
+		display: block;
+	}
 }
 .nav-items {
 	& > div {
