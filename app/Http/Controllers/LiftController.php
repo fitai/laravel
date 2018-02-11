@@ -169,13 +169,15 @@ class LiftController extends Controller
             "active" => false
         );
 
-        // // Run on local build
+        // Run on local build
         // $pythonExec = $this->ssh->exec("/home/kyle/virtualenvs/fitai/bin/python /opt/fitai_controller/comms/update_redis.py -j '".json_encode($pythonArray)."'");
         // $pythonExplode= explode(PHP_EOL, $pythonExec);
         // $pythonResponse = $pythonExplode[2];
 
-        // Run on AWS
-        $pythonResponse = exec("/home/kyle/virtualenvs/fitai/bin/python /opt/fitai_controller/comms/update_redis.py -j '".json_encode($pythonArray)."'");
+        // // Run on AWS
+        // $pythonResponse = exec("/home/kyle/virtualenvs/fitai/bin/python /opt/fitai_controller/comms/update_redis.py -j '".json_encode($pythonArray)."'");
+
+        $pythonResponse = "";
 
         // Get LiftTypes
         $liftTypes = LiftType::all()->sortBy('name_display');
