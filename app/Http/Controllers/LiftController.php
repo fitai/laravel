@@ -174,10 +174,8 @@ class LiftController extends Controller
         // $pythonExplode= explode(PHP_EOL, $pythonExec);
         // $pythonResponse = $pythonExplode[2];
 
-        // // Run on AWS
-        // $pythonResponse = exec("/home/kyle/virtualenvs/fitai/bin/python /opt/fitai_controller/comms/update_redis.py -j '".json_encode($pythonArray)."'");
-
-        $pythonResponse = "";
+        // Run on AWS
+        $pythonResponse = exec("/home/kyle/virtualenvs/fitai/bin/python /opt/fitai_controller/comms/update_redis.py -j '".json_encode($pythonArray)."'");
 
         // Get LiftTypes
         $liftTypes = LiftType::all()->sortBy('name_display');
