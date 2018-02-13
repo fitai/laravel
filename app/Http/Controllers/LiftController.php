@@ -19,7 +19,7 @@ class LiftController extends Controller
 
     public function __construct()
     {
-        $this->middleware('auth');
+        // $this->middleware('auth');
 
         // // Connect to AWS server via SSH with key
         // $ssh = new SSH2('18.221.103.145');
@@ -169,7 +169,7 @@ class LiftController extends Controller
             "active" => false
         );
 
-        // Run on local build
+        // // Run on local build
         // $pythonExec = $this->ssh->exec("/home/kyle/virtualenvs/fitai/bin/python /opt/fitai_controller/comms/update_redis.py -j '".json_encode($pythonArray)."'");
         // $pythonExplode= explode(PHP_EOL, $pythonExec);
         // $pythonResponse = $pythonExplode[2];
