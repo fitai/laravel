@@ -163,8 +163,8 @@ function drawLine() {
 	// powerChart.draw(powerData, google.charts.Line.convertOptions(powerOptions));
 }
 function updateLine(a) {
-	// Check to see if there are more than 300 data points
-	if (velocityData.og.length >= 300) {
+	// Check to see if there are more than 150 data points
+	if (velocityData.og.length >= 150) {
 		velocityData.removeRow(0);
  	}
 
