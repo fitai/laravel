@@ -19,7 +19,7 @@ class LiftController extends Controller
 
     public function __construct()
     {
-        // $this->middleware('auth');
+        $this->middleware('auth');
 
         // // Connect to AWS server via SSH with key
         // $ssh = new SSH2('18.221.103.145');
