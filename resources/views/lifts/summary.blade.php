@@ -85,7 +85,8 @@
 
 	function drawChart() {
 
-		var pythonResponse = $('#json_string').html();
+		var pythonResponse = '@php echo $pythonResponse; @endphp';
+		// var pythonResponse = $('#json_string').html();
 		var jsonString = JSON.parse(pythonResponse);
 		// console.log(jsonString);
 		var columns = jsonString.columns;
