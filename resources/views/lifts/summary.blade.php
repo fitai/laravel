@@ -76,7 +76,8 @@
 
 	// init charts
 	// google.charts.load('current', {'packages':['line', 'corechart', 'gauge']});
-	google.charts.load('current', {'packages':['line']});
+	// google.charts.load('current', {'packages':['line']}); // material chart
+	google.charts.load('current', {'packages':['corechart']}); // classic line chart
 	google.charts.setOnLoadCallback(drawChart);
 
 	function getColumns(columns) {
@@ -141,21 +142,25 @@
 		var velocityOptions = {
 		  chart: {
 			  title: 'Velocity',
-			  subtitle: 'in m/s^2'
+			  subtitle: 'in m/s^2',
 		  },
 		  legend: { position: 'bottom' },
 		  explorer: { zoomDelta: 1.1 },
 		  series: {
 			  0: {
-				  labelInLegend: 'Velocity X'
+				  labelInLegend: 'Velocity X',
 			  },
 			  1: {
-				  labelInLegend: 'Velocity Y'
+				  labelInLegend: 'Velocity Y',
 			  },
 			  2: {
-				  labelInLegend: 'Velocity Z'
+				  labelInLegend: 'Velocity Z',
 			  }
-		  }
+		  },
+		  tooltip: {
+		  	trigger: 'none'
+		  },
+		  enableInteractivity: false
 		};
 		
 		// Power chart options
@@ -208,8 +213,11 @@
 	 //      ]);
 
 		// Create Velocity chart
-		var velocityChart = new google.charts.Line(document.getElementById('velocity_chart'));
-		velocityChart.draw(velocityData, google.charts.Line.convertOptions(velocityOptions));
+		// var velocityChart = new google.charts.Line(document.getElementById('velocity_chart')); // Material Chart
+		// velocityChart.draw(velocityData, google.charts.Line.convertOptions(velocityOptions)); // material chart
+
+		var velocityChart = new google.visualization.LineChart(document.getElementById('velocity_chart')); // classic line chart
+		velocityChart.draw(velocityData, velocityOptions); // classic line chart
 		
 		// Create Power chart
 		// var powerChart = new google.charts.Line(document.getElementById('power_chart'));
