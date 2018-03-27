@@ -132,7 +132,10 @@
     {{-- Project Scripts --}}
     <script src="{{ asset('js/app.js') }}"></script>
     <script src="{{ asset('js/global.js') }}"></script>
+
+    {{-- jQuery UI --}}
     <script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
     {{-- Page specific scripts --}}
     @yield('pagescripts')

@@ -216,7 +216,7 @@
 			"file": "app/Http/Controllers/LiftController.php",
 			"settings":
 			{
-				"buffer_size": 11294,
+				"buffer_size": 11324,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
@@ -243,7 +243,7 @@
 			"file": "resources/views/lifts/summary.blade.php",
 			"settings":
 			{
-				"buffer_size": 7885,
+				"buffer_size": 8229,
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
@@ -514,7 +514,7 @@
 	],
 	"find":
 	{
-		"height": 40.0
+		"height": 24.0
 	},
 	"find_in_files":
 	{
@@ -530,6 +530,7 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"aws",
 			"false",
 			"drawchart",
 			"join",
@@ -656,8 +657,7 @@
 			"updateline",
 			"aws",
 			"redirect",
-			"font-size",
-			"* flexbox"
+			"font-size"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -720,15 +720,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 11294,
+						"buffer_size": 11324,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								5280,
-								5280
+								357,
+								357
 							]
 						],
 						"settings":
@@ -738,10 +738,10 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 2309.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 2,
+					"stack_index": 1,
 					"type": "text"
 				},
 				{
@@ -770,7 +770,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 1,
+					"stack_index": 2,
 					"type": "text"
 				},
 				{
@@ -809,15 +809,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 7885,
+						"buffer_size": 8229,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								6389,
-								6389
+								5649,
+								5649
 							]
 						],
 						"settings":
@@ -826,7 +826,7 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 2984.0,
+						"translation.y": 2241.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 0,

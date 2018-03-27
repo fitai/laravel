@@ -53,7 +53,9 @@ const app = new Vue({
         nextLift: null,
         scheduledLiftID: null,
         currentTime: '',
-        jsErrors: false
+        jsErrors: false,
+        scheduleDate: null,
+        scheduleTime: null
     },
     methods: {
         updateError(data) {
