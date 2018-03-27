@@ -21,15 +21,15 @@ class LiftController extends Controller
     {
         $this->middleware('auth');
 
-        // Connect to AWS server via SSH with key
-        $ssh = new SSH2('18.221.103.145');
-        $key = new RSA();
-        $key->loadKey(file_get_contents('/home/vagrant/.ssh/fitai-dev.pem'));
-        if (!$ssh->login('patrick', $key)) {
-            exit('Login Failed');
-        }
+        // // Connect to AWS server via SSH with key
+        // $ssh = new SSH2('18.221.103.145');
+        // $key = new RSA();
+        // $key->loadKey(file_get_contents('/home/vagrant/.ssh/fitai-dev.pem'));
+        // if (!$ssh->login('patrick', $key)) {
+        //     exit('Login Failed');
+        // }
 
-        $this->ssh = $ssh;
+        // $this->ssh = $ssh;
     }
     
     /**
@@ -121,9 +121,9 @@ class LiftController extends Controller
 
         // dd($exec);
 
-        // Run on local build
-        $pythonExec = $this->ssh->exec("/home/kyle/virtualenvs/fitai/bin/python /opt/fitai_controller/comms/update_redis.py -v -j '".json_encode($pythonArray)."'");
-        $python = explode(PHP_EOL, $pythonExec); // Create array by exploding end of line
+        // // Run on local build
+        // $pythonExec = $this->ssh->exec("/home/kyle/virtualenvs/fitai/bin/python /opt/fitai_controller/comms/update_redis.py -v -j '".json_encode($pythonArray)."'");
+        // $python = explode(PHP_EOL, $pythonExec); // Create array by exploding end of line
 
 
         // Run on AWS
@@ -169,13 +169,13 @@ class LiftController extends Controller
             "active" => false
         );
 
-        // Run on local build
-        $pythonExec = $this->ssh->exec("/home/kyle/virtualenvs/fitai/bin/python /opt/fitai_controller/comms/update_redis.py -j '".json_encode($pythonArray)."'");
-        $pythonExplode= explode(PHP_EOL, $pythonExec);
-        $pythonResponse = $pythonExplode[2];
+        // // Run on local build
+        // $pythonExec = $this->ssh->exec("/home/kyle/virtualenvs/fitai/bin/python /opt/fitai_controller/comms/update_redis.py -j '".json_encode($pythonArray)."'");
+        // $pythonExplode= explode(PHP_EOL, $pythonExec);
+        // $pythonResponse = $pythonExplode[2];
 
-        // // Run on AWS
-        // $pythonResponse = exec("/home/kyle/virtualenvs/fitai/bin/python /opt/fitai_controller/comms/update_redis.py -j '".json_encode($pythonArray)."'");
+        // Run on AWS
+        $pythonResponse = exec("/home/kyle/virtualenvs/fitai/bin/python /opt/fitai_controller/comms/update_redis.py -j '".json_encode($pythonArray)."'");
 
         // Get LiftTypes
         $liftTypes = LiftType::all()->sortBy('name_display');
@@ -287,11 +287,11 @@ class LiftController extends Controller
 
         $exec = "execution string: /home/kyle/virtualenvs/fitai/bin/python /opt/fitai_controller/comms/update_redis.py -v -j '".json_encode($pythonArray)."'";
 
-        // Run on local build
-        $pythonExec = $this->ssh->exec("/home/kyle/virtualenvs/fitai/bin/python /opt/fitai_controller/comms/update_redis.py -v -j '".json_encode($pythonArray)."'");
+        // // Run on local build
+        // $pythonExec = $this->ssh->exec("/home/kyle/virtualenvs/fitai/bin/python /opt/fitai_controller/comms/update_redis.py -v -j '".json_encode($pythonArray)."'");
 
-        // // Run on AWS
-        // $pythonExec = exec("/home/kyle/virtualenvs/fitai/bin/python /opt/fitai_controller/comms/update_redis.py -v -j '".json_encode($pythonArray)."'"); 
+        // Run on AWS
+        $pythonExec = exec("/home/kyle/virtualenvs/fitai/bin/python /opt/fitai_controller/comms/update_redis.py -v -j '".json_encode($pythonArray)."'"); 
 
         // Add timestamp to ended_at
         Lift::where('lift_id', $request->liftID)->update(array(
@@ -321,11 +321,11 @@ class LiftController extends Controller
 
         $exec = "execution string: /home/kyle/virtualenvs/fitai/bin/python /opt/fitai_controller/comms/update_redis.py -v -j '".json_encode($pythonArray)."'";
 
-        // Run on local build
-        $pythonExec = $this->ssh->exec("/home/kyle/virtualenvs/fitai/bin/python /opt/fitai_controller/comms/update_redis.py -v -j '".json_encode($pythonArray)."'");
+        // // Run on local build
+        // $pythonExec = $this->ssh->exec("/home/kyle/virtualenvs/fitai/bin/python /opt/fitai_controller/comms/update_redis.py -v -j '".json_encode($pythonArray)."'");
 
-        // // Run on AWS
-        // $pythonExec = exec("/home/kyle/virtualenvs/fitai/bin/python /opt/fitai_controller/comms/update_redis.py -v -j '".json_encode($pythonArray)."'"); 
+        // Run on AWS
+        $pythonExec = exec("/home/kyle/virtualenvs/fitai/bin/python /opt/fitai_controller/comms/update_redis.py -v -j '".json_encode($pythonArray)."'"); 
 
         return array($exec, $pythonExec);
     }
