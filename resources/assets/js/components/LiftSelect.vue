@@ -35,12 +35,12 @@
 
 <script>
     export default {
-        props: ['typeOptions', 'equipmentOptions', 'variationOptions', 'options'],
+        props: ['typeOptions', 'equipmentOptions', 'variationOptions', 'options', 'typeOld', 'variationOld', 'equipmentOld'],
         data() {
             return {
-                type: '',
-                variation: '',
-                equipment: ''
+                type: this.typeOld,
+                variation: this.variationOld,
+                equipment: this.equipmentOld,
             }
         },
         mounted() {

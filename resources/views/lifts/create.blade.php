@@ -10,8 +10,9 @@
 		<div id="next-lift" class="next-lift" v-if="showNextLift" v-cloak>
 			<h3>Next Scheduled Lift</h3>
 			<b>Lift Type:</b> @{{ showNextLift.name }}<br>
-			<b>Tracker:</b> @{{ showNextLift.tracker }}<br>
 			<b>Reps:</b> </b> @{{ showNextLift.reps }}<br>
+			<b>Weight:</b> </b> @{{ showNextLift.weight }}<br>
+			<b>Tracker:</b> @{{ showNextLift.tracker }}<br>
 			<button v-on:click="useNextLift()">Use This Lift</button>
 		</div>
 		@if ( in_array(Auth::user()->athlete->athlete_id, array(1, 3)) )

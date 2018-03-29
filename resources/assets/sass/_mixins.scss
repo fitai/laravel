@@ -52,3 +52,38 @@
 @mixin stroke($stroke, $color) {
   text-shadow: stroke($stroke, $color);
 }
+
+@mixin formfield {
+  .lift-option {
+      position: relative;
+      margin: 0 10px 24px;
+
+      .field-title {
+        position: absolute;
+        z-index: 1;
+        top: -12px;
+        margin-left: 10px;
+        @include font-size(14px);
+        background-color: #fff;
+        width: auto;
+        padding: 4px 10px;
+      }
+      .error {
+        @include font-size(14px);
+
+        &:before {
+          display: none;
+        }
+      }
+      select {
+        width: 100%;
+      }
+      input {
+        width: calc(100% - 20px);
+      }
+
+      &.lift-actions {
+        margin-top: 60px;
+      }
+  }
+}

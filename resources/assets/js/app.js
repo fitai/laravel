@@ -54,8 +54,6 @@ const app = new Vue({
         scheduledLiftID: null,
         currentTime: '',
         jsErrors: false,
-        scheduleDate: null,
-        scheduleTime: null
     },
     methods: {
         updateError(data) {
@@ -710,7 +708,8 @@ const app = new Vue({
                 scheduled = {
                     name: name,
                     reps: reps,
-                    tracker: tracker
+                    tracker: tracker,
+                    weight: weight
                 }
             }
 

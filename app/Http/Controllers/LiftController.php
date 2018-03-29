@@ -128,6 +128,8 @@ class LiftController extends Controller
 
         // Run on AWS
         $pythonExec = exec("/home/kyle/virtualenvs/fitai/bin/python /opt/fitai_controller/comms/update_redis.py -v -j '".json_encode($pythonArray)."'", $python); 
+
+        // dd($python);
         
         // Get liftID from python response  
         try {
@@ -364,9 +366,12 @@ class LiftController extends Controller
 
         return $scheduled;
     }
-        
+    
+    // UI for creating a new scheduled lift 
     public function schedule()  
     {
+        // Get all athletes for User's team
+        $athletes = Auth::user()->athlete->team->athletes->sortBy('athlete_last_name');
 
          // Get all trackers for the User's team
         $trackers = Auth::user()->athlete->team->trackers;
@@ -380,8 +385,74 @@ class LiftController extends Controller
         $equipmentOptions = LiftType::select('equipment')->groupBy('equipment')->get();
         $options = LiftType::select('type', 'variation', 'equipment')->groupBy('type', 'variation', 'equipment')->get();
 
-        return view('lifts/schedule', compact('trackers', 'typeOptions', 'variationOptions', 'equipmentOptions', 'options'));
+        return view('lifts/schedule', compact('athletes', 'trackers', 'typeOptions', 'variationOptions', 'equipmentOptions', 'options'));
     }
+
+    // Save scheduled lift to DB
+    public function storeSchedule(Request $request) 
+    {
+        // Validate fields
+        $validator = $this->validate($request, [
+            'scheduleDate' => 'required|date',
+            'scheduleTime' => 'required|date_format:"H:i:s"',
+            'scheduleAthlete' => 'required|numeric',
+            'type' => 'required',
+            'variation' => 'required',
+            'equipment' => 'required',
+            'trackerID' => 'required',
+            'liftWeight' => 'required|numeric',
+            'maxReps' => 'required|numeric'
+        ]);
+
+        // if ($validator->fails()) {
+        //     return redirect()->back()
+        //                 ->withErrors($validator)
+        //                 ->withInput();
+        // }
+
+        $start = $request->scheduleDate." ".$request->scheduleTime;
+
+        // Save changes to $lift
+        try {
+
+            $schedule = LiftSchedule::create([
+                'athlete_id' => $request->scheduleAthlete,
+                'start_time' => $start,
+                'lift_type' => $request->type,
+                'lift_variation' => $request->variation,
+                'lift_equipment' => $request->equipment,
+                'lift_weight' => $request->liftWeight,
+                'tracker_id' => $request->trackerID,
+                'reps' => $request->maxReps
+
+            ]);
+
+            // Get athlete name
+            $athlete = Athlete::find($request->scheduleAthlete);
+            $name = $athlete->athlete_first_name." ".$athlete->athlete_last_name;
+
+            return redirect()->back()->with('message', 'Lift scheduled for '.$name.' successfully!');
+
+        } catch (Exception $e) {
+
+            return response($e->getMessage(), $e->getStatusCode());
+
+        }
+
+        // // Check if date and time are valid
+        // function validateDate($date, $format = 'Y-m-d H:i:s')
+        // {
+        //     $d = \DateTime::createFromFormat($format, $date);
+        //     return $d && $d->format($format) == $date;
+        // }
+
+        // $start = $request->scheduleDate." ".$request->scheduleTime;
+
+        // if (validateDate($start)) :
+
+        // else
+    }
+        
         
         
         

@@ -22,6 +22,7 @@
             'csrfToken' => csrf_token(),
         ]) !!};
     </script>
+
 </head>
 <body>
     <div id="app">
@@ -103,6 +104,11 @@
                                 <li>{{ $error }}</li>
                             @endforeach
                         </ul>
+                    @endif
+                    @if(session()->has('message'))
+                        <div class="alert alert-success">
+                            {{ session()->get('message') }}
+                        </div>
                     @endif
                     <div id="time-since-last-lift-mobile" class="time-since-mobile">You completed your last lift:<br><span>@{{ timeSinceLastLift }}</span></div>
                     @yield('content')

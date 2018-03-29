@@ -517,6 +517,11 @@ label {
     background-color: #fcf8e3;
     border-color: #faebcc;
 }
+.alert-success {
+	color: #29801a;
+    background-color: #92ff7c;
+    border-color: #29f500;
+}
 .js-errors {
 	position: fixed;
 	z-index: 1000;
@@ -639,38 +644,8 @@ label {
     .content {
     	margin-top: 40px;
     }
-    .lift-option {
-    	position: relative;
-    	margin: 0 10px 24px;
-
-   		.field-title {
-   			position: absolute;
-		    z-index: 2;
-		    top: -12px;
-		    margin-left: 10px;
-		    @include font-size(14px);
-		    background-color: #fff;
-		    width: auto;
-		    padding: 4px 10px;
-   		}
-	    .error {
-	    	@include font-size(14px);
-
-	    	&:before {
-	    		display: none;
-	    	}
-	    }
-   		select {
-   			width: 100%;
-   		}
-   		input {
-   			width: calc(100% - 20px);
-   		}
-
-   		&.lift-actions {
-			margin-top: 60px;
-		}
-    }
+    
+    @include formfield();
 
     h3 {
     	font-weight: 400;
@@ -1003,6 +978,20 @@ label {
 .next-lift {
 	text-align: center;
 	margin-top: 40px;
+}
+
+/*****************
+* Lift Schedule
+*****************/
+.lift-schedule {
+	h3 {
+		font-weight: 400;
+    	border-bottom: 1px solid $grey-light;
+    	margin: 30px 10% 40px;
+    	padding-bottom: 10px;
+	}
+
+	@include formfield();
 }
 
 /*****************

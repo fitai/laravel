@@ -16644,9 +16644,7 @@ var app = new Vue({
         nextLift: null,
         scheduledLiftID: null,
         currentTime: '',
-        jsErrors: false,
-        scheduleDate: null,
-        scheduleTime: null
+        jsErrors: false
     },
     methods: {
         updateError: function updateError(data) {
@@ -17296,7 +17294,8 @@ var app = new Vue({
                 scheduled = {
                     name: name,
                     reps: reps,
-                    tracker: tracker
+                    tracker: tracker,
+                    weight: weight
                 };
             }
 
@@ -18303,12 +18302,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    props: ['typeOptions', 'equipmentOptions', 'variationOptions', 'options'],
+    props: ['typeOptions', 'equipmentOptions', 'variationOptions', 'options', 'typeOld', 'variationOld', 'equipmentOld'],
     data: function data() {
         return {
-            type: '',
-            variation: '',
-            equipment: ''
+            type: this.typeOld,
+            variation: this.variationOld,
+            equipment: this.equipmentOld
         };
     },
     mounted: function mounted() {

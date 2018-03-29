@@ -45,6 +45,7 @@ Route::post('/lift/get-type', 'LiftController@getTypeData');
 Route::get('/lift/last/{athlete_id?}', 'LiftController@getLastLift');
 Route::get('/lift/next/{athlete_id?}', 'LiftController@getNextLift');
 Route::get('/lift/schedule', 'LiftController@schedule')->name('lift.schedule');
+Route::post('/lift/schedule', 'LiftController@storeSchedule')->name('lift.schedule.store');
 
 // Admin
 Route::get('/admin', 'AdminController@index')->name('admin');
