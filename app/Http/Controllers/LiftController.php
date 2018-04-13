@@ -452,6 +452,59 @@ class LiftController extends Controller
 
         // else
     }
+    
+    // Display schedule of team's full schedule
+    public function viewSchedule() 
+    {
+        // Get all athlete IDs for User's team
+        $athletes = Auth::user()->athlete->team->athletes()->get(['athlete_id']);
+
+        // Get all future scheduled lifts for team mates
+        $schedules = LiftSchedule::whereIn('athlete_id', $athletes)
+        ->where([
+            ['end_time', '=', null],
+            ['start_time', '>=', Carbon::now()]
+        ])
+        ->orderBy('start_time', 'desc')
+        ->with('athlete')
+        ->get();
+
+        return view('lifts/schedule-view', compact('schedules'));
+        
+    }
+
+    // Remove a scheduled lift
+    public function deleteSchedule($id) 
+    {
+        $schedule = LiftSchedule::find($id);
+
+        // Make sure LiftSchedule exists
+        if (!$schedule) :
+
+            return redirect()->back()->withErrors(['Scheduled Lift '.$id.' does not exist.']);
+
+        // Make sure user is authorized to delete the LiftSchedule
+        elseif ($schedule->athlete->team->team_id !== Auth::user()->athlete->team->team_id) :
+
+            return redirect()->back()->withErrors(['You are not authorized to edit Scheduled Lift '.$id.'.']);
+
+        endif;
+
+
+        // Try to remove LiftSchedule from database
+        try {
+
+            $delete = LiftSchedule::find($id)->delete();
+
+            return redirect()->back()->with('message', 'Scheduled Lift '.$id.' deleted succesfully.');
+
+        } catch (Exception $e) {
+
+            return response($e->getMessage(), $e->getStatusCode());
+
+        }
+        
+    }
         
         
         

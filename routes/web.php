@@ -42,10 +42,14 @@ Route::get('/lift/summary/{id}', 'LiftController@show')->name('lift.summary');
 Route::patch('/lift/update', 'LiftController@update')->name('lift.update');
 Route::get('/lift/kill/{id}', 'LiftController@killLift');
 Route::post('/lift/get-type', 'LiftController@getTypeData');
+
+// Lift Schedule
 Route::get('/lift/last/{athlete_id?}', 'LiftController@getLastLift');
 Route::get('/lift/next/{athlete_id?}', 'LiftController@getNextLift');
 Route::get('/lift/schedule', 'LiftController@schedule')->name('lift.schedule');
 Route::post('/lift/schedule', 'LiftController@storeSchedule')->name('lift.schedule.store');
+Route::get('/lift/schedule/view', 'LiftController@viewSchedule')->name('lift.schedule.view');
+Route::get('lift/schedule/delete/{id}', 'LiftController@deleteSchedule')->name('lift.schedule.delete');
 
 // Admin
 Route::get('/admin', 'AdminController@index')->name('admin');

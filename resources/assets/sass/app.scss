@@ -930,6 +930,7 @@ label {
 	} 
 }
 
+
 /*****************
 * Summary
 *****************/
@@ -992,6 +993,12 @@ label {
 	}
 
 	@include formfield();
+}
+.schedule-view-table {
+	th, 
+	td {
+		padding: 10px;
+	}
 }
 
 /*****************
