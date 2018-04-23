@@ -467,7 +467,7 @@ class LiftController extends Controller
         ])
         ->orderBy('start_time', 'desc')
         ->with('athlete')
-        ->get();
+        ->paginate(50);
 
         return view('lifts/schedule-view', compact('schedules'));
         

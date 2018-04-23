@@ -36,15 +36,33 @@
 					<td class="weight">{{ $schedule->lift_weight}}</td>
 					<td class="reps">{{ $schedule->reps}}</td>
 					<td class="tracker">{{ $schedule->tracker_id}}</td>
-					<td class="delete"><a href="{{ route('lift.schedule.delete', ['id' => $schedule->id]) }}">Delete</a></td>
+{{-- 					<td class="delete"><a href="{{ route('lift.schedule.delete', ['id' => $schedule->id]) }}">Delete</a></td> --}}
+					<td class="delete"><a href="#" @click="removeScheduledLift({{ $schedule->id }})">Delete</a></td>
 				</tr>
 			@endforeach
 		</table>
+
+		@if ($schedules->hasMorePages())
+			<div class="pagination">
+				<h5>See more scheduled lifts</h5>
+				{{ $schedules->links() }}
+			</div>
+		@endif
+
 	</div>
 </div>
 <div id="spinner-overlay" class="spinner-overlay flexbox column flexcenter verticalcenter hidden">
 	<div class="spinner">
 		<div class="rect1"></div><div class="rect2"></div><div class="rect3"></div><div class="rect4"></div><div class="rect5"></div>
+	</div>
+</div>
+<div id="white-overlay" class="white-overlay flexbox hidden">
+	<div class="delete-confirmation">
+		<p>Are you sure you want to delete Scheduled Lift @{{ scheduledLiftID }}? This cannot be undone.</p>
+		<div class="confirmation-buttons">
+			<button class="lift-new-submit" @click="deleteScheduledLift">Yes</button> <a href="#" @click="cancelConfirmation">No</a>
+		</div>
+		
 	</div>
 </div>
 

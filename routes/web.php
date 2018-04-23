@@ -49,7 +49,7 @@ Route::get('/lift/next/{athlete_id?}', 'LiftController@getNextLift');
 Route::get('/lift/schedule', 'LiftController@schedule')->name('lift.schedule');
 Route::post('/lift/schedule', 'LiftController@storeSchedule')->name('lift.schedule.store');
 Route::get('/lift/schedule/view', 'LiftController@viewSchedule')->name('lift.schedule.view');
-Route::get('lift/schedule/delete/{id}', 'LiftController@deleteSchedule')->name('lift.schedule.delete');
+Route::get('/lift/schedule/delete/{id}', 'LiftController@deleteSchedule')->name('lift.schedule.delete');
 
 // Admin
 Route::get('/admin', 'AdminController@index')->name('admin');

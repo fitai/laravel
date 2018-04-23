@@ -353,6 +353,25 @@ const app = new Vue({
             } else {
                 console.log('Next lift not scheduled');
             }
+        },
+        removeScheduledLift(id) {
+            console.log('Trying to remove Scheduled Lift ' + id);
+
+            // Update scheduledLiftID
+            this.scheduledLiftID = id;
+
+            // Show deletion confirmation
+            $('#white-overlay').css('display', 'flex').hide().fadeIn();
+        },
+        deleteScheduledLift() {
+            $('#spinner-overlay').css('display', 'flex').hide().fadeIn();
+
+            // Redirect to delete scheduled lift
+            window.location.href = '/lift/schedule/delete/' + this.scheduledLiftID;
+        },
+        cancelConfirmation() {
+            $('#white-overlay').fadeOut().hide();
+            this.scheduledLiftID = null;
         }
     },
     mounted() {
