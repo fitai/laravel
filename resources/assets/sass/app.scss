@@ -221,7 +221,7 @@ header {
 		border-radius: 100%;
 		width: 30px;
 		height: 30px;
-		line-height: 25px;
+		line-height: 30px;
 		text-align: center;
 
 		&:hover {
@@ -251,15 +251,18 @@ header {
 		@include font-size(25px);
 		position: relative;
 		bottom: -5px;
+		align-self: flex-start;
 	}
 	div span {
 		line-height: 25px;
+		align-self: flex-end;
 	}
 	a {	
 		color:#FFF; 
 		text-decoration:none;
 		@include transition(all 0.3s);
 		text-transform: uppercase;
+		display: flex;
 	}
 	a:hover {
 		color: #d4d4d4;
@@ -1009,6 +1012,15 @@ label {
 /*****************
 * Lift Schedule
 *****************/
+::-webkit-scrollbar{
+        height: 4px;
+        width: 4px;
+        background: $grey-dark;
+    }
+::-webkit-scrollbar-thumb:horizontal{
+    background: $blue;
+    border-radius: 10px;
+}
 .lift-schedule {
 	h3 {
 		font-weight: 400;
@@ -1019,7 +1031,12 @@ label {
 
 	@include formfield();
 }
+.schedule-view-container {
+	overflow-x: auto;
+}
 .schedule-view-table {
+	overflow-x: auto;
+
 	th, 
 	td {
 		padding: 10px;

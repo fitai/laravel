@@ -35,43 +35,53 @@
                     <div class="nav-items">
                         <div class="{{ (\Request::route()->getName() == 'home') ? 'active' : '' }}">
                             <a href="{{ route('home') }}">
-                                <i class="dripicons-home"></i>Home
+                                <i class="dripicons-home"></i><span>Home</span>
                             </a>
                         </div>
                         <div class="{{ (\Request::route()->getName() == 'lift') ? 'active' : '' }}">
                             <a href="{{ route('lift') }}">
-                                <i class="dripicons-clock"></i><span>Lift</span>
+                                <i class="dripicons-weight"></i><span>Start Lift</span>
+                            </a>
+                        </div>
+                        <div class="{{ (\Request::route()->getName() == 'lift.schedule') ? 'active' : '' }}">
+                            <a href="{{ route('lift.schedule') }}">
+                                <i class="dripicons-clock"></i><span>Schedule A Lift</span>
+                            </a>
+                        </div>
+                        <div class="{{ (\Request::route()->getName() == 'lift.schedule.view') ? 'active' : '' }}">
+                            <a href="{{ route('lift.schedule.view') }}">
+                                <i class="dripicons-list"></i><span>Lift Schedule</span>
                             </a>
                         </div>
                         <div class="{{ (\Request::route()->getName() == 'profile') ? 'active' : '' }}">
                             <a href="{{ route('profile') }}">
-                                <i class="dripicons-user-id"></i>Profile
+                                <i class="dripicons-user-id"></i><span>Profile</span>
                             </a>
                         </div>
                         <div class="{{ (\Request::route()->getName() == 'export') ? 'active' : '' }}">
                             <a href="{{ route('export') }}">
-                                <i class="dripicons-export"></i>Export
+                                <i class="dripicons-export"></i><span>Export</span>
                             </a>
                         </div>
                         <div class="{{ (\Request::route()->getName() == 'settings') ? 'active' : '' }}">
                             <a href="{{ route('settings') }}">
-                                <i class="dripicons-gear"></i>Settings
+                                <i class="dripicons-gear"></i><span>Settings</span>
                             </a>
                         </div>
                         <div class="{{ (\Request::route()->getName() == 'switch') ? 'active' : '' }}">
                             <a href="{{ route('switch') }}">
-                                <i class="dripicons-user-group"></i>Switch
+                                <i class="dripicons-user-group"></i><span>Switch</span>
                             </a>
                         </div>
                         <div class="{{ (\Request::route()->getName() == 'rfid.listener') ? 'active' : '' }}">
                             <a href="{{ route('rfid.listener') }}">
-                                <i class="dripicons-user-group"></i>RFID
+                                <i class="dripicons-user-group"></i><span>RFID</span>
                             </a>
                         </div>
                         @if (Auth::user()->admin)
                             <div class="{{ (\Request::route()->getName() == 'admin') ? 'active' : '' }}">
                                 <a href="{{ route('admin') }}">
-                                    <i class="dripicons-code"></i>Admin
+                                    <i class="dripicons-code"></i><span>Admin</span>
                                 </a>
                             </div>
                         @endif
